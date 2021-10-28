@@ -76,7 +76,6 @@ function vcs_prompt {
 }
 
 function ps1_update_prompt_command {
-  PS1=""
 
   if [ $? -eq 0 ]; then
     PS1="${COLOR_GREEN}√\n\n"

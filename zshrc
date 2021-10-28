@@ -1,7 +1,6 @@
-export TERM=xterm-256color
-
 ################################################################################
 # https://stackoverflow.com/a/1128583
+
 
 setopt prompt_subst
 autoload -Uz vcs_info
@@ -36,6 +35,22 @@ PROMPT_USERNAME_PATH="${BOLD_CYAN}%n${BOLD_WHITE}@${BOLD_CYAN}%m${BOLD_WHITE}:${
 PROMPT_DATETIME="%{$fg[yellow]%}[%D{%f/%m/%y} %D{%H:%M:%S}] "
 PROMPT_STATUSCHECK='%(?.%F{green}√.%F{red}✘) '
 PROMPT_VCS_STATUS=$'$(vcs_info_wrapper)'
+PROMPT_SCREEN_NAME=$'$(screen_name_wrapper)'
+
+function screen_name_wrapper() {
+  local terminal_type=
+  local terminal_name=
+  if { [ "$TERM" = "screen" ]; } then
+    terminal_type='screen'
+    terminal_name=$STY
+  elif { [ -n "${TMUX}" ]; } then
+    terminal_type='tmux'
+    terminal_name='$(tmux display-message -p '#S')'
+  fi
+  if { [ -n "${terminal_type}" ]; } then
+    echo "${BOLD_MAGENTA}(${BOLD_WHITE}${terminal_type}:${BOLD_GREEN}${terminal_name}${BOLD_MAGENTA}) "
+  fi
+}
 
 PROMPT=""
 PROMPT+="${PROMPT_STATUSCHECK}${NEWLINE}"
@@ -47,6 +62,7 @@ PROMPT+="${BOLD_WHITE}:"
 PROMPT+="${BOLD_BLUE}%d"
 PROMPT+=" "
 PROMPT+="${PROMPT_VCS_STATUS}"
+PROMPT+="${PROMPT_SCREEN_NAME}"
 PROMPT+="${PROMPT_DATETIME}"
 PROMPT+="${NEWLINE}${RESET}%# "
 export PROMPT
