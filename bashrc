@@ -32,7 +32,7 @@ function git_branch {
   elif [[ $git_status =~ "Your branch is ahead of" ]]; then
     git_color=$COLOR_YELLOW
   elif [[ $git_status =~ "nothing to commit" ]]; then
-    git_color=$COLOR_LIGHT_GREEN
+    git_color=$COLOR_GREEN
   else
     git_color=$COLOR_BROWN
   fi
@@ -49,6 +49,10 @@ function git_branch {
   fi
 }
 
+function git_last_commit {
+  echo "$(git log -1 --pretty=format:'%s' --abbrev-commit | sed 's/\\/\\\\/g')"
+}
+
 function is_hg_repo() {
   local root="$(pwd -P)"
   while [[ $root && ! -d $root/.hg ]]
@@ -59,19 +63,27 @@ function is_hg_repo() {
 }
 
 function hg_branch {
-  echo -e "$(hg identify -b 2> /dev/null)"
+  echo -e "$COLOR_GREEN$(hg identify -b 2> /dev/null)"
+}
+
+function hg_last_commit {
+  echo "$(hg log -l1 --template '{desc|firstline}' | sed 's/\\/\\\\/g')"
 }
 
 function vcs_prompt {
   if [ "$(is_git_repo)" ]; then
     vcs="git"
     vcs_branch="$(git_branch)"
+    vcs_last_commit="$(git_last_commit)"
   elif [ "$(is_hg_repo)" ]; then
     vcs="hg"
     vcs_branch="$(hg_branch)"
+    vcs_last_commit="$(hg_last_commit)"
   fi
   if [ "$vcs" ]; then
-    echo "${COLOR_LIGHT_PURPLE}(${COLOR_WHITE}${vcs}:${vcs_color}${vcs_branch}${COLOR_LIGHT_PURPLE}) "
+    echo "${COLOR_WHITE}${vcs}:${vcs_branch}${COLOR_LIGHT_WHITE}:${COLOR_LIGHT_PURPLE}${vcs_last_commit}\n"
+  else
+    echo ""
   fi
 }
 
@@ -88,9 +100,14 @@ function ps1_update_prompt_command {
   PS1+="${COLOR_LIGHT_CYAN}\H"       # Hostname
   PS1+="${COLOR_WHITE}:"             # :
   PS1+="${COLOR_LIGHT_BLUE}\$PWD "   # Working directory
-  PS1+="$(vcs_prompt)"               # Git/Hg branch
-  PS1+="${COLOR_YELLOW}[\$(date +\"%y/%m/%d %H:%M:%S\")]\n"
+
+  # This seems to be broken on Windows Git Bash...
+  # PS1+="${COLOR_YELLOW}[\$(date +\"%y/%m/%d %H:%M:%S\")]\n"
+  # ...but this next line works fine.
+  PS1+="${COLOR_YELLOW}[$(date +'%y/%m/%d %H:%M:%S')]"
                                      # Current date and time
+  PS1+='\n'
+  PS1+="$(vcs_prompt)"               # Git/Hg branch
   PS1+="${COLOR_RESET}\$ "           # Prompt
   export PS1
 }
