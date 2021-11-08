@@ -28,11 +28,11 @@ function is_git_repo {
 function git_branch {
   local git_status="$(git status 2> /dev/null)"
   if [[ ! $git_status =~ "working tree clean" ]]; then
-    git_color=$COLOR_RED
+    git_color=$COLOR_LIGHT_RED
   elif [[ $git_status =~ "Your branch is ahead of" ]]; then
     git_color=$COLOR_YELLOW
   elif [[ $git_status =~ "nothing to commit" ]]; then
-    git_color=$COLOR_GREEN
+    git_color=$COLOR_LIGHT_GREEN
   else
     git_color=$COLOR_BROWN
   fi
@@ -63,7 +63,7 @@ function is_hg_repo() {
 }
 
 function hg_branch {
-  echo -e "$COLOR_GREEN$(hg identify -b 2> /dev/null)"
+  echo -e "$COLOR_LIGHT_GREEN$(hg identify -b 2> /dev/null)"
 }
 
 function hg_last_commit {
