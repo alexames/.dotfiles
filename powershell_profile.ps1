@@ -31,6 +31,9 @@ $BACK_MAGENTA = 45
 $BACK_CYAN = 46
 $BACK_WHITE = 47
 
+# This is necessary for displaying color in vim's term.
+[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding(850)
+
 function text-mode ($attr, $fore, $back) {
   $ESC.ToString() + '[' + $attr.ToString() + ';' + $fore.ToString() + ';' + $back.ToString() + 'm'
 }
