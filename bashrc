@@ -87,14 +87,15 @@ function vcs_prompt {
   fi
 }
 
-ALEX_TEST=enp4s0
+if [ ! -z ${NETWORK_INTERFACE+x} ]; then
+  ALEX_LOCAL_IP=$(ifconfig enp4s0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | cut -c 6-)
+  ALEX_HOSTNAME=$(nslookup $ALEX_LOCAL_IP | grep -o '= [a-zA-Z0-9_-]\+\(\.[a-zA-Z0-9_-]\+\)*' | cut -c 3-)
+else
+  ALEX_HOSTNAME="\H"
+fi
+
 function host_or_nameserver_name {
-  if [ ! -z ${ALEX_TEST+x} ]; then
-    ip=$(ifconfig enp4s0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | grep -o '[0-9.]*')
-    echo "$ip"
-  else
-    echo "\H"
-  fi
+  echo $ALEX_HOSTNAME
 }
 
 function ps1_update_prompt_command {
