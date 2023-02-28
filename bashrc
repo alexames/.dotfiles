@@ -1,5 +1,5 @@
 export TERM=xterm-color
-export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
+# export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
@@ -87,6 +87,16 @@ function vcs_prompt {
   fi
 }
 
+ALEX_TEST=enp4s0
+function host_or_nameserver_name {
+  if [ ! -z ${ALEX_TEST+x} ]; then
+    ip=$(ifconfig enp4s0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | grep -o '[0-9.]*')
+    echo "$ip"
+  else
+    echo "\H"
+  fi
+}
+
 function ps1_update_prompt_command {
 
   if [ $? -eq 0 ]; then
@@ -97,7 +107,7 @@ function ps1_update_prompt_command {
 
   PS1+="${COLOR_LIGHT_CYAN}\u"       # Username
   PS1+="${COLOR_WHITE}@"             # @
-  PS1+="${COLOR_LIGHT_CYAN}\H"       # Hostname
+  PS1+="${COLOR_LIGHT_CYAN}$(host_or_nameserver_name)"       # Hostname
   PS1+="${COLOR_WHITE}:"             # :
   PS1+="${COLOR_LIGHT_BLUE}\$PWD "   # Working directory
 
