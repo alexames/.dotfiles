@@ -85,6 +85,14 @@ function vcs_prompt {
   fi
 }
 
+function venv_prompt {
+  if [[ "$VIRTUAL_ENV" != "" ]]
+  then
+    VENV_RELPATH=$(realpath --relative-to="." "$VIRTUAL_ENV")
+    echo "[${VENV_RELPATH}] "
+  fi
+}
+
 if [ ! -z ${NETWORK_INTERFACE+x} ]; then
   ALEX_LOCAL_IP=$(ifconfig enp4s0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | cut -c 6-)
   ALEX_HOSTNAME=$(nslookup $ALEX_LOCAL_IP | grep -o '= [a-zA-Z0-9_-]\+\(\.[a-zA-Z0-9_-]\+\)*' | cut -c 3-)
@@ -109,6 +117,7 @@ function ps1_update_prompt_command {
   PS1+="${COLOR_LIGHT_CYAN}$(host_or_nameserver_name)"       # Hostname
   PS1+="${COLOR_WHITE}:"             # :
   PS1+="${COLOR_LIGHT_BLUE}\$PWD "   # Working directory
+  PS1+="${COLOR_LIGHT_GREEN}$(venv_prompt)" # Virtual environment
 
   # This seems to be broken on Windows Git Bash...
   # PS1+="${COLOR_YELLOW}[\$(date +\"%y/%m/%d %H:%M:%S\")]\n"
