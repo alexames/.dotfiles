@@ -1,0 +1,55 @@
+function pyt {
+  local fzf_bind=
+  case "$1" in
+    test | t)
+      pytest --collect-only --quiet     \
+        | grep '[^:]\+::[^:]\+::[^:]\+' \
+        | fzf -i                        \
+              --reverse                 \
+              --height ~50%             \
+              --delimiter ::            \
+              --bind 'enter:become(pytest -W ignore::DeprecationWarning {1}::{2}::{3})'
+      ;;
+    class | c)
+      pytest --collect-only --quiet                              \
+        | grep '[^:]\+::[^:]\+::[^:]\+'                          \
+        | sed 's/^\([^:]\+\)::\([^:]\+\)::\([^:]\+\).*$/\1::\2/' \
+        | sort --unique                                          \
+        | fzf -i                                                 \
+              --reverse                                          \
+              --height ~50%                                      \
+              --delimiter ::                                     \
+              --bind 'enter:become(pytest -W ignore::DeprecationWarning {1}::{2}::{3})'
+      ;;
+    file | f | module | m)
+      pytest --collect-only --quiet                          \
+        | grep '[^:]\+::[^:]\+::[^:]\+'                      \
+        | sed 's/^\([^:]\+\)::\([^:]\+\)::\([^:]\+\).*$/\1/' \
+        | sort --unique                                      \
+        | fzf -i                                             \
+              --reverse                                      \
+              --height ~50%                                  \
+              --delimiter ::                                 \
+              --bind 'enter:become(pytest -W ignore::DeprecationWarning {1}::{2}::{3})'
+      ;;
+    directory | dir | d)
+      pytest --collect-only --quiet                          \
+        | grep '[^:]\+::[^:]\+::[^:]\+'                      \
+        | sed 's/^\([^:]\+\)::\([^:]\+\)::\([^:]\+\).*$/\1/' \
+        | xargs dirname                                      \
+        | sort --unique                                      \
+        | fzf -i                                             \
+              --reverse                                      \
+              --height ~50%                                  \
+              --delimiter ::                                 \
+              --bind 'enter:become(pytest -W ignore::DeprecationWarning {1}::{2}::{3})'
+      ;;
+    *)
+      echo 'Use one of:'
+      echo '  function func fn'
+      echo '  class c'
+      echo '  file f module m'
+      echo '  directory dir d'
+    ;;
+  esac
+}

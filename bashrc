@@ -132,3 +132,4 @@ function ps1_update_prompt_command {
 
 PROMPT_COMMAND=ps1_update_prompt_command
 
+source ./pytest_commands

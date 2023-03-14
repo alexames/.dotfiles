@@ -25,9 +25,21 @@ Also download [fzf](1) and [bat](2)
 
 [1][https://github.com/junegunn/fzf/releases/latest]
 [2][https://github.com/sharkdp/bat/releases/latest]
+[2][https://github.com/erikw/tmux-powerline/releases/latest]
 
+### fzf setup
 ```
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 ```
+
+### tmux setup
+```
+$ cd
+$ git clone https://github.com/gpakosz/.tmux.git
+$ ln -s -f .tmux/.tmux.conf
+$ cp .tmux/.tmux.conf.local .
+```
+
+Also follow instructions in .tmux/README.md
 
