@@ -1,0 +1,12 @@
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
+	lg = log --all --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	l =  log --all --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	b = !git checkout $(git for-each-ref --format='%(refname:short)' refs/heads/ | fzf -i --reverse --height=~50%)
+	rb = !git rebase $(git for-each-ref --format='%(refname:short)' refs/heads/ | fzf -i --reverse --height=~50%)
