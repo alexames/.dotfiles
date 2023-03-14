@@ -20,3 +20,9 @@ Add the following to `~/.bashrc`
 NETWORK_INTERFACE=<network interface> # optional
 . ~/.dotfiles/bashrc
 ```
+
+Also download [fzf](1) and [bat](2)
+
+[1][https://github.com/junegunn/fzf/releases/latest]
+[2][https://github.com/sharkdp/bat/releases/latest]
+
