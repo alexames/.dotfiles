@@ -17,15 +17,14 @@ And add:
 Add the following to `~/.bashrc`
 
 ```
-NETWORK_INTERFACE=<network interface> # optional
+--------------------------------------------------------------------------------
+# the network interface is optional, this allows bash to find your computer's
+# name on the network.
+NETWORK_INTERFACE=<network interface> 
 . ~/.dotfiles/bashrc
 ```
 
-Also download [fzf](1) and [bat](2)
-
-[1][https://github.com/junegunn/fzf/releases/latest]
-[2][https://github.com/sharkdp/bat/releases/latest]
-[2][https://github.com/erikw/tmux-powerline/releases/latest]
+Also download [fzf](https://github.com/junegunn/fzf/releases/latest) and [bat](https://github.com/sharkdp/bat/releases/latest), and [tmux-powerline](https://github.com/erikw/tmux-powerline/releases/latest) for some nice tmux related improvements.
 
 ### fzf setup
 ```
