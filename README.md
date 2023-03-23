@@ -16,7 +16,7 @@ And add:
 
 Run the following command:
 ```
-wget -q -O - https://github.com/alexames/.dotfiles/blob/main/install.sh | sh
+wget -q -O - https://raw.githubusercontent.com/alexames/.dotfiles/main/install.sh | sh
 ```
 
 Optionally add the NETWORK_INTERFACE to the .bashrc file.

@@ -1,8 +1,10 @@
 #!/bin/bash
 
+read -p 'name: ' name
+read -p 'email: ' email
+
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo "Setting up ssh key"
-  read -p 'email: ' email
   ssh-keygen -t ed25519 -C $email
   ssh-add ~/.ssh/id_ed25519
   cat ~/.ssh/id_ed25519.pub
@@ -86,7 +88,7 @@ echo 'so ~/.vim/vimrc' > ~/.vimrc
 
 # Set up git config.
 git config --global user.email $email
-git config --global user.name "Alex Ames"
+git config --global user.name $name
 git config --global include.path "~/.dotfiles/gitconfig"
 
 # Set up the tmux config.
