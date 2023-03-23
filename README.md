@@ -16,7 +16,7 @@ And add:
 
 Run the following command:
 ```
-wget -q -O - https://raw.githubusercontent.com/alexames/.dotfiles/main/install.sh | sh
+wget -q https://raw.githubusercontent.com/alexames/.dotfiles/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 
 Optionally add the NETWORK_INTERFACE to the .bashrc file.

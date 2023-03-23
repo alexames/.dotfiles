@@ -1,12 +1,7 @@
 #!/bin/bash
 
-NAME_DEFAULT='Alex Ames'
-read -p "name [$NAME_DEFAULT]: " name
-name=${name:-$NAME_DEFAULT}
-
-EMAIL_DEFAULT='Alexander.Ames.gmail.com'
-read -p "email [$EMAIL_DEFAULT]: " email
-email=${email:-$EMAIL_DEFAULT}
+read -p 'name: ' name
+read -p 'email: ' email
 
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo "Setting up ssh key"
