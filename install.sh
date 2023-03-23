@@ -24,6 +24,7 @@ sudo apt install      \
     curl              \
     git               \
     lua               \
+    net-tools         \
     python3           \
     python-is-python3 \
     tmux              \
