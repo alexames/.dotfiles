@@ -84,8 +84,11 @@ append_line() {
 }
 
 # Ensure that the dot files and vimrc are always up to date.
-append_line 'git -C ~/.dotfiles pull > /dev/null' ~/.bashrc
-append_line 'git -C ~/.vim      pull > /dev/null' ~/.bashrc
+# (use .profile instead of .bashrc, as .profile is only run on log in)
+append_line 'git -C ~/.dotfiles pull > /dev/null' ~/.profile
+append_line 'git -C ~/.vim      pull > /dev/null' ~/.profile
+
+# Load up the bash configurations.
 append_line 'source ~/.dotfiles/bashrc' ~/.bashrc
 
 # Set up my vimrc file to point at the downloaded vimrc.
