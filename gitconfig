@@ -2,6 +2,8 @@
 	insteadOf = https://github.com/
 [diff]
 	tool = vimdiff
+[merge]
+	tool = vimdiff
 [difftool]
 	prompt = false
 [alias]
