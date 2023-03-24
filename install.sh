@@ -83,17 +83,14 @@ append_line() {
   set +e
 }
 
-# Ensure that the dot files and vimrc are always up to date.
-# (use .profile instead of .bashrc, as .profile is only run on log in)
-append_line 'git -C ~/.dotfiles pull > /dev/null' ~/.profile
-append_line 'git -C ~/.vim      pull > /dev/null' ~/.profile
+# Load the custom profile (for things that happen on log-in)
+append_line 'source ~/.dotfiles/profile' ~/.profile
 
 # Load up the bash configurations.
 append_line 'source ~/.dotfiles/bashrc' ~/.bashrc
 
 # Set up my vimrc file to point at the downloaded vimrc.
-append_line 'source ~/.dotfiles/bashrc' ~/.bashrc
-echo 'so ~/.vim/vimrc' > ~/.vimrc
+append_line 'so ~/.vim/vimrc' ~/.vimrc
 
 # Set up git config.
 git config --global user.email $email
@@ -102,7 +99,7 @@ git config --global include.path "~/.dotfiles/gitconfig"
 
 # Set up the tmux config.
 ln -s -f .tmux/.tmux.conf
-ln -s -f .dotfiles/.tmux.conf.local
+ln -s -f .dotfiles/tmux.conf.local
 
 # Dependencies for the YouCompleteMe vim plugin.
 # https://github.com/ycm-core/YouCompleteMe#linux-64-bit
