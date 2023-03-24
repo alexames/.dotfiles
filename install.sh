@@ -2,15 +2,15 @@
 
 NAME_DEFAULT='Alex Ames'
 read -p "name [$NAME_DEFAULT]: " name
-name=${name:-$NAME_DEFAULT}
+name="${name:-$NAME_DEFAULT}"
 
 EMAIL_DEFAULT='Alexander.Ames.gmail.com'
 read -p "email [$EMAIL_DEFAULT]: " email
-email=${email:-$EMAIL_DEFAULT}
+email="${email:-$EMAIL_DEFAULT}"
 
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo "Setting up ssh key"
-  ssh-keygen -t ed25519 -C $email
+  ssh-keygen -t ed25519 -C "$email"
   ssh-add ~/.ssh/id_ed25519
   cat ~/.ssh/id_ed25519.pub
   echo "Open https://github.com/settings/ssh/new and add new key"
@@ -23,9 +23,10 @@ sudo apt install      \
     cmake             \
     curl              \
     git               \
-    lua               \
+    lua5.1            \
     net-tools         \
     python3           \
+    python3-pip       \
     python-is-python3 \
     tmux              \
     vim
@@ -93,8 +94,8 @@ append_line 'source ~/.dotfiles/bashrc' ~/.bashrc
 append_line 'so ~/.vim/vimrc' ~/.vimrc
 
 # Set up git config.
-git config --global user.email $email
-git config --global user.name $name
+git config --global user.email "$email"
+git config --global user.name "$name"
 git config --global include.path "~/.dotfiles/gitconfig"
 
 # Set up the tmux config.
@@ -122,7 +123,8 @@ yes | ~/.fzf/install
 sudo apt silversearcher-ag
 
 # Install bat
-cargo install --locked .bat
+# Figure out why this is broken
+# cargo install --locked .bat
 
 # Install Vim plugins.
 # https://stackoverflow.com/a/12834450/63791
