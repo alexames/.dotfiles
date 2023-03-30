@@ -7,18 +7,33 @@
 [difftool]
 	prompt = false
 [alias]
+	# Diffing.
 	d = diff
 	dt = difftool
 	mt = mergetool
+
+  # Commit.
 	m = commit -m
-	amend = commit --amend -m
-	a = commit --amend -m
+
+  # Amend commits, (in|ex)cluding everything, (with|without) message update.
+	a = commit --amend --no-edit
+	aa = commit --amend -a --no-edit
+	am = commit --amend
+	aam = commit --amend -a 
+
+  # Check out remote branch.
 	track = checkout --track
 	t = checkout --track
+
+  # Pretty log printers.
 	lg = log --all --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
 	l =  log --all --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	
+	# Utilities that print and get commits.
 	simple-log = log --all --pretty=format:'%h %s <%an>'
 	simple-log-fzf = !git simple-log | fzf -i --reverse --height=~50% | awk '{print $1}'
+
+  # fzf enabled commands.
 	cp = !git cherry-pick $(git simple-log-fzf)
 	p = !git push $(git remote | fzf -1 -i --reverse --height=~50%)
 	b = !git checkout $(git for-each-ref --format='%(refname:short)' refs/heads/ | fzf -i --reverse --height=~50%)
