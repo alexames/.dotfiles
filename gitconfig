@@ -14,6 +14,7 @@
 
   # Commit.
 	m = commit -m
+	ma = commit -a -m
 
   # Amend commits, (in|ex)cluding everything, (with|without) message update.
 	a = commit --amend --no-edit
@@ -31,10 +32,11 @@
 	
 	# Utilities that print and get commits.
 	simple-log = log --all --pretty=format:'%h %s <%an>'
-	simple-log-fzf = !git simple-log | fzf -i --reverse --height=~50% | awk '{print $1}'
+	simple-log-fzf = !git simple-log | git fzf | awk '{print $1}'
 
   # fzf enabled commands.
+	fzf = !fzf -i --reverse --height=~50%
 	cp = !git cherry-pick $(git simple-log-fzf)
-	p = !git push $(git remote | fzf -1 -i --reverse --height=~50%)
-	b = !git checkout $(git for-each-ref --format='%(refname:short)' refs/heads/ | fzf -i --reverse --height=~50%)
-	rb = !git rebase $(git for-each-ref --format='%(refname:short)' refs/heads/ | fzf -i --reverse --height=~50%)
+	p = !git push $(git remote | git fzf -1)
+	b = !git checkout $(git for-each-ref --format='%(refname:short)' refs/heads/ | git fzf)
+	rb = !git rebase $(git for-each-ref --format='%(refname:short)' refs/heads/ | git fzf)
