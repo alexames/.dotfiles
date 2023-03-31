@@ -12,31 +12,34 @@
 	dt = difftool
 	mt = mergetool
 
-  # Commit.
+	# Commit.
 	m = commit -m
 	ma = commit -a -m
 
-  # Amend commits, (in|ex)cluding everything, (with|without) message update.
+	# Amend commits, (in|ex)cluding everything, (with|without) message update.
 	a = commit --amend --no-edit
 	aa = commit --amend -a --no-edit
 	am = commit --amend
-	aam = commit --amend -a 
+	aam = commit --amend -a
 
-  # Check out remote branch.
+	# Check out remote branch.
 	track = checkout --track
 	t = checkout --track
 
-  # Pretty log printers.
+	# Pretty log printers.
 	lg = log --all --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
-	l =  log --all --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
-	
+	l  = log       --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	la = log --all --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+
 	# Utilities that print and get commits.
 	simple-log = log --all --pretty=format:'%h %s <%an>'
-	simple-log-fzf = !git simple-log | git fzf | awk '{print $1}'
+	branch-ls = for-each-ref --format='%(refname:short)' refs/heads/
 
-  # fzf enabled commands.
+	# fzf enabled commands.
 	fzf = !fzf -i --reverse --height=~50%
-	cp = !git cherry-pick $(git simple-log-fzf)
-	p = !git push $(git remote | git fzf -1)
-	b = !git checkout $(git for-each-ref --format='%(refname:short)' refs/heads/ | git fzf)
-	rb = !git rebase $(git for-each-ref --format='%(refname:short)' refs/heads/ | git fzf)
+	cp  = !git cherry-pick $(git simple-log                      | git fzf | awk '{print $1}')
+	p   = !git push        $(git remote                          | git fzf -1                )
+	b   = !git checkout    $(git branch-ls                       | git fzf                   )
+	rb  = !git rebase      $(git branch-ls                       | git fzf                   )
+	# Semicolons are treated as comments, unless they are wrapped in quotes.
+	co  = "!git checkout   $({ git branch-ls & git simple-log; } | git fzf | awk '{print $1}')"
