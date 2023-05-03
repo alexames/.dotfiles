@@ -1,4 +1,6 @@
 
+New-Alias -Name g4 -Value p4
+
 $ESC = [char]27
 $NEWLINE = '
 '
