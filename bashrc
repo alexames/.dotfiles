@@ -1,3 +1,14 @@
+# Make tmux play nicely with bash history
+# https://askubuntu.com/a/339925/24501
+# avoid duplicates..
+export HISTCONTROL=ignoredups:erasedups
+
+# append history entries..
+shopt -s histappend
+
+# After each command, save and reload history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
