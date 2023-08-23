@@ -12,15 +12,20 @@
 	dt = difftool
 	mt = mergetool
 
+	# Add.
+	a = add
+	aa = add .
+
 	# Commit.
-	m = commit -m
-	ma = commit -a -m
+	c = commit
+	ca = commit -a
+	cm = commit -m
+	cam = commit -a -m
 
 	# Amend commits, (in|ex)cluding everything, (with|without) message update.
-	a = commit --amend --no-edit
-	aa = commit --amend -a --no-edit
-	am = commit --amend
-	aam = commit --amend -a
+	amend = commit --amend
+	m = commit --amend --no-edit
+	ma = commit --amend -a --no-edit
 
 	# Check out remote branch.
 	track = checkout --track
@@ -36,10 +41,10 @@
 	branch-ls = for-each-ref --format='%(refname:short)' refs/heads/
 
 	# fzf enabled commands.
-	fzf = !fzf -i --reverse --height=~50%
-	cp  = !git cherry-pick $(git simple-log                      | git fzf | awk '{print $1}')
-	p   = !git push        $(git remote                          | git fzf -1                )
-	b   = !git checkout    $(git branch-ls                       | git fzf                   )
-	rb  = !git rebase      $(git branch-ls                       | git fzf                   )
+	fzf = !fzf -i --reverse --height=~50% # 
+	# cp  = !git simple-log | git fzf    --bind 'enter:become(git cherry-pick $({1} | awk '{print $1}\')'
+	p   = !git remote    | git fzf -1 --bind 'enter:become(git push     {1})'
+	b   = !git branch-ls | git fzf    --bind 'enter:become(git checkout {1})'
+	rb  = !git branch-ls | git fzf    --bind 'enter:become(git rebase   {1})'
 	# Semicolons are treated as comments, unless they are wrapped in quotes.
 	co  = "!git checkout   $({ git branch-ls & git simple-log; } | git fzf | awk '{print $1}')"
