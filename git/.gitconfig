@@ -1,3 +1,16 @@
+[user]
+	email = Alexander.Ames@gmail.com
+	name = Alexander Ames
+[include]
+	path = ~/.gitconfig.local
+[core]
+	excludesFile = ~/.gitignore_global
+[push]
+	autoSetupRemote = true
+[diff]
+	tool = bc
+[difftool "bc"]
+	trustExitCode = true
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [diff]
@@ -47,4 +60,4 @@
 	b   = !git branch-ls | git fzf    --bind 'enter:become(git checkout {1})'
 	rb  = !git branch-ls | git fzf    --bind 'enter:become(git rebase   {1})'
 	# Semicolons are treated as comments, unless they are wrapped in quotes.
-	co  = "!git checkout   $({ git branch-ls & git simple-log; } | git fzf | awk '{print $1}')"
+	co  = "!git checkout $({ git branch-ls & git simple-log; } | git fzf | awk '{print $1}')"

@@ -1,9 +1,9 @@
 # Make tmux play nicely with bash history
 # https://askubuntu.com/a/339925/24501
-# avoid duplicates..
+# avoid duplicates.
 export HISTCONTROL=ignoredups:erasedups
 
-# append history entries..
+# append history entries.
 shopt -s histappend
 
 # After each command, save and reload history
@@ -148,4 +148,3 @@ fd() {
   git diff $@ --name-only | fzf -m --ansi --preview $preview
 }
 
-source $(dirname $BASH_SOURCE[0])/pytest_commands.sh
