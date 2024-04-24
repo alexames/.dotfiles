@@ -1,0 +1,13 @@
+[user]
+	email = alex@agentic.ai
+	name = Alex Ames
+[include]
+	path = ~/.dotfiles/gitconfig
+[core]
+	excludesFile = /home/alex/.dotfiles/gitignore_global
+[push]
+	autoSetupRemote = true
+[diff]
+	tool = bc
+[difftool "bc"]
+	trustExitCode = true
