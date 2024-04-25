@@ -41,10 +41,6 @@ else
   curl                                 https://sh.rustup.rs -sSf | sh
 fi
 
-# Clone down my config files as well as various utilities. Installation and
-# configuration to follow below.
-git clone https://github.com/alexames/.dotfiles ~/.dotfiles
-
 # Dependencies for the YouCompleteMe vim plugin.
 # https://github.com/ycm-core/YouCompleteMe#linux-64-bit
 sudo apt install    \
@@ -58,6 +54,12 @@ sudo apt install    \
     openjdk-17-jdk  \
     openjdk-17-jre  \
     npm
+
+# Clone down my config files as well as various utilities. Installation and
+# configuration to follow below.
+git clone https://github.com/alexames/.dotfiles ~/.dotfiles
+cd .dotfiles
+stow bash git tmux vim
 
 # Install Vim plugins.
 # https://stackoverflow.com/a/12834450/63791
