@@ -12,7 +12,6 @@ fi
 # Ensure the basics are installed.
 sudo apt update
 sudo apt install                                             \
-    # Utilities                                              \
     bat                                                      \
     curl                                                     \
     fzf                                                      \
@@ -22,17 +21,13 @@ sudo apt install                                             \
     tmux                                                     \
     vim                                                      \
     wget                                                     \
-    # Development tools                                      \
     cmake                                                    \
     git                                                      \
-    # Languages                                              \
     clang                                                    \
     lua5.4                                                   \
     python3                                                  \
     python3-pip                                              \
     python-is-python3                                        \
-    # Dependencies for the YouCompleteMe vim plugin.         \
-    # https://github.com/ycm-core/YouCompleteMe#linux-64-bit \
     build-essential                                          \
     cmake                                                    \
     golang                                                   \
