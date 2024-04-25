@@ -1,16 +1,8 @@
 #!/bin/bash
 
-NAME_DEFAULT='Alex Ames'
-read -p "name [$NAME_DEFAULT]: " name
-name="${name:-$NAME_DEFAULT}"
-
-EMAIL_DEFAULT='Alexander.Ames.gmail.com'
-read -p "email [$EMAIL_DEFAULT]: " email
-email="${email:-$EMAIL_DEFAULT}"
-
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo "Setting up ssh key"
-  ssh-keygen -t ed25519 -C "$email"
+  ssh-keygen -t ed25519 -C 'Alexander.Ames@gmail.com'
   ssh-add ~/.ssh/id_ed25519
   cat ~/.ssh/id_ed25519.pub
   echo "Open https://github.com/settings/ssh/new and add new key"
@@ -21,13 +13,16 @@ fi
 sudo apt update
 sudo apt install      \
     cmake             \
+    bat               \
     curl              \
+    fzf               \
     git               \
-    lua5.1            \
+    lua5.4            \
     net-tools         \
     python3           \
     python3-pip       \
     python-is-python3 \
+    silversearcher-ag \
     tmux              \
     vim
 
@@ -48,59 +43,7 @@ fi
 
 # Clone down my config files as well as various utilities. Installation and
 # configuration to follow below.
-## Configs
-git clone             https://github.com/alexames/.dotfiles ~/.dotfiles
-git clone --recursive https://github.com/alexames/.vim      ~/.vim
-git clone             https://github.com/gpakosz/.tmux      ~/.tmux
-## Utilities
-git clone --depth 1   https://github.com/junegunn/fzf       ~/.fzf
-git clone             https://github.com/sharkdp/bat        ~/.bat
-
-# A utility function that I stole from fzf to safely append lines to a file.
-# https://github.com/junegunn/fzf/blob/e5103d94290eb9d65807a9f1ecee673bd9ce7cc2/install#L298
-# MIT licensed
-# https://github.com/junegunn/fzf/blob/e5103d94290eb9d65807a9f1ecee673bd9ce7cc2/LICENSE
-append_line() {
-  set -e
-
-  local update line file pat lno
-  line="$1"
-  file="$2"
-  lno=""
-
-  echo "Update $file:"
-  echo "  - $line"
-  if [ -f "$file" ]; then
-    lno=$(\grep -nF "$line" "$file" | sed 's/:.*//' | tr '\n' ' ')
-  fi
-  if [ -n "$lno" ]; then
-    echo "    - Already exists: line #$lno"
-  else
-    [ -f "$file" ] && echo >> "$file"
-    echo "$line" >> "$file"
-    echo "    + Added"
-  fi
-  echo
-  set +e
-}
-
-# Load the custom profile (for things that happen on log-in)
-append_line 'source ~/.dotfiles/profile' ~/.profile
-
-# Load up the bash configurations.
-append_line 'source ~/.dotfiles/bashrc' ~/.bashrc
-
-# Set up my vimrc file to point at the downloaded vimrc.
-append_line 'so ~/.vim/vimrc' ~/.vimrc
-
-# Set up git config.
-git config --global user.email "$email"
-git config --global user.name "$name"
-git config --global include.path "~/.dotfiles/gitconfig"
-
-# Set up the tmux config.
-ln -s -f .tmux/.tmux.conf
-ln -s -f .dotfiles/tmux.conf.local
+git clone https://github.com/alexames/.dotfiles ~/.dotfiles
 
 # Dependencies for the YouCompleteMe vim plugin.
 # https://github.com/ycm-core/YouCompleteMe#linux-64-bit
@@ -116,16 +59,7 @@ sudo apt install    \
     openjdk-17-jre  \
     npm
 
-# Install the most up to date fzf.
-yes | ~/.fzf/install
-
-# Install the Silver Searcher, useful in general and works well with fzf.vim.
-sudo apt silversearcher-ag
-
-# Install bat
-# Figure out why this is broken
-# cargo install --locked .bat
-
 # Install Vim plugins.
 # https://stackoverflow.com/a/12834450/63791
 vim +PluginInstall +qall
+
