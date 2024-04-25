@@ -58,7 +58,7 @@ sudo apt install    \
 # Clone down my config files as well as various utilities. Installation and
 # configuration to follow below.
 git clone https://github.com/alexames/.dotfiles ~/.dotfiles
-cd .dotfiles
+cd ~/.dotfiles
 stow bash git tmux vim
 
 # Install Vim plugins.
