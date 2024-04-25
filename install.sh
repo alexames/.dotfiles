@@ -11,23 +11,38 @@ fi
 
 # Ensure the basics are installed.
 sudo apt update
-sudo apt install      \
-    cmake             \
-    bat               \
-    curl              \
-    clang             \
-    fzf               \
-    git               \
-    lua5.4            \
-    net-tools         \
-    python3           \
-    python3-pip       \
-    python-is-python3 \
-    silversearcher-ag \
-    stow              \
-    tmux              \
-    vim               \
-    wget
+sudo apt install                                             \
+    # Utilities                                              \
+    bat                                                      \
+    curl                                                     \
+    fzf                                                      \
+    net-tools                                                \
+    silversearcher-ag                                        \
+    stow                                                     \
+    tmux                                                     \
+    vim                                                      \
+    wget                                                     \
+    # Development tools                                      \
+    cmake                                                    \
+    git                                                      \
+    # Languages                                              \
+    clang                                                    \
+    lua5.4                                                   \
+    python3                                                  \
+    python3-pip                                              \
+    python-is-python3                                        \
+    # Dependencies for the YouCompleteMe vim plugin.         \
+    # https://github.com/ycm-core/YouCompleteMe#linux-64-bit \
+    build-essential                                          \
+    cmake                                                    \
+    golang                                                   \
+    mono-complete                                            \
+    nodejs                                                   \
+    npm                                                      \
+    openjdk-17-jdk                                           \
+    openjdk-17-jre                                           \
+    python3-dev                                              \
+    vim-nox
 
 # Install python-based formatting tools.
 python -m ensurepip --upgrade
@@ -44,25 +59,12 @@ else
   curl                                 https://sh.rustup.rs -sSf | sh
 fi
 
-# Dependencies for the YouCompleteMe vim plugin.
-# https://github.com/ycm-core/YouCompleteMe#linux-64-bit
-sudo apt install    \
-    build-essential \
-    cmake           \
-    vim-nox         \
-    python3-dev     \
-    mono-complete   \
-    golang          \
-    nodejs          \
-    openjdk-17-jdk  \
-    openjdk-17-jre  \
-    npm
 
 # Clone down my config files as well as various utilities. Installation and
 # configuration to follow below.
 git clone https://github.com/alexames/.dotfiles ~/.dotfiles
 cd ~/.dotfiles
-stow bash git tmux vim
+stow bash fzf git tmux vim
 
 # Install Vim plugins.
 # https://stackoverflow.com/a/12834450/63791
