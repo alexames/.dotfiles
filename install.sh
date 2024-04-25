@@ -23,6 +23,7 @@ sudo apt install      \
     python3-pip       \
     python-is-python3 \
     silversearcher-ag \
+    stow              \
     tmux              \
     vim
 
