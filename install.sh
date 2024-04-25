@@ -15,6 +15,7 @@ sudo apt install      \
     cmake             \
     bat               \
     curl              \
+    clang             \
     fzf               \
     git               \
     lua5.4            \
@@ -25,7 +26,8 @@ sudo apt install      \
     silversearcher-ag \
     stow              \
     tmux              \
-    vim
+    vim               \
+    wget
 
 # Install python-based formatting tools.
 python -m ensurepip --upgrade

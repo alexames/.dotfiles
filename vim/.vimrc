@@ -7,26 +7,7 @@ set nocompatible
 "                                   Plugins                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""""""""""""""""""""""
-" vim-plug automatic installation
-" https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
-
-let data_dir = has('nvim') ? stdpath('data') . '/site' : expand('$HOME/.vim')
-let autoload_dir = data_dir . '/autoload'
-if empty(glob(autoload_dir))
-  silent execute '!mkdir ' . autoload_dir
-endif
-
-let plug_path = data_dir . '/autoload/plug.vim'
-if empty(glob(plug_path))
-  let plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  if has('win32')
-    silent execute '!Invoke-WebRequest -OutFile ' . plug_path . ' -Uri ' . plug_url
-  else
-    silent execute '!curl -fLo ' . plug_path . ' --create-dirs ' . plug_url
-  endif
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+source ~/.vim/vim-plug-bootstrap.vim
 
 " Plugins will be downloaded under the specified directory.
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : expand('$HOME/.vim/plugged'))
@@ -122,18 +103,18 @@ set grepprg=grep\ -rnH\ $* " sets GNU grep to be the program to run when searchi
 set mouse=""               " what the mouse pointer looks like in different modes.
 set guioptions=rLte        " Remove menu bar when using a GUI (gvim).
 set nolist                 " No visible whitespace by default (keybind activates it elsewhere)
-set listchars=tab:\\>,
-             \space:·,
-             \trail:•,
-             \extends:…,
-             \precedes:…,
-             \nbsp:.,
-             \eol:$,
+"set listchars=tab:\\>,
+"             \space:·,
+"             \trail:•,
+"             \extends:…,
+"             \precedes:…,
+"             \nbsp:.,
+"             \eol:$,
 set colorcolumn=81         " Put a line at 80 characters.
                            " But java and Objective-C should be set to 101.
-set fillchars=vert:┃,
-             \fold:━,
-             \diff:~,
+"set fillchars=vert:┃,
+"             \fold:━,
+"             \diff:~,
 autocmd Filetype java setlocal colorcolumn=101
 autocmd Filetype objc,objcpp setlocal colorcolumn=101
 
@@ -194,7 +175,7 @@ source $HOME/.vim/keybinds.vim
 " junegunn/fzf.vim
 
 " Enable once Vim is updated to >=8.2
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
 
 """"""""""""""""""""""""""""""""""""""""
 " ftplugin/python.vim
