@@ -92,6 +92,6 @@ fi
 [ -r ~/.bashrc.local ] && source ~/.bashrc.local
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-. "$HOME/.cargo/env"
+source "$HOME/.cargo/env"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
