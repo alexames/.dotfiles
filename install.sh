@@ -1,5 +1,8 @@
 #!/bin/bash
 
+################################################################################
+# Create ssh key if necessary.
+
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo "Setting up ssh key"
   ssh-keygen -t ed25519 -C 'Alexander.Ames@gmail.com'
@@ -7,9 +10,12 @@ if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   cat ~/.ssh/id_ed25519.pub
   echo "Open https://github.com/settings/ssh/new and add new key"
   echo "(Press any key when done)"
+  read -n 1 -s
 fi
 
-# Ensure the basics are installed.
+################################################################################
+# Install apt packages
+
 sudo apt update
 sudo apt install                                             \
     bat                                                      \
@@ -39,29 +45,32 @@ sudo apt install                                             \
     python3-dev                                              \
     vim-nox
 
-# Install python-based formatting tools.
+################################################################################
+# Install pip packages
+
 python -m ensurepip --upgrade
 pip install  \
     yapf \
     cmakelang
 
-# Install rust.
-# When using WSL, rust prefers a different installation method, so check for WSL
-# https://stackoverflow.com/a/38859331/63791
-if grep -qi microsoft /proc/version; then
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs      | sh
-else
-  curl                                 https://sh.rustup.rs -sSf | sh
+################################################################################
+# Install rust (Can this be moved to under apt?)
+
+if ! command -v rustc &> /dev/null; then
+  # When using WSL, rust prefers a different installation method.
+  # https://stackoverflow.com/a/38859331/63791
+  if grep -qi microsoft /proc/version; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs      | sh
+  else
+    curl                                 https://sh.rustup.rs -sSf | sh
+  fi
 fi
 
+################################################################################
+# Install .dotfiles git repo and initialize.
 
-# Clone down my config files as well as various utilities. Installation and
-# configuration to follow below.
 git clone https://github.com/alexames/.dotfiles ~/.dotfiles
-cd ~/.dotfiles
-stow bash fzf git tmux vim
-
-# Install Vim plugins.
-# https://stackoverflow.com/a/12834450/63791
-vim +PluginInstall +qall
+for file in $(find . -name init.sh) ; do
+  "${file}"
+done
 
