@@ -26,18 +26,13 @@ fi
 if [ -n "$BASH" ] ; then
    source ~/.bashrc
 fi
-   [ -r ~/.profile.local ] && source ~/.profile.local
+[ -r ~/.profile.local ] && source ~/.profile.local
 
 # pip configuration.
 eval "$(pip completion --bash)"
 
 # pipenv configuration.
 export PIPENV_VENV_IN_PROJECT=true
-
-
-NETWORK_INTERFACE=enp4s0
-source ~/.bash/prompt_command.sh
-source ~/.bash/pytest_commands.sh
 
 echo 'Active tmux sessions (hint: use tnas to attach)'
 tmux ls
