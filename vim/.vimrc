@@ -103,18 +103,18 @@ set grepprg=grep\ -rnH\ $* " sets GNU grep to be the program to run when searchi
 set mouse=""               " what the mouse pointer looks like in different modes.
 set guioptions=rLte        " Remove menu bar when using a GUI (gvim).
 set nolist                 " No visible whitespace by default (keybind activates it elsewhere)
-"set listchars=tab:\\>,
-"             \space:·,
-"             \trail:•,
-"             \extends:…,
-"             \precedes:…,
-"             \nbsp:.,
-"             \eol:$,
+set listchars=tab:\\>,
+            \space:·,
+            \trail:•,
+            \extends:…,
+            \precedes:…,
+            \nbsp:.,
+            \eol:$,
 set colorcolumn=81         " Put a line at 80 characters.
                            " But java and Objective-C should be set to 101.
-"set fillchars=vert:┃,
-"             \fold:━,
-"             \diff:~,
+set fillchars=vert:┃,
+            \fold:━,
+            \diff:~,
 autocmd Filetype java setlocal colorcolumn=101
 autocmd Filetype objc,objcpp setlocal colorcolumn=101
 
@@ -138,6 +138,8 @@ set updatetime=100
 set signcolumn=number
 
 " When vimrc is edited, reload it.
+autocmd! bufwritepost $HOME/.dotfiles/vim/.vimrc source $MYVIMRC
+autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/vimrc source $MYVIMRC
 autocmd! bufwritepost $HOME/.vimrc source $MYVIMRC
 autocmd! bufwritepost $HOME/.vim/vimrc source $MYVIMRC
 autocmd! bufwritepost $HOME/.vim/keybinds.vim source $MYVIMRC
@@ -175,7 +177,8 @@ source $HOME/.vim/keybinds.vim
 " junegunn/fzf.vim
 
 " Enable once Vim is updated to >=8.2
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
+" let g:fzf_layout = { 'left': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
+let g:fzf_layout = { 'down': '40%' }
 
 """"""""""""""""""""""""""""""""""""""""
 " ftplugin/python.vim
