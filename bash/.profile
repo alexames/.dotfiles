@@ -15,17 +15,11 @@ export EDITOR='vim'
 export VISUAL='vim'
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Also use bashrc if it exists.
-if [ -n "$BASH" ] ; then
-   source ~/.bashrc
-fi
+[ -n "$BASH" ] && [ -r ~/.bashrc ] && . ~/.bashrc
 [ -r ~/.profile.local ] && source ~/.profile.local
 
 # pip configuration.
@@ -34,7 +28,7 @@ eval "$(pip completion --bash)"
 # pipenv configuration.
 export PIPENV_VENV_IN_PROJECT=true
 
-echo 'Active tmux sessions (hint: use tnas to attach)'
+echo "Active tmux sessions (use 'tnas <session-name>' to attach)"
 echo
 tmux ls
 
