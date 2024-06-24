@@ -58,15 +58,15 @@ pip install  \
 ################################################################################
 # Install rust (Can this be moved to under apt?)
 
-if ! command -v rustc &> /dev/null; then
-  # When using WSL, rust prefers a different installation method.
-  # https://stackoverflow.com/a/38859331/63791
-  if grep -qi microsoft /proc/version; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs      | sh
-  else
-    curl                                 https://sh.rustup.rs -sSf | sh
-  fi
-fi
+# if ! command -v rustc &> /dev/null; then
+#   # When using WSL, rust prefers a different installation method.
+#   # https://stackoverflow.com/a/38859331/63791
+#   if grep -qi microsoft /proc/version; then
+#     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs      | sh
+#   else
+#     curl                                 https://sh.rustup.rs -sSf | sh
+#   fi
+# fi
 
 ################################################################################
 # Install .dotfiles git repo and initialize.
