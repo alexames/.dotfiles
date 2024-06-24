@@ -8,7 +8,7 @@ sudo apt install -y ssh
 
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo "Setting up ssh key"
-  ssh-keygen -t ed25519 -C 'Alexander.Ames@gmail.com'
+  ssh-keygen -t ed25519 -C 'Alexander.Ames@gmail.com' -q -N ""
   ssh-add ~/.ssh/id_ed25519
   cat ~/.ssh/id_ed25519.pub
   echo "Open https://github.com/settings/ssh/new and add new key"
