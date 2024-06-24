@@ -105,7 +105,7 @@ function venv_prompt {
 }
 
 if [ ! -z ${NETWORK_INTERFACE+x} ]; then
-  ALEX_LOCAL_IP=$(ifconfig enp4s0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | cut -c 6-)
+  ALEX_LOCAL_IP=$(echo $(ifconfig enp4s0 2>/dev/null) $(ifconfig eth0 2>/dev/null) | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | cut -c 6-)
   ALEX_HOSTNAME=$(nslookup $ALEX_LOCAL_IP | grep -o '= [a-zA-Z0-9_-]\+\(\.[a-zA-Z0-9_-]\+\)*' | cut -c 3-)
 else
   ALEX_HOSTNAME="\H"
