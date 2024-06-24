@@ -35,8 +35,8 @@ Plug 'tpope/vim-fugitive'                 " Git integration.
 Plug 'airblade/vim-gitgutter'             " Git in-file line changes.
 "" Language Agnostic
 Plug 'google/vim-codefmt'                 " clang-format integration.
-if has('python3')
-Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
+if has('python3') && v:version >= 802 && has('patch3995')
+plug 'ycm-core/youcompleteme', { 'do' : './install.py --clangd-completer' }
                                           " Language-semantic-aware autocompletion and other features.
 endif
 "" C++ Plugins
