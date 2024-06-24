@@ -87,12 +87,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
-NETWORK_INTERFACE=enp4s0
-source ~/.bash/prompt_command.sh
-source ~/.bash/pytest_commands.sh
-
 [ -r ~/.bashrc.local ] && source ~/.bashrc.local
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/.cargo/env ] && source ~/.cargo/env
-
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Make sure to load .bashrc.local before sourcing prompt_command.sh so that the
+# NETWORK_INTERFACE can be defined locally if necessary.
+NETWORK_INTERFACE="${NETWORK_INTERFACE:-enp4s0}"
+source ~/.bash/prompt_command.sh
+source ~/.bash/pytest_commands.sh
+
