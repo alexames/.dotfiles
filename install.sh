@@ -73,10 +73,8 @@ pip install  \
 
 function _git_clone_or_pull() {
     if [ -d "$2" ]; then
-        echo "pulling"
         git -C "$2" pull
     else
-        echo "cloning"
         git clone "$1" "$2"
     fi
 }
