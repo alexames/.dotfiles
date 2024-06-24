@@ -75,5 +75,8 @@ git clone https://github.com/alexames/.dotfiles ~/.dotfiles
 git clone https://github.com/junegunn/fzf ~/.dotfiles/fzf/.fzf
 git clone https://github.com/gpakosz/.tmux ~/.dotfiles/tmux/.tmux
 
-echo "You can now run `stow` on the following package configs"
+echo "You can now run stow on the following package configs"
+echo
 echo $(find * -maxdepth 0 -type d | tr "\n" "\t")
+echo
+
