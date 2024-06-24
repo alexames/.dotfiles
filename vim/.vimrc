@@ -55,8 +55,8 @@ Plug 'nelstrom/vim-visual-star-search'    " Select text in visual mode and then 
 Plug 'tpope/vim-obsession'                " Make managing vim session easier.
 Plug 'tpope/vim-repeat'                   " Repeat.vim remaps . in a way that plugins can tap into it.
 Plug 'sgur/vim-textobj-parameter'         " This script defines a parameter text object.
-Plug 'vim-scripts/abolish.vim'            " Improved case sensitive substitution and variable name coercion.
-Plug 'vim-scripts/surround.vim'           " Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more.
+Plug 'tpope/vim-abolish'                  " Improved case sensitive substitution and variable name coercion.
+Plug 'tpope/vim-surround'                 " Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more.
 Plug 'vim-scripts/tComment'               " Filetype aware comment toggle.
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                   " Fuzzy Finder functionality for buffers, history, files, etc.
