@@ -3,6 +3,9 @@
 ################################################################################
 # Create ssh key if necessary.
 
+sudo apt update
+sudo apt install -y ssh
+
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo "Setting up ssh key"
   ssh-keygen -t ed25519 -C 'Alexander.Ames@gmail.com'
@@ -16,8 +19,7 @@ fi
 ################################################################################
 # Install apt packages
 
-sudo apt update
-sudo apt install                                             \
+sudo apt install -y                                          \
     bat                                                      \
     curl                                                     \
     fzf                                                      \
@@ -70,7 +72,8 @@ fi
 # Install .dotfiles git repo and initialize.
 
 git clone https://github.com/alexames/.dotfiles ~/.dotfiles
-for file in $(find . -name init.sh) ; do
-  "${file}"
-done
+git clone https://github.com/junegunn/fzf ~/.dotfiles/fzf/.fzf
+git clone https://github.com/gpakosz/.tmux ~/.dotfiles/tmux/.tmux
 
+echo "You can now run `stow` on the following package configs"
+echo $(find * -maxdepth 0 -type d | tr "\n" "\t")
