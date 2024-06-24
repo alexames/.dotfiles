@@ -87,6 +87,6 @@ _git_clone_or_pull https://github.com/gpakosz/.tmux ~/.dotfiles/tmux/.tmux
 
 echo "You can now run stow on the following package configs"
 echo
-echo $(find ~/.dotfiles/* -maxdepth 0 -type d | xargs basename | tr "\n" "\t")
+echo $(find ~/.dotfiles/* -maxdepth 0 -type d | xargs -n1 basename | tr "\n" "\t")
 echo
 
