@@ -35,4 +35,6 @@ eval "$(pip completion --bash)"
 export PIPENV_VENV_IN_PROJECT=true
 
 echo 'Active tmux sessions (hint: use tnas to attach)'
+echo
 tmux ls
+
