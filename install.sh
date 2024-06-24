@@ -71,12 +71,22 @@ pip install  \
 ################################################################################
 # Install .dotfiles git repo and initialize.
 
-git clone https://github.com/alexames/.dotfiles ~/.dotfiles
-git clone https://github.com/junegunn/fzf ~/.dotfiles/fzf/.fzf
-git clone https://github.com/gpakosz/.tmux ~/.dotfiles/tmux/.tmux
+function _git_clone_or_pull() {
+    if [ -d "$2" ]; then
+        echo "pulling"
+        git -C "$2" pull
+    else
+        echo "cloning"
+        git clone "$1" "$2"
+    fi
+}
+
+_git_clone_or_pull https://github.com/alexames/.dotfiles ~/.dotfiles
+_git_clone_or_pull https://github.com/junegunn/fzf ~/.dotfiles/fzf/.fzf
+_git_clone_or_pull https://github.com/gpakosz/.tmux ~/.dotfiles/tmux/.tmux
 
 echo "You can now run stow on the following package configs"
 echo
-echo $(find * -maxdepth 0 -type d | tr "\n" "\t")
+echo $(find ~/.dotfiles/* -maxdepth 0 -type d | xargs basename | tr "\n" "\t")
 echo
 
