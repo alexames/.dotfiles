@@ -100,7 +100,8 @@ set grepprg=grep\ -rnH\ $* " sets GNU grep to be the program to run when searchi
                            "   -r: recursive by default
                            "   -n: show line numbers
                            "   -H: show filenames
-set mouse=""               " what the mouse pointer looks like in different modes.
+set ttymouse=xterm2        " Allow mouse to work through tmux.
+set mouse=a                " What the mouse pointer looks like in different modes.
 set guioptions=rLte        " Remove menu bar when using a GUI (gvim).
 set nolist                 " No visible whitespace by default (keybind activates it elsewhere)
 set listchars=tab:\\>,
