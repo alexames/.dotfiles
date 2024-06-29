@@ -5,6 +5,7 @@
 	path = ~/.gitconfig.local
 [core]
 	excludesFile = ~/.gitignore_global
+	pager = delta
 [push]
 	autoSetupRemote = true
 [diff]
@@ -61,3 +62,25 @@
 	rb  = !git branch-ls | git fzf    --bind 'enter:become(git rebase   {1})'
 	# Semicolons are treated as comments, unless they are wrapped in quotes.
 	co  = "!git checkout $({ git branch-ls & git simple-log; } | git fzf | awk '{print $1}')"
+[interactive]
+	diffFilter = delta --color-only --features=interactive
+[delta]
+	features = decorations
+	side-by-side = true
+	whitespace-error-style = 22 reverse
+[delta "interactive"]
+	keep-plus-minus-markers = false
+[delta "decorations"]
+	commit-decoration-style = blue ol
+	commit-style = raw
+	file-style = omit
+	hunk-header-decoration-style = grey ol ul
+	hunk-header-file-style = white
+	hunk-header-line-number-style = "#067a00"
+	hunk-header-style = file line-number syntax
+	hunk-label = "     │ File: "
+	line-numbers-left-format = "{nm:>4} │"
+	line-numbers-left-style = grey
+	line-numbers-right-format = "│{np:>4} │"
+	line-numbers-right-style = grey
+
