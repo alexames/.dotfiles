@@ -69,6 +69,7 @@ Plug 'sheerun/vim-polyglot'               " Language packs for syntax highlighti
 " Additional utilities.
 Plug 'godlygeek/tabular'                  " Table alignment plugin.
 Plug 'svban/YankAssassin.vim'             " Yank doesn't move cursor
+Plug 'christoomey/vim-tmux-navigator'     " Improved tmux split navigation
 
 call plug#end()
 
