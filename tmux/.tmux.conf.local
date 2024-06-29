@@ -398,6 +398,8 @@ set -s command-alias[10] vs='split-window -h'
 set -s command-alias[11] sp='split-window'
 set -s command-alias[12] bd='kill-session'
 
+set-option -g detach-on-destroy off
+
 # -- tpm -----------------------------------------------------------------------
 
 # while I don't use tpm myself, many people requested official support so here
