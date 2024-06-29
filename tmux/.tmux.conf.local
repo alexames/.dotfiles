@@ -392,6 +392,11 @@ unbind C-a
 # move status line to top
 #set -g status-position top
 
+bind p choose-session
+
+set -s command-alias[10] vs='split-window -h'
+set -s command-alias[11] sp='split-window'
+set -s command-alias[12] bd='kill-session'
 
 # -- tpm -----------------------------------------------------------------------
 
