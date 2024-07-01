@@ -133,7 +133,7 @@ set softtabstop=2          " Soft tabs are 2 spaces.
 
 " Fold settings
 set foldenable
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevel=1000
 
 set updatetime=100
