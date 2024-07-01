@@ -69,7 +69,7 @@ tnoremap <C-l> <C-w>l
 tnoremap :: <C-W>:
 
 " Use \v to open a tab with ~/.vimrc for fast editing of the .vimrc.
-nnoremap <leader>v :tabe! $MYVIMRC<CR>
+nnoremap <leader>v :e $MYVIMRC<CR>
 
 " Use \cw to open a pane with quickfix window.
 " This is where build output and search results go.
