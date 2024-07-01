@@ -44,7 +44,9 @@
 	# Check out remote branch.
 	track = checkout --track
 	t = checkout --track
-
+	track-all = "!for remote in `git branch -r | grep -v /HEAD`; do git checkout --track $remote ; done"
+	ta = track-all
+	
 	# Pretty log printers.
 	lg = log --all --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
 	l  = log       --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
