@@ -394,9 +394,16 @@ unbind C-a
 
 bind p choose-session
 
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
 set -s command-alias[10] vs='split-window -h'
 set -s command-alias[11] sp='split-window'
 set -s command-alias[12] bd='kill-session'
+set -s command-alias[13] q='detach'
+set -s command-alias[14] only='kill-session -a'
 
 set-option -g detach-on-destroy off
 
