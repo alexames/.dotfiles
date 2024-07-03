@@ -30,6 +30,33 @@ export COLOR_LIGHT_CYAN='\[\e[1;36m\]'
 export COLOR_LIGHT_GRAY='\[\e[0;37m\]'
 export COLOR_WHITE='\[\e[1;37m\]'
 
+function timer_now {
+  date +%s%N
+}
+
+function timer_start {
+  timer_start=${timer_start:-$(timer_now)}
+}
+
+function timer_stop {
+  local delta_us=$((($(timer_now) - $timer_start) / 1000))
+  local us=$((delta_us % 1000))
+  local ms=$(((delta_us / 1000) % 1000))
+  local s=$(((delta_us / 1000000) % 60))
+  local m=$(((delta_us / 60000000) % 60))
+  local h=$((delta_us / 3600000000))
+  # Goal: always show around 3 digits of accuracy
+  if ((h > 0)); then timer_show=${h}h${m}m
+  elif ((m > 0)); then timer_show=${m}m${s}s
+  elif ((s >= 10)); then timer_show=${s}.$((ms / 100))s
+  elif ((s > 0)); then timer_show=${s}.$(printf %03d $ms)s
+  elif ((ms >= 100)); then timer_show=${ms}ms
+  elif ((ms > 0)); then timer_show=${ms}.$((us / 100))ms
+  else timer_show=${us}us
+  fi
+  unset timer_start
+}
+
 function is_git_repo {
   echo "$(git rev-parse --is-inside-work-tree 2>/dev/null)"
 }
@@ -116,12 +143,14 @@ function host_or_nameserver_name {
 }
 
 function ps1_update_prompt_command {
-
+  PS1="${COLOR_WHITE}\$? "
   if [ $? -eq 0 ]; then
-    PS1="${COLOR_GREEN}√\n\n"
+    PS1+="${COLOR_GREEN}√"
   else
-    PS1="${COLOR_RED}✘\n\n"
+    PS1+="${COLOR_RED}✘"
   fi
+  timer_stop
+  PS1+=" ${COLOR_YELLOW}[$timer_show]\n\n"
 
   PS1+="${COLOR_LIGHT_CYAN}\u"       # Username
   PS1+="${COLOR_WHITE}@"             # @
@@ -141,6 +170,7 @@ function ps1_update_prompt_command {
   export PS1
 }
 
+trap 'timer_start' DEBUG
 PROMPT_COMMAND=ps1_update_prompt_command
 
 fd() {
