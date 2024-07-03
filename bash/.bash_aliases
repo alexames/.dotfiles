@@ -29,3 +29,5 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 function clone() {
     git clone git@github.com:$1.git $2
 }
+
+alias c="find . -type d | fzf -i --height=~50% -1 --bind 'enter:become(cd {1})'"
