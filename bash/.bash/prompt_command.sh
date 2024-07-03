@@ -131,6 +131,13 @@ function venv_prompt {
   fi
 }
 
+function tmux_prompt {
+  if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+    echo "[tmux:$(tmux display-message -p "#S")] "
+  fi
+}
+
+
 if [ ! -z ${NETWORK_INTERFACE+x} ]; then
   ALEX_LOCAL_IP=$(echo $(ifconfig enp4s0 2>/dev/null) $(ifconfig eth0 2>/dev/null) | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | cut -c 6-)
   ALEX_HOSTNAME=$(nslookup $ALEX_LOCAL_IP | grep -o '= [a-zA-Z0-9_-]\+\(\.[a-zA-Z0-9_-]\+\)*' | cut -c 3-)
@@ -158,6 +165,7 @@ function ps1_update_prompt_command {
   PS1+="${COLOR_WHITE}:"             # :
   PS1+="${COLOR_LIGHT_BLUE}\$PWD "   # Working directory
   PS1+="${COLOR_LIGHT_GREEN}$(venv_prompt)" # Virtual environment
+  PS1+="${COLOR_CYAN}$(tmux_prompt)" # Virtual environment
 
   # This seems to be broken on Windows Git Bash...
   # PS1+="${COLOR_YELLOW}[\$(date +\"%y/%m/%d %H:%M:%S\")]\n"
