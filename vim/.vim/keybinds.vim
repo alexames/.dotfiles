@@ -132,8 +132,8 @@ nnoremap <leader>w :set list!<cr>
 
 " This maps the '<' and '>' keys in visual mode to shift the selected text one
 " shift width to the left or right and reselect the shifted text.
-vnoremap < <gv
-vnoremap > >gv
+" vnoremap < <gv
+" vnoremap > >gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin: godlygeek/tabular
