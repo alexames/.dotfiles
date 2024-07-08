@@ -48,20 +48,29 @@
 	ta = track-all
 	
 	# Pretty log printers.
-	lg = log --all --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
-	l  = log       --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
-	la = log --all --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	lg             = log       --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	l              = log       --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	la             = log --all --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	log-graph-main = log       --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit HEAD...main
+
+	# Commands that should exist
+	get-branch = rev-parse --abbrev-ref HEAD
+	get-tracked-remote = !git branch -vv | rg --color never \"(\\w+)/$(git get-branch)\" -or '$1'
+	branch-new = checkout -b
+	new-branch = checkout -b
 
 	# Utilities that print and get commits.
 	simple-log = log --all --pretty=format:'%h %s <%an>'
-	branch-ls = for-each-ref --format='%(refname:short)' refs/heads/
+	# branch-ls = for-each-ref --format='%(refname:short)' refs/heads/
+	branch-ls = !git branch -a | cut -c 3- | sed s-^remotes/--
 
 	# fzf enabled commands.
 	fzf = !fzf -i --reverse --height=~50% # 
 	# cp  = !git simple-log | git fzf    --bind 'enter:become(git cherry-pick $({1} | awk '{print $1}\')'
-	p   = !git remote    | git fzf -1 --bind 'enter:become(git push     {1})'
-	b   = !git branch-ls | git fzf    --bind 'enter:become(git checkout {1})'
-	rb  = !git branch-ls | git fzf    --bind 'enter:become(git rebase   {1})'
+	p   = !git remote    | git fzf -1 --bind 'enter:become(git push         {1})'
+	pf  = !git remote    | git fzf -1 --bind 'enter:become(git push --force {1})'
+	b   = !git branch-ls | git fzf    --bind 'enter:become(git checkout     {1})'
+	rb  = !git branch-ls | git fzf    --bind 'enter:become(git rebase       {1})'
 	# Semicolons are treated as comments, unless they are wrapped in quotes.
 	co  = "!git checkout $({ git branch-ls & git simple-log; } | git fzf | awk '{print $1}')"
 [interactive]

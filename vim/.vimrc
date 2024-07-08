@@ -29,6 +29,8 @@ Plug 'google/vim-glaive'                  " Glaive is a utility for configuring 
 Plug 'kana/vim-textobj-user'              " Helps define custom text objects. Needed for parameter text objects below.
 Plug 'tpope/vim-dispatch'                 " Async utilities, mostly useful for other plugins.
 
+Plug 'ryanoasis/vim-devicons'
+
 " IDE Feature integrations.
 "" Git
 Plug 'tpope/vim-fugitive'                 " Git integration.

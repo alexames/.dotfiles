@@ -54,6 +54,7 @@ function timer_stop {
   elif ((ms > 0)); then timer_show=${ms}.$((us / 100))ms
   else timer_show=${us}us
   fi
+  timer_show="elapsed:${timer_show}"
   unset timer_start
 }
 
@@ -117,7 +118,7 @@ function vcs_prompt {
     vcs_last_commit="$(hg_last_commit)"
   fi
   if [ "$vcs" ]; then
-    echo "${COLOR_WHITE}${vcs}:${vcs_branch}${COLOR_LIGHT_WHITE}:${COLOR_LIGHT_PURPLE}${vcs_last_commit}\n"
+    echo "${COLOR_WHITE}[${vcs}${COLOR_WHITE}:${vcs_branch}${COLOR_WHITE}:${COLOR_LIGHT_PURPLE}${vcs_last_commit}${COLOR_WHITE}]\n"
   else
     echo ""
   fi
@@ -127,7 +128,7 @@ function venv_prompt {
   if [[ "$VIRTUAL_ENV" != "" ]]
   then
     VENV_RELPATH=$(realpath --relative-to="." "$VIRTUAL_ENV")
-    echo "[${VENV_RELPATH}] "
+    echo "[venv:${VENV_RELPATH}] "
   fi
 }
 
@@ -150,22 +151,25 @@ function host_or_nameserver_name {
 }
 
 function ps1_update_prompt_command {
-  PS1="${COLOR_WHITE}\$? "
-  if [ $? -eq 0 ]; then
-    PS1+="${COLOR_GREEN}√"
+  exit_code=$?
+  PS1=""
+  if [ $exit_code -eq 0 ]
+  then
+    PS1+="${COLOR_GREEN}√ "
   else
-    PS1+="${COLOR_RED}✘"
+    PS1+="${COLOR_RED}✘ "
   fi
+  PS1+="${COLOR_WHITE}[status:$exit_code] "
   timer_stop
-  PS1+=" ${COLOR_YELLOW}[$timer_show]\n\n"
+  PS1+="${COLOR_YELLOW}[$timer_show]\n\n"
 
   PS1+="${COLOR_LIGHT_CYAN}\u"       # Username
   PS1+="${COLOR_WHITE}@"             # @
   PS1+="${COLOR_LIGHT_CYAN}$(host_or_nameserver_name)"       # Hostname
   PS1+="${COLOR_WHITE}:"             # :
   PS1+="${COLOR_LIGHT_BLUE}\$PWD "   # Working directory
-  PS1+="${COLOR_LIGHT_GREEN}$(venv_prompt)" # Virtual environment
   PS1+="${COLOR_CYAN}$(tmux_prompt)" # Virtual environment
+  PS1+="${COLOR_LIGHT_GREEN}$(venv_prompt)" # Virtual environment
 
   # This seems to be broken on Windows Git Bash...
   # PS1+="${COLOR_YELLOW}[\$(date +\"%y/%m/%d %H:%M:%S\")]\n"
