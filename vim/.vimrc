@@ -153,6 +153,9 @@ autocmd! bufwritepost $VIM/vimfiles/vimrc source $MYVIMRC
 autocmd! BufNew,BufAdd,BufWrite,BufNewFile,BufRead,BufEnter,FilechangedRO * : if &buftype !=# 'terminal' && &ro | set nomodifiable | endif
 autocmd! BufNew,BufAdd,BufWrite,BufNewFile,BufRead,BufEnter,FilechangedRO * : if &buftype !=# 'terminal' && !&ro | set modifiable | endif
 
+" Disable autocomplete scratch preview window
+set completeopt-=preview
+
 " Format on save
 " augroup autoformat_settings
 "   autocmd FileType bzl AutoFormatBuffer buildifier
