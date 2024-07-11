@@ -183,6 +183,7 @@ source $HOME/.vim/keybinds.vim
 " Enable once Vim is updated to >=8.2
 " let g:fzf_layout = { 'left': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
 let g:fzf_layout = { 'down': '40%' }
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 """"""""""""""""""""""""""""""""""""""""
 " ftplugin/python.vim
