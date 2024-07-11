@@ -64,6 +64,8 @@
 	# branch-ls = for-each-ref --format='%(refname:short)' refs/heads/
 	branch-ls = !git branch -a | cut -c 3- | sed s-^remotes/--
 
+	recent-files = diff --name-only HEAD..HEAD~3
+
 	# fzf enabled commands.
 	fzf = !fzf -i --reverse --height=~50% # 
 	# cp  = !git simple-log | git fzf    --bind 'enter:become(git cherry-pick $({1} | awk '{print $1}\')'
