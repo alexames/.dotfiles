@@ -92,6 +92,8 @@ fi
 [ -f ~/.cargo/env ] && source ~/.cargo/env
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
+
 # Make sure to load .bashrc.local before sourcing prompt_command.sh so that the
 # NETWORK_INTERFACE can be defined locally if necessary.
 NETWORK_INTERFACE="${NETWORK_INTERFACE:-enp4s0}"
