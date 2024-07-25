@@ -5,35 +5,35 @@
 
 ## git
 
-| Diffing                             | Command       |
-|:------------------------------------|:--------------|
-| diff                                | `d`           |
-| difftool                            | `dt `         |
-| mergetool                           | `mt `         |
-| **Staging**                         |               |
-| add file                            | `a`           |
-| add all                             | `aa `         |
-| **Committing**                      |               |
-| commit                              | `c`           |
-| commit all                          | `ca `         |
-| commit with message                 | `cm `         |
-| commit all with message             | `cam`         |
-| amend                               | `amend`       |
-| amend without updating message      | `m`           |
-| ammend all without updating message | `ma `         |
-| **Tracking**                        |               |
-| track branch                        | `track`       |
-| track branch                        | `t`           |
-| **Logs**                            |               |
-| simple linear log                   | `l`           |
-| simple linear log with all branches | `la `         |
-| log with graph                      | `lg `         |
-| simple log                          | `simple-log ` |
-| **fzf commands**                    |               |
-| push to branch                      | `p`           |
-| checkout branch                     | `b`           |
-| checkout ref                        | `co `         |
-| rebase against                      | `rb `         |
+| Diffing                                          | Command       |
+|:-------------------------------------------------|:--------------|
+| diff                                             | `d`           |
+| difftool                                         | `dt `         |
+| mergetool                                        | `mt `         |
+| **Staging**                                      |               |
+| add file                                         | `a`           |
+| add all                                          | `aa `         |
+| **Committing**                                   |               |
+| commit                                           | `c`           |
+| commit all                                       | `ca `         |
+| commit with message                              | `cm `         |
+| commit all with message                          | `cam`         |
+| amend                                            | `amend`       |
+| amend without updating message                   | `m`           |
+| ammend all without updating message              | `ma `         |
+| **Tracking**                                     |               |
+| track branch                                     | `track`       |
+| track branch                                     | `t`           |
+| **Logs**                                         |               |
+| simple linear log                                | `l`           |
+| simple linear log with all branches              | `la `         |
+| log with graph                                   | `lg `         |
+| simple log                                       | `simple-log ` |
+| **fzf commands**                                 |               |
+| push to branch                                   | `p`           |
+| checkout branch                                  | `b`           |
+| checkout ref                                     | `co `         |
+| rebase against                                   | `rb `         |
 
 ## powershell
 
@@ -88,10 +88,10 @@ https://tmuxcheatsheet.com/
 
 ### YouCompleteMe
 
-| Action                 | Binding       | Command                         |
-| :--------------------- | :------------ | :------------------------------ |
-| Go to Include          | ti            | `:YcmCompleter GoToInclude`     |
-| Go to Declaration      | tD            | `:YcmCompleter GoToDeclaration` |
-| Go to Definition       | td            | `:YcmCompleter GoToDefinition`  |
-| Go to Symbol           | ts            | `:YcmCompleter GoTo`            |
-| Go to Reference        | tr            | `:YcmCompleter GoToReferences`  |
+| Action              | Binding  | Command                         |
+| :------------------ | :------- | :------------------------------ |
+| Go to Include       | ti       | `:YcmCompleter GoToInclude`     |
+| Go to Declaration   | tD       | `:YcmCompleter GoToDeclaration` |
+| Go to Definition    | td       | `:YcmCompleter GoToDefinition`  |
+| Go to Symbol        | ts       | `:YcmCompleter GoTo`            |
+| Go to Reference     | tr       | `:YcmCompleter GoToReferences`  |
