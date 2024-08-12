@@ -2,14 +2,24 @@
 
 ## Windows Powershell
 
-Look for the file 
-`$Home\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1` or 
-`$Home\Documents\Powershell\Microsoft.PowerShell_profile.ps1`
+Run `echo $PROFILE` to find the location of the PowerShell profile.
 
-And add:
+According to [this page][1] it should be located at 
+`$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1` in practice it
+seems to vary a bit. The version of PowerShell that ships may also ask you to
+install a different version of it as well, which has a profile in a different
+location.
+
+Open the profile file and add:
 
 ```
 . "$HOME\.dotfiles\PowerShell_profile.ps1"
+```
+
+This may fail due to the default execution policy. To fix this, run:
+
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
 ## Bash
@@ -38,3 +48,4 @@ NETWORK_INTERFACE=<network interface>
 ```
 
 
+[1](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.3)
