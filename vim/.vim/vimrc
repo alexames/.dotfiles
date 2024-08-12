@@ -142,12 +142,15 @@ set updatetime=100
 set signcolumn=number
 
 " When vimrc is edited, reload it.
-autocmd! bufwritepost $HOME/.dotfiles/vim/.vimrc source $MYVIMRC
-autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/vimrc source $MYVIMRC
 autocmd! bufwritepost $HOME/.vimrc source $MYVIMRC
+autocmd! bufwritepost $HOME/_vimrc source $MYVIMRC
 autocmd! bufwritepost $HOME/.vim/vimrc source $MYVIMRC
-autocmd! bufwritepost $HOME/.vim/keybinds.vim source $MYVIMRC
-autocmd! bufwritepost $VIM/vimfiles/vimrc source $MYVIMRC
+autocmd! bufwritepost $HOME/.vimrc source $MYVIMRC
+
+autocmd! bufwritepost $HOME/.dotfiles/vim/_vimrc source $MYVIMRC
+autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/vimrc source $MYVIMRC
+autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/keybinds.vim source $MYVIMRC
+autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/keybinds.vim source $MYVIMRC
 
 " Files that can not be written should not be modifiable.
 autocmd! BufNew,BufAdd,BufWrite,BufNewFile,BufRead,BufEnter,FilechangedRO * : if &buftype !=# 'terminal' && &ro | set nomodifiable | endif
