@@ -1,5 +1,0 @@
-
-set runtimepath^=$HOME/.vim
-set shell=powershell\ -nologo
-
-source $HOME/.vim/vimrc
