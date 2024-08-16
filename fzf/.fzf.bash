@@ -1,7 +1,7 @@
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source ~/.fzf/shell/completion.bash 2> /dev/null
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == */home/alex/.fzf/bin* ]]; then
+  PATH="/home/alex/.fzf/bin:${PATH:+${PATH}}"
+fi
 
-# Key bindings
-# ------------
-source ~/.fzf/shell/key-bindings.bash
+eval "$(fzf --bash)"
