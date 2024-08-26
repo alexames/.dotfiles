@@ -174,11 +174,14 @@ vnoremap g/ :TComment<CR>
 nnoremap ti :YcmCompleter GoToInclude<cr>
 nnoremap tD :YcmCompleter GoToDeclaration<cr>
 nnoremap td :YcmCompleter GoToDefinition<cr>
+nnoremap <C-]> :YcmCompleter GoToDefinition<cr>
 nnoremap ts :YcmCompleter GoTo<cr>
 nnoremap tr :YcmCompleter GoToReferences<cr>
 
-nmap fs <Plug>(YCMFindSymbolInWorkspace)
-nmap <C-y> <Plug>(YCMFindSymbolInWorkspace)
+nnoremap K <plug>(YCMHover)
+
+nnoremap fs <Plug>(YCMFindSymbolInWorkspace)
+nnoremap <C-y> <Plug>(YCMFindSymbolInWorkspace)
 
 nnoremap <leader>r :YcmCompleter RefactorRename
 
