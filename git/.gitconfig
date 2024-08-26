@@ -13,6 +13,7 @@
 
 [push]
 	autoSetupRemote = true
+	default = current
 
 [pull]
 	rebase = true
@@ -82,7 +83,9 @@
 	b   = !git branch-ls | git fzf    --bind 'enter:become(git checkout     {1})'
 	rb  = !git branch-ls | git fzf    --bind 'enter:become(git rebase       {1})'
 	# Semicolons are treated as comments, unless they are wrapped in quotes.
-	co  = "!git checkout $({ git branch-ls & git simple-log; } | git fzf | awk '{print $1}')"
+	co  = "!git checkout $(git branch-ls | git fzf | awk '{print $1}')"
+
+	prd = "!if git merge-base --is-ancestor main HEAD; then git diff main HEAD; else echo \"not branched from main; run \\`git rebase main\\`\"; fi"
 
 [interactive]
 	diffFilter = delta --color-only --features=interactive
@@ -109,3 +112,5 @@
 	line-numbers-right-format = "│{np:>4} │"
 	line-numbers-right-style = grey
 
+[remote]
+	pushDefault = origin
