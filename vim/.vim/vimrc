@@ -66,6 +66,7 @@ Plug 'tpope/vim-surround'                 " Surround.vim is all about surroundin
 Plug 'vim-scripts/tComment'               " Filetype aware comment toggle.
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                   " Fuzzy Finder functionality for buffers, history, files, etc.
+Plug 'ConradIrwin/vim-bracketed-paste'    " Enables transparent pasting into vim. (i.e. no more :set paste!)
 
 " Visual improvements.
 Plug 'junegunn/vim-peekaboo'              " When using registers, pop open a window to display them
@@ -244,16 +245,4 @@ let g:ycm_extra_conf_vim_data = [
   \  'g:ycm_python_sys_path'
   \]
 let g:ycm_global_ycm_extra_conf = '~/.vim/global_extra_conf.py'
-
-" Need to figure out what these do and document:
-" let &t_SI .= "\<Esc>[?2004h"
-" let &t_EI .= "\<Esc>[?2004l"
-"
-" inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-"
-" function! XTermPasteBegin()
-"   set pastetoggle=<Esc>[201~
-"   set paste
-"   return ""
-" endfunction
 
