@@ -77,6 +77,7 @@ Plug 'sheerun/vim-polyglot'               " Language packs for syntax highlighti
 Plug 'godlygeek/tabular'                  " Table alignment plugin.
 Plug 'svban/YankAssassin.vim'             " Yank doesn't move cursor
 Plug 'christoomey/vim-tmux-navigator'     " Improved tmux split navigation
+Plug 'pboettch/vim-cmake-syntax'
 
 call plug#end()
 
@@ -211,6 +212,7 @@ let g:python_recommended_style = 0
 let g:cmake_compile_commands=1
 let g:cmake_compile_commands_link=1
 let g:cmake_vimspector_support=1
+let g:cmake_build_dir='build'
 
 """"""""""""""""""""""""""""""""""""""""
 " 'scrooloose/nerdtree'
