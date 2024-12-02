@@ -35,17 +35,21 @@ Plug 'ryanoasis/vim-devicons'
 "" Git
 Plug 'tpope/vim-fugitive'                 " Git integration.
 Plug 'airblade/vim-gitgutter'             " Git in-file line changes.
+
+" Language plugins.
+"" C++ Plugins
+Plug 'puremourning/vimspector'            " GDB integration.
+Plug 'ilyachur/cmake4vim'                 " CMake integration.
+"" Python plugins
+Plug 'alfredodeza/pytest.vim'
+"" Shell plugins
+Plug 'itspriddle/vim-shellcheck'
 "" Language Agnostic
 Plug 'google/vim-codefmt'                 " clang-format integration.
 if has('python3') && v:version >= 802 && has('patch3995')
 Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
                                           " Language-semantic-aware autocompletion and other features.
 endif
-"" C++ Plugins
-Plug 'puremourning/vimspector'            " GDB integration.
-Plug 'ilyachur/cmake4vim'                 " CMake integration.
-"" Python plugins
-Plug 'alfredodeza/pytest.vim'
 
 " Filesystem navigation.
 Plug 'scrooloose/nerdtree'                " A file system explorer for the Vim editor.
