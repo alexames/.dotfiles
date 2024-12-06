@@ -213,6 +213,7 @@ let g:cmake_compile_commands=1
 let g:cmake_compile_commands_link=1
 let g:cmake_vimspector_support=1
 let g:cmake_build_dir='build'
+let g:cmake_vimspector_support=1
 
 """"""""""""""""""""""""""""""""""""""""
 " 'scrooloose/nerdtree'
