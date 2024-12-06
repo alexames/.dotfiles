@@ -84,6 +84,7 @@
 	rb  = !git branch-ls | git fzf    --bind 'enter:become(git rebase       {1})'
 	# Semicolons are treated as comments, unless they are wrapped in quotes.
 	co  = "!git checkout $(git branch-ls | git fzf | awk '{print $1}')"
+	sw = "!git switch $(git branch-ls | git fzf | awk '{print $1}')"
 
 	prd = "!if git merge-base --is-ancestor main HEAD; then git diff main HEAD; else echo \"not branched from main; run \\`git rebase main\\`\"; fi"
 
