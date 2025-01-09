@@ -19,7 +19,7 @@
 	rebase = true
 
 [diff]
-	tool = bc
+	tool = vimdiff
 
 [difftool "bc"]
 	trustExitCode = true
@@ -115,3 +115,5 @@
 
 [remote]
 	pushDefault = origin
+[difftool "vimdiff"]
+	cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
