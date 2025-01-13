@@ -67,6 +67,7 @@ Plug 'vim-scripts/tComment'               " Filetype aware comment toggle.
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                   " Fuzzy Finder functionality for buffers, history, files, etc.
 Plug 'ConradIrwin/vim-bracketed-paste'    " Enables transparent pasting into vim. (i.e. no more :set paste!)
+Plug 'vim-scripts/argtextobj.vim'         " Adds argument text objects.
 
 " Visual improvements.
 Plug 'junegunn/vim-peekaboo'              " When using registers, pop open a window to display them
@@ -214,6 +215,16 @@ let g:cmake_compile_commands_link=1
 let g:cmake_vimspector_support=1
 let g:cmake_build_dir='build'
 let g:cmake_vimspector_support=1
+
+""""""""""""""""""""""""""""""""""""""""
+" 'puremourning/vimspector'
+
+let g:vimspector_enable_mappsings = 'HUMAN'
+nmap <leader>dd :call vimspector#Launch()<CR>
+nmap <leader>dx :VimspectorReset<CR>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
 
 """"""""""""""""""""""""""""""""""""""""
 " 'scrooloose/nerdtree'
