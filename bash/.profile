@@ -32,3 +32,9 @@ echo "Active tmux sessions:"
 echo
 tmux ls
 
+# pipx binary directory.
+export PATH="~/.local/bin:${PATH}"
+
+# Node configuration.
+export PATH=${PATH}:/home/alex/bin/node/bin
+
