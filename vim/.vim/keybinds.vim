@@ -160,7 +160,8 @@ nnoremap <f4> :NERDTreeFind<CR>
 nnoremap <C-p> :Files<cr>
 nnoremap <C-a> :Ag<cr>
 nnoremap <C-b> :Buffers<cr>
-nnoremap <C-g> :History<cr>
+nnoremap <C-m> :History<cr>
+nnoremap <C-g> :GitFiles?<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
