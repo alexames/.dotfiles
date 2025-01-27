@@ -27,16 +27,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Run the following command to bootstrap `sudo` and `wget`, and then run the install script:
 
 ```
-if ! command -v sudo &> /dev/null
-then
-  apt update
-  apt install -y sudo
-fi
-if ! command -v wget &> /dev/null
-then
-  sudo apt update
-  sudo apt install -y wget
-fi
 wget -q https://raw.githubusercontent.com/alexames/.dotfiles/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 
