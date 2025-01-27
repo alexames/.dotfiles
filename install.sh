@@ -19,54 +19,86 @@ fi
 ################################################################################
 # Install apt packages
 
-sudo apt install -y                                          \
-    bat                                                      \
-    curl                                                     \
-    fzf                                                      \
-    net-tools                                                \
-    silversearcher-ag                                        \
-    stow                                                     \
-    tmux                                                     \
-    vim                                                      \
-    wget                                                     \
-    cmake                                                    \
-    git                                                      \
-    clang                                                    \
-    lua5.4                                                   \
-    python3                                                  \
-    python3-pip                                              \
-    python-is-python3                                        \
-    build-essential                                          \
-    cmake                                                    \
-    golang                                                   \
-    mono-complete                                            \
-    nodejs                                                   \
-    npm                                                      \
-    openjdk-17-jdk                                           \
-    openjdk-17-jre                                           \
-    python3-dev                                              \
-    vim-nox
+################################################################################
+# General utilities
+sudo apt install -y                                                            \
+    bat                                                                        \
+    curl                                                                       \
+    net-tools                                                                  \
+    silversearcher-ag                                                          \
+    stow                                                                       \
+    tmux                                                                       \
+    fd-find                                                                    \
+    wget
 
 ################################################################################
-# Install pip packages
+# Git
+sudo apt install -y                                                            \
+    make                                                                       \
+    git                                                                        \
+    git-delta
 
+################################################################################
+# C++
+sudo apt install -y                                                            \
+    clang                                                                      \
+    cmake                                                                      \
+    valgrind                                                                   \
+    rr                                                                         \
+    build-essential
+
+################################################################################
+# Lua
+sudo apt install -y                                                            \
+    lua5.1                                                                     \
+    lua5.1-dev                                                                 \
+    lua5.2                                                                     \
+    lua5.2-dev                                                                 \
+    lua5.3                                                                     \
+    lua5.3-dev                                                                 \
+    lua5.4                                                                     \
+    lua5.4-dev
+
+################################################################################
+# Python
+sudo apt install -y                                                            \
+    python3                                                                    \
+    python3-pip                                                                \
+    python-is-python3                                                          \
+    python3-dev                                                                \
+    libpython3-dev
 python -m ensurepip --upgrade
-pip install  \
-    yapf \
+pip install                                                                    \
+    yapf                                                                       \
     cmakelang
 
 ################################################################################
-# Install rust (Can this be moved to under apt?)
+# Go
+sudo apt install -y                                                            \
+    golang
 
-# if ! command -v rustc &> /dev/null; then
-#   # When using WSL, rust prefers a different installation method.
-#   # https://stackoverflow.com/a/38859331/63791
-#   if grep -qi microsoft /proc/version; then
-#     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs      | sh
-#   else
-#     curl                                 https://sh.rustup.rs -sSf | sh
-#   fi
-# fi
+################################################################################
+# C#
+sudo apt install -y                                                            \
+    mono-complete
+
+################################################################################
+# Javascript
+sudo apt install -y                                                            \
+    nodejs                                                                     \
+    npm
+
+################################################################################
+# Java
+sudo apt install -y                                                            \
+    openjdk-17-jdk                                                             \
+    openjdk-17-jre
+
+################################################################################
+# Rust
+if ! command -v rustc &> /dev/null; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs      | sh
+fi
 
 ################################################################################
 # Install .dotfiles git repo and initialize.
@@ -80,8 +112,24 @@ function _git_clone_or_pull() {
 }
 
 _git_clone_or_pull https://github.com/alexames/.dotfiles ~/.dotfiles
+
+# Install fzf.
 _git_clone_or_pull https://github.com/junegunn/fzf ~/.dotfiles/fzf/.fzf
+~/.dotfiles/fzf/.fzf/install
+
+# Install Oh my tmux config.
 _git_clone_or_pull https://github.com/gpakosz/.tmux ~/.dotfiles/tmux/.tmux
+
+# Install vim from source.
+_git_clone_or_pull https://github.com/vim/vim ~/.dotfiles/vim/.vim/src/vim
+cd ~/.dotfiles/vim/.vim/src/vim
+./configure                 \
+    --with-features=huge    \
+    --enable-python3interp  \
+    --enable-luainterp      \
+    --enable-cscope
+sudo make
+sudo make install
 
 echo "You can now run stow on the following package configs"
 echo

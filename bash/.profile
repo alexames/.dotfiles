@@ -38,3 +38,4 @@ export PATH="~/.local/bin:${PATH}"
 # Node configuration.
 export PATH=${PATH}:/home/alex/bin/node/bin
 
+. "$HOME/.cargo/env"

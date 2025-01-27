@@ -100,3 +100,4 @@ NETWORK_INTERFACE="${NETWORK_INTERFACE:-enp4s0}"
 source ~/.bash/prompt_command.sh
 source ~/.bash/pytest_commands.sh
 
+. "$HOME/.cargo/env"
