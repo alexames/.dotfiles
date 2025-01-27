@@ -179,7 +179,7 @@ function ps1_update_prompt_command {
   PS1+="${COLOR_LIGHT_CYAN}$(host_or_nameserver_name)"       # Hostname
   PS1+="${COLOR_WHITE}:"             # :
   PS1+="${COLOR_LIGHT_BLUE}\$PWD "   # Working directory
-  PS1+="${COLOR_CYAN}$(tmux_prompt)" # Virtual environment
+  # PS1+="${COLOR_CYAN}$(tmux_prompt)" # Virtual environment
   PS1+="${COLOR_LIGHT_GREEN}$(venv_prompt)" # Virtual environment
 
   # This seems to be broken on Windows Git Bash...
