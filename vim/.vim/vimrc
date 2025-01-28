@@ -3,14 +3,21 @@
 
 set nocompatible
 
+if has('win32')
+  set shell=powershell\ -nologo
+  let g:VIM_CONFIG_ROOT = $HOME . '/vimfiles'
+else
+  let g:VIM_CONFIG_ROOT = $HOME . '/.vim'
+endif
+
+execute 'source ' . g:VIM_CONFIG_ROOT . '/vim-plug-bootstrap.vim'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Plugins                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-source ~/.vim/vim-plug-bootstrap.vim
-
 " Plugins will be downloaded under the specified directory.
-call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : expand('$HOME/.vim/plugged'))
+call plug#begin((has('nvim') ? stdpath('data') : g:VIM_CONFIG_ROOT) . '/plugged' )
 
 " Basic stuff.
 Plug 'tpope/vim-sensible'                 " Sensible default settings.
@@ -178,10 +185,6 @@ set completeopt-=preview
 "   " Enable once we get all files formatted
 "   " autocmd FileType python AutoFormatBuffer yapf
 " augroup END
-
-if has('win32')
-  set shell=powershell\ -nologo
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Keybinds                                   "

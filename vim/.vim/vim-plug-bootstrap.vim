@@ -9,10 +9,13 @@ endif
 
 let plug_path = data_dir . '/autoload/plug.vim'
 if empty(glob(plug_path))
+  echo "A"
   let plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   if has('win32')
+    echo "Has win32!"
     silent execute '!Invoke-WebRequest -OutFile ' . plug_path . ' -Uri ' . plug_url
   else
+    echo "no Has win32 :("
     silent execute '!curl -fLo ' . plug_path . ' --create-dirs ' . plug_url
   endif
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC

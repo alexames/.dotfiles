@@ -1,4 +1,6 @@
 
+Get-ChildItem -Recurse -Directory ~/Programming/vcpkg/installed/x64-windows/tools | ForEach-Object { $env:PATH += ";$($_.FullName)" }
+
 New-Alias -Name g4 -Value p4
 
 $ESC = [char]27
