@@ -115,8 +115,8 @@
 	line-numbers-right-format = "│{np:>4} │"
 	line-numbers-right-style = grey
 
-[merge]
-  conflictstyle = zdiff3
+# [merge]
+#   conflictstyle = zdiff3
 
 [remote]
 	pushDefault = origin
