@@ -109,7 +109,7 @@ set noerrorbells           " Does not make a sound when there is an error.
 set whichwrap+=<,>,h,l     " Backspace config.
 set scrolloff=2            " ensures the cursor never reaches the bottom of the window.
 set smartindent            " Intelligently guess the indentation level of the next line.
-set relativenumber         " Shows relative line numbers, making linewise motions easier.
+" set relativenumber         " Shows relative line numbers, making linewise motions easier.
 set number                 " Display the absolute line number for the current line.
 set formatoptions-=t       " Don't wrap to new lines at 80 characters automatically.
 set noswapfile             " Disable swap files. I save often enough that these just get in the way.
