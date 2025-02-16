@@ -2,6 +2,9 @@
 	email = Alexander.Ames@gmail.com
 	name = Alexander Ames
 
+[init]
+	defaultBranch = main
+
 [include]
 	path = ~/.gitconfig.local
 
