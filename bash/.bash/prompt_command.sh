@@ -76,13 +76,14 @@ function git_branch {
 
   local on_branch="On branch ([^${IFS}]*)"
   local on_commit="HEAD detached at ([^${IFS}]*)"
+  local sha="$(git rev-parse --short HEAD)"
 
   if [[ $git_status =~ $on_branch ]]; then
     local branch=${BASH_REMATCH[1]}
-    echo "${git_color}${branch}"
+    echo "${COLOR_LIGHT_BLUE}${sha}${COLOR_WHITE}:${git_color}${branch}"
   elif [[ $git_status =~ $on_commit ]]; then
     local commit=${BASH_REMATCH[1]}
-    echo "${git_color}${commit}"
+    echo "${COLOR_LIGHT_BLUE}${sha}${COLOR_WHITE}:${git_color}${commit}"
   fi
 }
 
