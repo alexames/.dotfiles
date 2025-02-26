@@ -117,7 +117,9 @@ set grepprg=grep\ -rnH\ $* " sets GNU grep to be the program to run when searchi
                            "   -r: recursive by default
                            "   -n: show line numbers
                            "   -H: show filenames
+if !has('nvim')
 set ttymouse=xterm2        " Allow mouse to work through tmux.
+endif
 set mouse=a                " What the mouse pointer looks like in different modes.
 set guioptions=rLte        " Remove menu bar when using a GUI (gvim).
 set nolist                 " No visible whitespace by default (keybind activates it elsewhere)
@@ -204,6 +206,37 @@ source $HOME/.vim/keybinds.vim
 " let g:fzf_layout = { 'left': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
 let g:fzf_layout = { 'down': '40%' }
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+" "Raw" version of ag; arguments directly passed to ag
+"
+" e.g.
+"   " Search 'foo bar' in ~/projects
+"   :Ag "foo bar" ~/projects
+"
+"   " Start in fullscreen mode
+"   :Ag! "foo bar"
+command! -bang -nargs=+ -complete=file Ag call fzf#vim#ag_raw(<q-args>, <bang>0)
+
+" Raw version with preview
+command! -bang -nargs=+ -complete=file Ag call fzf#vim#ag_raw(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+
+" AgIn: Start ag in the specified directory
+"
+" e.g.
+"   :AgIn .. foo
+function! s:ag_in(bang, ...)
+  if !isdirectory(a:1)
+    throw 'not a valid directory: ' .. a:1
+  endif
+  " Press `?' to enable preview window.
+  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
+
+  " If you don't want preview option, use this
+  " call fzf#vim#ag(join(a:000[1:], ' '), {'dir': a:1}, a:bang)
+endfunction
+
+command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
 
 """"""""""""""""""""""""""""""""""""""""
 " ftplugin/python.vim
