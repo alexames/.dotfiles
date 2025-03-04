@@ -28,6 +28,9 @@
 [difftool "bc"]
 	trustExitCode = true
 
+[difftool "vimdiff"]
+	cmd = vim -f -d -c 'wincmd l' -c 'cd "$GIT_PREFIX"' "$LOCAL" "$REMOTE"
+
 [difftool]
 	prompt = false
 
@@ -124,5 +127,3 @@
 [remote]
 	pushDefault = origin
 
-[difftool "vimdiff"]
-	cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
