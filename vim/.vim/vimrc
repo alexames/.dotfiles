@@ -53,9 +53,8 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'itspriddle/vim-shellcheck'
 "" Language Agnostic
 Plug 'google/vim-codefmt'                 " clang-format integration.
-if has('python3') && v:version >= 802 && has('patch3995')
+if has('python3') && v:version >= 802 && (has('patch3995') || v:version >= 900)
 Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
-                                          " Language-semantic-aware autocompletion and other features.
 endif
 
 " Filesystem navigation.
@@ -205,21 +204,6 @@ source $HOME/.vim/keybinds.vim
 " Enable once Vim is updated to >=8.2
 " let g:fzf_layout = { 'left': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
 let g:fzf_layout = { 'down': '40%' }
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
-" "Raw" version of ag; arguments directly passed to ag
-"
-" e.g.
-"   " Search 'foo bar' in ~/projects
-"   :Ag "foo bar" ~/projects
-"
-"   " Start in fullscreen mode
-"   :Ag! "foo bar"
-command! -bang -nargs=+ -complete=file Ag call fzf#vim#ag_raw(<q-args>, <bang>0)
-
-" Raw version with preview
-command! -bang -nargs=+ -complete=file Ag call fzf#vim#ag_raw(<q-args>, fzf#vim#with_preview(), <bang>0)
-
 
 " AgIn: Start ag in the specified directory
 "
@@ -295,4 +279,6 @@ let g:ycm_extra_conf_vim_data = [
   \  'g:ycm_python_sys_path'
   \]
 let g:ycm_global_ycm_extra_conf = '~/.vim/global_extra_conf.py'
+let g:ycm_auto_hover=''
+let g:ycm_clangd_args = ['--clang-tidy']
 
