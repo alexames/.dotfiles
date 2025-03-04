@@ -201,9 +201,17 @@ source $HOME/.vim/keybinds.vim
 """"""""""""""""""""""""""""""""""""""""
 " junegunn/fzf.vim
 
-" Enable once Vim is updated to >=8.2
-" let g:fzf_layout = { 'left': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
-let g:fzf_layout = { 'down': '40%' }
+let g:fzf_layout = { 
+      \   'window': { 
+      \     'width': 1.0, 
+      \     'height': 0.4, 
+      \     'relative': 1, 
+      \     'yoffset': 1.0,
+      \     'border': 'top'
+      \   }
+      \ }
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = ['right,50%,border-left', 'ctrl-/']
 
 " AgIn: Start ag in the specified directory
 "
@@ -230,15 +238,27 @@ let g:python_recommended_style = 0
 """"""""""""""""""""""""""""""""""""""""
 " 'ilyachur/cmake4vim'
 
-let g:cmake_compile_commands=1
-let g:cmake_compile_commands_link=1
-let g:cmake_vimspector_support=1
-let g:cmake_build_dir='build'
-let g:cmake_vimspector_support=1
+let g:cmake_compile_commands = 1
+let g:cmake_compile_commands_link = 1
+let g:cmake_vimspector_support = 1
+let g:cmake_build_dir = 'build'
+let g:cmake_vimspector_support = 1
+let g:cmake_vimspector_default_configuration = {
+  \ 'adapter': 'vscode-cpptools',
+  \ 'configuration': {
+    \ 'request': 'launch',
+    \ 'cwd': '${workspaceRoot}',
+    \ 'Mimode': '',
+    \ 'args': [],
+    \ 'program': ''
+    \ }
+  \ }
 
 """"""""""""""""""""""""""""""""""""""""
 " 'puremourning/vimspector'
 
+let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
+let g:vimspector_base_dir = g:VIM_CONFIG_ROOT . '/plugged/vimspector'
 let g:vimspector_enable_mappsings = 'HUMAN'
 nmap <leader>dd :call vimspector#Launch()<CR>
 nmap <leader>dx :VimspectorReset<CR>
