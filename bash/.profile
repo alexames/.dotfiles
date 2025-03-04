@@ -8,9 +8,6 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# Ensure that the dot files and vimrc are always up to date.
-git -C ~/.dotfiles pull > /dev/null
-
 export EDITOR='vim'
 export VISUAL='vim'
 
@@ -37,5 +34,3 @@ export PATH="~/.local/bin:${PATH}"
 
 # Node configuration.
 export PATH=${PATH}:/home/alex/bin/node/bin
-
-. "$HOME/.cargo/env"
