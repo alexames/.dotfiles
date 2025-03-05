@@ -195,6 +195,7 @@ nnoremap td :YcmCompleter GoToDefinition<cr>
 nnoremap <C-]> :YcmCompleter GoToDefinition<cr>
 nnoremap ts :YcmCompleter GoTo<cr>
 nnoremap tr :YcmCompleter GoToReferences<cr>
+nnoremap <leader>f :YcmCompleter FixIt<cr>
 
 nnoremap K <plug>(YCMHover)
 
