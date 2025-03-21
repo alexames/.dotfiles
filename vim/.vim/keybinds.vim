@@ -94,7 +94,25 @@ function! Preserve(command)
 endfunction
 
 vnoremap <C-h> y:call Preserve("%S/<C-r>"//g")<left><left><left><left>
-vnoremap <C-f> y:grep <C-r>" %:p:h
+vnoremap <C-f> y:grep <C-r>
+
+function! JumpToLocation()
+    let l:text = getline('.')
+    let l:match = matchlist(l:text, '\v([^:]+):(\d+):?(\d+)?')
+    if !empty(l:match)
+        execute 'edit ' . l:match[1]
+        if !empty(l:match[2])
+            execute l:match[2]
+        endif
+        execute 'normal! ' . l:match[3] . '|'
+    " else
+    "     echo "No valid filename:line:column under cursor"
+    endif
+endfunction
+
+nnoremap <silent> <leader>m :let @" = join([expand('%'), line('.'), col('.')], ':') . "\n"<CR>
+nnoremap <silent> <leader>j :call JumpToLocation()<CR>
+nnoremap <silent> <leader><enter> :call JumpToLocation()<CR>
 
 " Q should format around paragraph
 nnoremap Q gqap
