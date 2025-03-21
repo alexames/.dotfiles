@@ -41,11 +41,9 @@
 	mt = mergetool
 
 	# Add.
-	a = add
 	aa = add .
 
 	# Commit.
-	c = commit
 	ca = commit -a
 	cm = commit -m
 	cam = commit -a -m
@@ -65,35 +63,45 @@
 
 	# Pretty log printers.
 	lg             = log       --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	lgm            = log       --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit HEAD...main
 	l              = log       --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
+	lm             = log       --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit HEAD...main
 	la             = log --all --decorate --color         --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
 	log-graph-main = log       --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit HEAD...main
 
 	# Commands that should exist
 	get-branch = rev-parse --abbrev-ref HEAD
 	get-tracked-remote = !git branch -vv | rg --color never \"(\\w+)/$(git get-branch)\" -or '$1'
-	branch-new = checkout -b
-	new-branch = checkout -b
+
+	mk-branch = checkout -b
+	mkb = checkout -b
+
+	rm-branch = branch -D
 
 	# Utilities that print and get commits.
 	simple-log = log --all --pretty=format:'%h %s <%an>'
-	# branch-ls = for-each-ref --format='%(refname:short)' refs/heads/
-	branch-ls = !git branch -a | cut -c 3- | sed s-^remotes/--
-	ls-branch = !git branch -a | cut -c 3- | sed s-^remotes/--
-	mk-branch = !git checkout -b
-	make-branch = !git checkout -b
+	ls-branch  = !git branch    | cut -c 3- | sed s-^remotes/--
+	lsa-branch = !git branch -a | cut -c 3- | sed s-^remotes/--
 
 	recent-files = diff --name-only HEAD..HEAD~3
 
+	vim = !vim $(git diff --name-only)
+
+	ls-staged   = diff --name-only --cached
+	ls-modified = ls-files -m -o --exclude-standard
+	ls-chains = "!git chain list | awk '{ gsub(/[*\\[\\]]/, \"\"); title = $1; for (i = 3; i <= NF; i++) { print title \":\" $i }}'"
+
 	# fzf enabled commands
 	fzf = !fzf -i --reverse --height=~50%
-	# cp  = !git simple-log | git fzf    --bind 'enter:become(git cherry-pick $({1} | awk '{print $1}\')'
-	p   = !git remote    | git fzf -1 --bind 'enter:become(git push         {1})'
-	pf  = !git remote    | git fzf -1 --bind 'enter:become(git push --force {1})'
-	b   = !git branch-ls | git fzf    --bind 'enter:become(git checkout     {1})'
-	rb  = !git branch-ls | git fzf    --bind 'enter:become(git rebase       {1})'
-	co  = "!git checkout $(git branch-ls | git fzf | awk '{print $1}')"
-	sw = "!git switch $(git branch-ls | git fzf | awk '{print $1}')"
+	a   = !git ls-modified | git fzf    --multi --bind 'enter:become(git add           {+} && echo "git add {+}")'
+	r   = !git ls-staged   | git fzf    --multi --bind 'enter:become(git reset --quiet {+} && echo "git reset {+}")'
+	c   = !git ls-chains   | git fzf    --bind 'enter:become(git switch        $(echo {1} | cut -d\":\" -f2))'
+	cp  = !git simple-log  | git fzf    --bind 'enter:become(git cherry-pick   {1})'
+	p   = !git remote      | git fzf -1 --bind 'enter:become(git push          {1})'
+	pf  = !git remote      | git fzf -1 --bind 'enter:become(git push --force  {1})'
+	rmb = !git ls-branch   | git fzf    --bind 'enter:become(git rm-branch     {1})'
+	s   = !git lsa-branch  | git fzf    --bind 'enter:become(git switch        {1})'
+	rb  = !git lsa-branch  | git fzf    --bind 'enter:become(git rebase        {1})'
 
 	prd = "!if git merge-base --is-ancestor main HEAD; then git diff main HEAD; else echo \"not branched from main; run \\`git rebase main\\`\"; fi"
 
