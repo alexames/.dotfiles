@@ -123,17 +123,17 @@ set mouse=a                " What the mouse pointer looks like in different mode
 set guioptions=rLte        " Remove menu bar when using a GUI (gvim).
 set nolist                 " No visible whitespace by default (keybind activates it elsewhere)
 set listchars=tab:\\>,
-            \space:·,
-            \trail:•,
-            \extends:…,
-            \precedes:…,
-            \nbsp:.,
-            \eol:$,
+             \space:·,
+             \trail:•,
+             \extends:…,
+             \precedes:…,
+             \nbsp:.,
+             \eol:$,
 set colorcolumn=81         " Put a line at 80 characters.
                            " But java and Objective-C should be set to 101.
 set fillchars=vert:┃,
-            \fold:━,
-            \diff:~,
+             \fold:━,
+             \diff:~,
 autocmd Filetype java setlocal colorcolumn=101
 autocmd Filetype objc,objcpp setlocal colorcolumn=101
 
@@ -223,9 +223,6 @@ function! s:ag_in(bang, ...)
   endif
   " Press `?' to enable preview window.
   call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
-
-  " If you don't want preview option, use this
-  " call fzf#vim#ag(join(a:000[1:], ' '), {'dir': a:1}, a:bang)
 endfunction
 
 command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
@@ -238,20 +235,21 @@ let g:python_recommended_style = 0
 """"""""""""""""""""""""""""""""""""""""
 " 'ilyachur/cmake4vim'
 
+let g:cmake_build_type = 'Debug'
+let g:cmake_build_args = '-j'
+let g:cmake_build_dir = 'build'
 let g:cmake_compile_commands = 1
 let g:cmake_compile_commands_link = 1
-let g:cmake_vimspector_support = 1
-let g:cmake_build_dir = 'build'
 let g:cmake_vimspector_support = 1
 let g:cmake_vimspector_default_configuration = {
   \ 'adapter': 'vscode-cpptools',
   \ 'configuration': {
-    \ 'request': 'launch',
-    \ 'cwd': '${workspaceRoot}',
-    \ 'Mimode': '',
-    \ 'args': [],
-    \ 'program': ''
-    \ }
+  \   'request': 'launch',
+  \   'cwd': '${workspaceRoot}',
+  \   'Mimode': '',
+  \   'args': [],
+  \   'program': ''
+  \   }
   \ }
 
 """"""""""""""""""""""""""""""""""""""""
@@ -272,6 +270,8 @@ nmap <leader>do :VimspectorShowOutput
 let NERDTreeMinimalUI=1
 let NERDTreeShowHidden=1
 let NERDTreeWinSize=48
+
+let g:webdevicons_conceal_nerdtree_brackets = 1
 
 """"""""""""""""""""""""""""""""""""""""
 " 'vim-scripts/a.vim'
