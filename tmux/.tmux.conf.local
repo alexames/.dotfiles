@@ -408,6 +408,7 @@ set -s command-alias[13] q='detach'
 set -s command-alias[14] only='kill-session -a'
 
 set-option -g detach-on-destroy off
+set-option -s escape-time 50
 
 # -- tpm -----------------------------------------------------------------------
 
