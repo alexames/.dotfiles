@@ -100,3 +100,11 @@ NETWORK_INTERFACE="${NETWORK_INTERFACE:-enp4s0}"
 source ~/.bash/prompt_command.sh
 source ~/.bash/pytest_commands.sh
 
+
+# fnm
+FNM_PATH="/home/alex/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
