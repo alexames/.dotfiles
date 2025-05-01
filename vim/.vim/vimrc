@@ -56,6 +56,7 @@ Plug 'google/vim-codefmt'                 " clang-format integration.
 if has('python3') && v:version >= 802 && (has('patch3995') || v:version >= 900)
 Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
 endif
+" Plug 'github/copilot.vim'
 
 " Filesystem navigation.
 Plug 'scrooloose/nerdtree'                " A file system explorer for the Vim editor.
@@ -201,11 +202,11 @@ source $HOME/.vim/keybinds.vim
 """"""""""""""""""""""""""""""""""""""""
 " junegunn/fzf.vim
 
-let g:fzf_layout = { 
-      \   'window': { 
-      \     'width': 1.0, 
-      \     'height': 0.4, 
-      \     'relative': 0, 
+let g:fzf_layout = {
+      \   'window': {
+      \     'width': 1.0,
+      \     'height': 0.4,
+      \     'relative': 0,
       \     'yoffset': 1.0,
       \     'border': 'top'
       \   }
@@ -278,6 +279,24 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 
 let g:alternateExtensions_h = "cc,cpp,cxx,c,mm,m"
 let g:alternateExtensions_mm = "h"
+
+""""""""""""""""""""""""""""""""""""""""
+" 'vim-airline/vim-airline'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.colnr = ':'
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ':'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.dirty='*'
 
 """"""""""""""""""""""""""""""""""""""""
 " Plugin 'junegunn/rainbow_parentheses.vim'
