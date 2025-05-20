@@ -134,8 +134,10 @@ function venv_prompt {
 }
 
 function tmux_prompt {
-  if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+  if [ -n "$TMUX" ]; then
     echo "[tmux:$(tmux display-message -p "#S")] "
+  else
+    echo ""
   fi
 }
 
