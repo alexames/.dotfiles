@@ -29,3 +29,6 @@ function clone() {
 }
 
 alias c="find . -type d | fzf -i --height=~50% -1 --bind 'enter:become(cd {1})'"
+
+alias git=~/.bash/git-smart.sh
+alias g=~/.bash/git-smart.sh
