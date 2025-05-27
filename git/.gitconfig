@@ -94,8 +94,10 @@
 
 	# fzf enabled commands
 	fzf = !fzf -i --reverse --height=~50%
-	a   = !git ls-modified        | git fzf    --multi --bind 'enter:become(git add           {+} && echo "git add {+}")'
-	r   = !git ls-staged          | git fzf    --multi --bind 'enter:become(git reset --quiet {+} && echo "git reset {+}")'
+  co  = !git ls-files           | git fzf    --multi --bind 'enter:become(echo "git checkout {+}" && git checkout      {+})'
+	rv  = !git ls-modified        | git fzf    --multi --bind 'enter:become(echo "git checkout {+}" && git checkout      {+})'
+	a   = !git ls-modified        | git fzf    --multi --bind 'enter:become(echo "git add {+}"      && git add           {+})'
+	r   = !git ls-staged          | git fzf    --multi --bind 'enter:become(echo "git reset {+}"    && git reset --quiet {+})'
 	c   = !git ls-chains          | git fzf    --bind 'enter:become(git switch        $(echo {1} | cut -d\":\" -f2))'
 	cp  = !git simple-log         | git fzf    --bind 'enter:become(git cherry-pick   {1})'
 	p   = !git remote             | git fzf -1 --bind 'enter:become(git push          {1})'
