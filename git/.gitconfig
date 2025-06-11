@@ -104,7 +104,7 @@
 	pf  = !git remote             | git fzf -1 --bind 'enter:become(git push --force  {1})'
 	rmb = !git ls-branch          | git fzf    --bind 'enter:become(git rm-branch     {1})'
 	s   = !git lsa-branch         | git fzf    --bind 'enter:become(git switch        {1})'
-	rb  = !git ls-remote-branch  | git fzf    --bind 'enter:become(git rebase        {1})'
+	rb  = !git ls-remote-branch   | git fzf    --bind 'enter:become(git rebase        {1})'
 
 	prd = "!if git merge-base --is-ancestor main HEAD; then git diff main HEAD; else echo \"not branched from main; run \\`git rebase main\\`\"; fi"
 
