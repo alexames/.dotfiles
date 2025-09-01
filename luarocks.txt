@@ -1,0 +1,22 @@
+ansicolors # colored terminal output.
+argparse # command-line argument parsers.
+busted # test framework.
+copas # coroutine-based async socket scheduler.
+inspect # human-readable table inspection.
+ldoc # documentation generator.
+lpeg # parsing expression grammar toolkit.
+lua-cjson # JSON encode/decode.
+lua-term # colored terminal output.
+lua-yaml # YAML parsing.
+luacheck # static analyzer / linter.
+luacov # code coverage.
+luafilesystem # (if you want latest, otherwise apt).
+luasec # (for SSL/TLS; latest from rocks is often needed).
+luasocket
+luassert # assertion lib (pairs with busted).
+luv # libuv async I/O bindings.
+middleclass # (OOP helper).
+penlight # utility library (tables, lists, paths, functional helpers).
+rapidjson # JSON encode/decode.
+rings # (sandboxing environments).
+serpent # serialization and pretty-printing of tables.

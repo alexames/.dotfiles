@@ -1,10 +1,12 @@
 #!/bin/bash
 
-################################################################################
-# Create ssh key if necessary.
-
+sudo add-apt-repository -y universe
+sudo add-apt-repository -y multiverse
 sudo apt update
 sudo apt install -y ssh
+
+################################################################################
+# Create ssh key if necessary.
 
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo "Setting up ssh key"
@@ -19,86 +21,39 @@ fi
 ################################################################################
 # Install apt packages
 
-################################################################################
-# General utilities
-sudo apt install -y                                                            \
-    bat                                                                        \
-    curl                                                                       \
-    net-tools                                                                  \
-    silversearcher-ag                                                          \
-    stow                                                                       \
-    tmux                                                                       \
-    fd-find                                                                    \
-    wget
+package_pattern='^ *([^# ]+)'
+
+apt_list="apt.txt"
+sudo apt install -y --no-install-recommends \
+    $(grep -oE "$package_pattern" "$apt_list" | xargs)
 
 ################################################################################
-# Git
-sudo apt install -y                                                            \
-    make                                                                       \
-    git                                                                        \
-    git-delta
-
-################################################################################
-# C++
-sudo apt install -y                                                            \
-    clang                                                                      \
-    cmake                                                                      \
-    valgrind                                                                   \
-    rr                                                                         \
-    build-essential
-
-################################################################################
-# Lua
-sudo apt install -y                                                            \
-    lua5.1                                                                     \
-    lua5.1-dev                                                                 \
-    lua5.2                                                                     \
-    lua5.2-dev                                                                 \
-    lua5.3                                                                     \
-    lua5.3-dev                                                                 \
-    lua5.4                                                                     \
-    lua5.4-dev
-
-################################################################################
-# Python
-sudo apt install -y                                                            \
-    python3                                                                    \
-    python3-pip                                                                \
-    python-is-python3                                                          \
-    python3-dev                                                                \
-    libpython3-dev
-python -m ensurepip --upgrade
-pip install                                                                    \
-    yapf                                                                       \
-    cmakelang
-
-################################################################################
-# Go
-sudo apt install -y                                                            \
-    golang
-
-################################################################################
-# C#
-sudo apt install -y                                                            \
-    mono-complete
-
-################################################################################
-# Javascript
-sudo apt install -y                                                            \
-    nodejs                                                                     \
-    npm
-
-################################################################################
-# Java
-sudo apt install -y                                                            \
-    openjdk-17-jdk                                                             \
-    openjdk-17-jre
-
-################################################################################
-# Rust
+# Install Rust and Rust packages
 if ! command -v rustc &> /dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs      | sh
 fi
+
+cargo_list="cargo.txt"
+cargo install \
+    $(grep -oE "$package_pattern" "$cargo_list" | xargs)
+
+################################################################################
+# Install Lua packages
+luarocks_list="luarocks.txt"
+failures=""
+grep -oE "$package_pattern" "$luarocks_list" | while read -r rock; do
+    echo -n "Installing $rock... "
+    for version in 5.1 5.2 5.3 5.4; do
+        if luarocks --lua-version="$version" --local \
+                    install "$rock" > /dev/null 2>&1; then
+            echo -n "$version, "
+        else
+            failures+="Failed to build $rock for Lua $version\n"
+        fi
+    done
+    echo
+done
+echo $failures >&2
 
 ################################################################################
 # Install .dotfiles git repo and initialize.
@@ -110,8 +65,6 @@ function _git_clone_or_pull() {
         git clone "$1" "$2"
     fi
 }
-
-_git_clone_or_pull https://github.com/alexames/.dotfiles ~/.dotfiles
 
 # Install fzf.
 _git_clone_or_pull https://github.com/junegunn/fzf ~/.dotfiles/fzf/.fzf
