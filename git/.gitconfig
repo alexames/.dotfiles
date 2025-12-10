@@ -11,6 +11,7 @@
 [core]
 	excludesFile = ~/.gitignore_global
 	pager = delta
+	symlinks = true
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
@@ -61,6 +62,10 @@
 	track-all = "!for remote in `git branch -r | grep -v /HEAD`; do git checkout --track $remote ; done"
 	ta = track-all
 
+	# Switch to branch but don't change files in working directory.
+	# soft-switch = "!git symbolic-ref HEAD refs/heads/$1"
+	soft-switch = "!sh -c 'git symbolic-ref HEAD refs/heads/$1' -"
+
 	# Pretty log printers.
 	lg             = log       --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit
 	lgm            = log       --decorate --color --graph --pretty=format:'%C(bold blue)%h%Creset - %Cgreen(%cr)%Creset %s %C(bold blue)<%an>%C(auto)%d%Creset' --abbrev-commit HEAD...main^
@@ -94,7 +99,7 @@
 
 	# fzf enabled commands
 	fzf = !fzf -i --reverse --height=~50%
-  co  = !git ls-files           | git fzf    --multi --bind 'enter:become(echo "git checkout {+}" && git checkout      {+})'
+	co  = !git ls-files           | git fzf    --multi --bind 'enter:become(echo "git checkout {+}" && git checkout      {+})'
 	rv  = !git ls-modified        | git fzf    --multi --bind 'enter:become(echo "git checkout {+}" && git checkout      {+})'
 	a   = !git ls-modified        | git fzf    --multi --bind 'enter:become(echo "git add {+}"      && git add           {+})'
 	r   = !git ls-staged          | git fzf    --multi --bind 'enter:become(echo "git reset {+}"    && git reset --quiet {+})'
@@ -104,6 +109,7 @@
 	pf  = !git remote             | git fzf -1 --bind 'enter:become(git push --force  {1})'
 	rmb = !git ls-branch          | git fzf    --bind 'enter:become(git rm-branch     {1})'
 	s   = !git lsa-branch         | git fzf    --bind 'enter:become(git switch        {1})'
+	ss  = !git lsa-branch         | git fzf    --bind 'enter:become(git soft-switch   {1})'
 	rb  = !git ls-remote-branch   | git fzf    --bind 'enter:become(git rebase        {1})'
 
 	prd = "!if git merge-base --is-ancestor main HEAD; then git diff main HEAD; else echo \"not branched from main; run \\`git rebase main\\`\"; fi"
@@ -115,7 +121,7 @@
 	features = decorations
 	side-by-side = true
 	whitespace-error-style = 22 reverse
-  navigate = true  # use n and N to move between diff sections
+	navigate = true  # use n and N to move between diff sections
 
 [delta "interactive"]
 	keep-plus-minus-markers = false
