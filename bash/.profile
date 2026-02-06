@@ -25,9 +25,14 @@ eval "$(pip completion --bash)"
 # pipenv configuration.
 export PIPENV_VENV_IN_PROJECT=true
 
-echo "Active tmux sessions:"
-echo
-tmux ls
+case $- in
+    *i*)
+        echo "Active tmux sessions (switch: Ctrl+b s):"
+        echo
+        tmux ls 2>/dev/null || echo "  (none)"
+        echo
+        ;;
+esac
 
 # pipx binary directory.
 export PATH="~/.local/bin:${PATH}"
