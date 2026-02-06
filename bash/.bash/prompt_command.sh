@@ -76,19 +76,23 @@ function git_branch {
 
   local on_branch="On branch ([^${IFS}]*)"
   local on_commit="HEAD detached at ([^${IFS}]*)"
-  local sha="$(git rev-parse --short HEAD)"
+  local sha="$(git rev-parse --short HEAD 2>/dev/null)"
 
   if [[ $git_status =~ $on_branch ]]; then
     local branch=${BASH_REMATCH[1]}
-    echo "${COLOR_LIGHT_BLUE}${sha}${COLOR_WHITE}:${git_color}${branch}"
+    if [[ -n "$sha" ]]; then
+      echo "${git_color}${branch}${COLOR_WHITE}:${COLOR_LIGHT_BLUE}${sha}"
+    else
+      echo "${git_color}${branch}${COLOR_WHITE}:${COLOR_LIGHT_PURPLE}<no commits>"
+    fi
   elif [[ $git_status =~ $on_commit ]]; then
     local commit=${BASH_REMATCH[1]}
-    echo "${COLOR_LIGHT_BLUE}${sha}${COLOR_WHITE}:${git_color}${commit}"
+    echo "${git_color}${commit}${COLOR_WHITE}:${COLOR_LIGHT_BLUE}${sha}"
   fi
 }
 
 function git_last_commit {
-  echo "$(git log -1 --pretty=format:'%s' --abbrev-commit | sed 's/\\/\\\\/g')"
+  echo "$(git log -1 --pretty=format:'%s' --abbrev-commit 2>/dev/null | sed 's/\\/\\\\/g')"
 }
 
 function is_hg_repo() {
@@ -119,7 +123,11 @@ function vcs_prompt {
     vcs_last_commit="$(hg_last_commit)"
   fi
   if [ "$vcs" ]; then
-    echo "${COLOR_WHITE}[${vcs}${COLOR_WHITE}:${vcs_branch}${COLOR_WHITE}:${COLOR_LIGHT_PURPLE}${vcs_last_commit}${COLOR_WHITE}]\n"
+    if [[ -n "$vcs_last_commit" ]]; then
+      echo "${COLOR_WHITE}[${vcs}${COLOR_WHITE}:${vcs_branch}${COLOR_WHITE}:${COLOR_LIGHT_PURPLE}${vcs_last_commit}${COLOR_WHITE}]\n"
+    else
+      echo "${COLOR_WHITE}[${vcs}${COLOR_WHITE}:${vcs_branch}${COLOR_WHITE}]\n"
+    fi
   else
     echo ""
   fi
