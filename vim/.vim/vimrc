@@ -60,7 +60,7 @@ endif
 Plug 'rishi-opensource/vim-claude-code', { 'tag': 'v1.4.1' }
 
 " Filesystem navigation.
-Plug 'scrooloose/nerdtree'                " A file system explorer for the Vim editor.
+Plug 'preservim/nerdtree'                 " A file system explorer for the Vim editor.
 Plug 'vim-scripts/a.vim'                  " A few of quick commands to swtich between source files and header files quickly.
 Plug 'vim-scripts/bufkill.vim'            " This is a script to unload, delete or wipe a buffer without closing the window.
 
@@ -267,7 +267,7 @@ nmap <leader>dw :VimspectorWatch
 nmap <leader>do :VimspectorShowOutput
 
 """"""""""""""""""""""""""""""""""""""""
-" 'scrooloose/nerdtree'
+" 'preservim/nerdtree'
 
 let NERDTreeMinimalUI=1
 let NERDTreeShowHidden=1
