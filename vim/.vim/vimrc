@@ -176,7 +176,7 @@ set completeopt-=preview
 "                                   Keybinds                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-source $HOME/.vim/keybinds.vim
+execute 'source ' . g:VIM_CONFIG_ROOT . '/keybinds.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Plugins Options                                "
