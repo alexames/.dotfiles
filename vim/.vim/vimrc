@@ -242,7 +242,6 @@ let g:cmake_vimspector_default_configuration = {
 
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
 let g:vimspector_base_dir = g:VIM_CONFIG_ROOT . '/plugged/vimspector'
-let g:vimspector_enable_mappsings = 'HUMAN'
 nmap <leader>dd :call vimspector#Launch()<CR>
 nmap <leader>dx :VimspectorReset<CR>
 nmap <leader>de :VimspectorEval
