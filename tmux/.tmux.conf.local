@@ -368,6 +368,9 @@ tmux_conf_copy_to_os_clipboard=false
 
 # this is the place to override or undo settings
 
+# forward tmux's copy buffer to the system clipboard via OSC 52
+set -g set-clipboard on
+
 # increase history size
 set -g history-limit 10000
 
