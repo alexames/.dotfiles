@@ -57,6 +57,7 @@ if has('python3') && v:version >= 802 && (has('patch3995') || v:version >= 900)
 Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
 endif
 " Plug 'github/copilot.vim'
+Plug 'rishi-opensource/vim-claude-code', { 'tag': 'v1.4.1' }
 
 " Filesystem navigation.
 Plug 'scrooloose/nerdtree'                " A file system explorer for the Vim editor.
