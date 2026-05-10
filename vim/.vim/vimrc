@@ -99,11 +99,8 @@ let g:airline_theme='onedark'
 
 set title                  " Sets the titlebar of the terminal to be the name of the file.
 set hidden                 " Hides buffers rather than closing them when opening a new buffer.
-set nolazyredraw           " Don't redraw while executing macros.
 set noshowmode
 set cursorline             " Highlight the line the cursor is on.
-set magic                  " All characters except /[a-zA-Z0-9_]/ use their special meaning
-set history=1000           " Increases the command history.
 set nowrap                 " Forces lines to not wrap.
 set noerrorbells           " Does not make a sound when there is an error.
 set whichwrap+=<,>,h,l     " Backspace config.
@@ -118,7 +115,7 @@ set grepprg=grep\ -rnH\ $* " sets GNU grep to be the program to run when searchi
                            "   -n: show line numbers
                            "   -H: show filenames
 if !has('nvim')
-set ttymouse=xterm2        " Allow mouse to work through tmux.
+set ttymouse=sgr           " Allow mouse to work through tmux; sgr handles wide terminals.
 endif
 set mouse=a                " What the mouse pointer looks like in different modes.
 set guioptions=rLte        " Remove menu bar when using a GUI (gvim).
