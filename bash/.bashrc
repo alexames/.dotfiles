@@ -93,6 +93,7 @@ fi
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # Make sure to load .bashrc.local before sourcing prompt_command.sh so that the
 # NETWORK_INTERFACE can be defined locally if necessary.

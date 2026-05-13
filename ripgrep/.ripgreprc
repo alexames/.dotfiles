@@ -1,0 +1,29 @@
+# ripgrep config. Activated by setting RIPGREP_CONFIG_PATH=~/.ripgreprc
+# One flag per line; arguments go on the same line as their flag.
+
+--smart-case
+--max-columns=200
+--max-columns-preview
+--hidden
+
+--glob=!.git/*
+--glob=!node_modules/*
+--glob=!target/*
+--glob=!build/*
+--glob=!dist/*
+--glob=!.venv/*
+--glob=!__pycache__/*
+
+# File-type extras so `rg -tcmake`, `rg -tmd` etc. cover more.
+--type-add=cmake:CMakeLists.txt
+--type-add=cmake:*.cmake
+--type-add=web:*.{html,css,scss,js,jsx,ts,tsx,vue}
+--type-add=lua:*.{lua,rockspec}
+
+--colors=line:fg:yellow
+--colors=line:style:bold
+--colors=path:fg:green
+--colors=path:style:bold
+--colors=match:fg:black
+--colors=match:bg:yellow
+--colors=match:style:nobold
