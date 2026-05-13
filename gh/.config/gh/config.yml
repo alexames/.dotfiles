@@ -1,0 +1,15 @@
+# GitHub CLI config.  https://cli.github.com/manual/gh_config
+# Auth (oauth tokens) lives in hosts.yml — do NOT stow that; only config.yml.
+
+git_protocol: ssh
+editor: vim
+prompt: enabled
+pager: delta
+prefer_editor_prompt: enabled
+
+aliases:
+  co: pr checkout
+  pv: pr view --web
+  iv: issue view --web
+  prs: pr list --author "@me"
+  st: status
