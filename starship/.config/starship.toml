@@ -1,0 +1,68 @@
+# Starship prompt config.  https://starship.rs/config/
+# Enable in your shell with:  eval "$(starship init bash)"   (or zsh)
+
+add_newline = true
+command_timeout = 1000
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
+[character]
+success_symbol = "[\\$](bold green)"
+error_symbol   = "[\\$](bold red)"
+vimcmd_symbol  = "[<](bold green)"
+
+[directory]
+truncation_length = 4
+truncate_to_repo  = true
+style             = "bold blue"
+
+[git_branch]
+symbol = " "
+style  = "bold purple"
+
+[git_status]
+ahead     = "⇡${count}"
+behind    = "⇣${count}"
+diverged  = "⇕⇡${ahead_count}⇣${behind_count}"
+modified  = "!${count}"
+staged    = "+${count}"
+untracked = "?${count}"
+stashed   = "≡"
+conflicted = "✗"
+
+[cmd_duration]
+min_time = 2000      # ms
+format   = "[$duration]($style) "
+style    = "yellow"
+
+[hostname]
+ssh_only = true
+format   = "[@$hostname](bold red) "
+
+[username]
+show_always = false
+format      = "[$user]($style) "
+style_user  = "bold green"
+
+# Disable noisy language modules by default — re-enable per-project as needed.
+[python]
+disabled = true
+[nodejs]
+disabled = true
+[rust]
+disabled = true
+[golang]
+disabled = true
+[lua]
+disabled = true
+[package]
+disabled = true
