@@ -1,0 +1,35 @@
+# Global WSL2 settings. This file lives at %USERPROFILE%\.wslconfig on the
+# Windows side — stow won't link it there from inside WSL. Either symlink
+# manually from PowerShell, or just keep this versioned as a reference.
+#
+#   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
+#            -Target "\\wsl$\Ubuntu\home\alexanderames\.dotfiles\wsl\.wslconfig"
+#
+# Apply changes with:  wsl --shutdown   (next launch picks up the new config)
+
+[wsl2]
+# Memory and CPU caps. Adjust to your host's resources; defaults are 50% RAM.
+memory             = 16GB
+processors         = 8
+swap               = 4GB
+
+# Reclaim memory back to the host as processes free it.
+autoMemoryReclaim  = gradual
+
+# Use a sparse VHD so the disk shrinks when files are deleted.
+sparseVhd          = true
+
+# Use a more efficient networking mode (Windows 11 / recent WSL).
+networkingMode     = mirrored
+dnsTunneling       = true
+firewall           = true
+autoProxy          = true
+
+# Don't forward systemd-resolved 127.0.0.53; some VPN clients break with it.
+# generateResolvConf = false
+
+[experimental]
+hostAddressLoopback = true
+
+[boot]
+systemd = true
