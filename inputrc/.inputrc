@@ -1,0 +1,45 @@
+# GNU Readline config.
+# Affects every readline-using program: bash, python, psql, gdb, node, sqlite3,
+# etc. Reload in a running shell with: bind -f ~/.inputrc  (or Ctrl-x Ctrl-r)
+
+# Pick up the system defaults first so anything below just overrides.
+$include /etc/inputrc
+
+# ----- Completion --------------------------------------------------------------
+
+set completion-ignore-case on
+set completion-map-case on              # treat - and _ as equivalent
+set show-all-if-ambiguous on            # one Tab shows matches, no double-tap
+set show-all-if-unmodified on
+set mark-symlinked-directories on
+set visible-stats on                    # append /, *, @ to completion entries
+set colored-stats on
+set colored-completion-prefix on
+set completion-query-items 200          # quiet "Display N? (y/n)" prompts
+set page-completions off                # no pager for completion lists
+set skip-completed-text on              # don't duplicate text already past cursor
+
+# ----- General -----------------------------------------------------------------
+
+set bell-style none
+set echo-control-characters off         # no ^C clutter when interrupting
+set enable-bracketed-paste on           # safer pasting of multi-line content
+set horizontal-scroll-mode off
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# ----- History search ----------------------------------------------------------
+# Up/Down filter history by what you've already typed. Killer feature.
+
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+# Alt-. inserts last argument of previous command (already default, kept for visibility)
+"\e.": yank-last-arg
+
+$if Bash
+  # Bash-specific bindings can go here.
+$endif
