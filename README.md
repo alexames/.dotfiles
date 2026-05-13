@@ -22,6 +22,22 @@ This may fail due to the default execution policy. To fix this, run:
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
+## Windows tools (winget)
+
+Install the supporting tools used by this dotfiles config:
+
+```
+winget install --id DEVCOM.JetBrainsMonoNerdFont
+winget install --id dandavison.delta
+```
+
+- **JetBrainsMono Nerd Font** — required for file-type glyphs in Vim (NERDTree
+  via `vim-devicons`) and powerline separators in `vim-airline`. After
+  installing, set your terminal (Windows Terminal: Settings → profile →
+  Appearance → Font face) and gvim (`set guifont=JetBrainsMono\ Nerd\ Font:h11`)
+  to use it. Without a Nerd Font you'll see `?` in place of icons.
+- **delta** — referenced by the git config as the pager for `diff`/`log`/`show`.
+
 ## Bash
 
 Run the following command to bootstrap `sudo` and `wget`, and then run the install script:
