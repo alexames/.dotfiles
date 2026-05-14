@@ -169,6 +169,14 @@ autocmd! BufNew,BufAdd,BufWrite,BufNewFile,BufRead,BufEnter,FilechangedRO * : if
 " Disable autocomplete scratch preview window
 set completeopt-=preview
 
+" Auto reload files that have changed, provided there are no unsaved changes.
+set autoread
+" Trigger checktime when switching buffers or gaining focus
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification when a file is reloaded
+autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Keybinds                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
