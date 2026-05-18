@@ -173,6 +173,11 @@ nnoremap <f3> :NERDTreeFocus<CR>
 nnoremap <f4> :NERDTreeFind<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin: preservim/tagbar
+
+nnoremap <f6> :TagbarToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SwitchSourceHeader (replaces a.vim's :A)
 
 nnoremap <leader>a :A<CR>

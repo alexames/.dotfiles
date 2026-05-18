@@ -60,6 +60,7 @@ Plug 'rishi-opensource/vim-claude-code', { 'tag': 'v1.4.1' }
 
 " Filesystem navigation.
 Plug 'preservim/nerdtree'                 " A file system explorer for the Vim editor.
+Plug 'preservim/tagbar'                   " Symbol outline sidebar.
 Plug 'vim-scripts/bufkill.vim'            " This is a script to unload, delete or wipe a buffer without closing the window.
 
 " Editor improvement plugins.
