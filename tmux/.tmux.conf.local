@@ -377,6 +377,16 @@ set -g history-limit 10000
 # start with mouse mode enabled
 set -g mouse on
 
+# disable right-click context menus (they include a Kill option that's easy
+# to hit by accident); pass the click through to the focused pane so apps
+# inside tmux that handle mouse events still see it
+bind -T root MouseDown3Pane select-pane -t = \; send-keys -M
+unbind -T root MouseDown3Status
+unbind -T root MouseDown3StatusLeft
+unbind -T root M-MouseDown3Pane
+unbind -T root M-MouseDown3Status
+unbind -T root M-MouseDown3StatusLeft
+
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
 #set -g status-keys vi
