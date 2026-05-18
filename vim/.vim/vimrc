@@ -33,7 +33,6 @@ Plug 'rakr/vim-one'
 " Utility libraries, prereq for other libraries.
 Plug 'google/vim-maktaba'                 " Maktaba is a vimscript plugin library. It is designed for plugin authors.
 Plug 'google/vim-glaive'                  " Glaive is a utility for configuring maktaba plugins.
-Plug 'kana/vim-textobj-user'              " Helps define custom text objects. Needed for parameter text objects below.
 Plug 'tpope/vim-dispatch'                 " Async utilities, mostly useful for other plugins.
 
 Plug 'ryanoasis/vim-devicons'
@@ -67,7 +66,6 @@ Plug 'vim-scripts/bufkill.vim'            " This is a script to unload, delete o
 Plug 'nelstrom/vim-visual-star-search'    " Select text in visual mode and then hit * and # to search for it elsewhere.
 Plug 'tpope/vim-obsession'                " Make managing vim session easier.
 Plug 'tpope/vim-repeat'                   " Repeat.vim remaps . in a way that plugins can tap into it.
-Plug 'sgur/vim-textobj-parameter'         " This script defines a parameter text object.
 Plug 'tpope/vim-abolish'                  " Improved case sensitive substitution and variable name coercion.
 Plug 'tpope/vim-surround'                 " Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more.
 Plug 'tomtom/tcomment_vim'                " Filetype aware comment toggle (maintained upstream of vim-scripts/tComment).
