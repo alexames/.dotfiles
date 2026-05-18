@@ -173,6 +173,12 @@ nnoremap <f3> :NERDTreeFocus<CR>
 nnoremap <f4> :NERDTreeFind<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin: alexames/vim-code-workspace
+
+nnoremap <leader>W :VSWorkspaceToggle<CR>
+nnoremap <leader>p :VSWFiles<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin: preservim/tagbar
 
 nnoremap <f6> :TagbarToggle<CR>
