@@ -205,7 +205,7 @@ nmap <Leader>dl <Plug>VimspectorStepInto
 nmap <Leader>dj <Plug>VimspectorStepOver
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin: vim-scripts/tComment
+" Plugin: tomtom/tcomment_vim
 
 nnoremap g/ :TComment<CR>
 vnoremap g/ :TComment<CR>

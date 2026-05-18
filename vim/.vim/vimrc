@@ -70,7 +70,7 @@ Plug 'tpope/vim-repeat'                   " Repeat.vim remaps . in a way that pl
 Plug 'sgur/vim-textobj-parameter'         " This script defines a parameter text object.
 Plug 'tpope/vim-abolish'                  " Improved case sensitive substitution and variable name coercion.
 Plug 'tpope/vim-surround'                 " Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more.
-Plug 'vim-scripts/tComment'               " Filetype aware comment toggle.
+Plug 'tomtom/tcomment_vim'                " Filetype aware comment toggle (maintained upstream of vim-scripts/tComment).
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                   " Fuzzy Finder functionality for buffers, history, files, etc.
 Plug 'vim-scripts/argtextobj.vim'         " Adds argument text objects.
