@@ -55,6 +55,8 @@ Plug 'google/vim-codefmt'                 " clang-format integration.
 if has('python3') && v:version >= 802 && (has('patch3995') || v:version >= 900)
 Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
 endif
+Plug 'SirVer/ultisnips'                   " Snippet engine.
+Plug 'honza/vim-snippets'                 " Snippet library for ultisnips.
 " Plug 'github/copilot.vim'
 Plug 'rishi-opensource/vim-claude-code', { 'tag': 'v1.4.1' }
 
@@ -301,6 +303,16 @@ let g:ycm_extra_conf_vim_data = [
 let g:ycm_global_ycm_extra_conf = '~/.vim/global_extra_conf.py'
 let g:ycm_auto_hover=''
 let g:ycm_clangd_args = ['--clang-tidy']
+
+""""""""""""""""""""""""""""""""""""""""
+" 'SirVer/ultisnips'
+" Triggers live in insert/select mode; safe alongside YCM and the normal-mode
+" <C-j>/<C-k> window navigation in keybinds.vim.
+
+let g:UltiSnipsExpandTrigger       = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+let g:UltiSnipsEditSplit           = 'vertical'
 
 """"""""""""""""""""""""""""""""""""""""
 " SwitchSourceHeader — replaces a.vim. Toggles between .h/.hpp/.hh/.hxx and
