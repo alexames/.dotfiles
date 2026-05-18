@@ -81,6 +81,7 @@ Plug 'tomtom/tcomment_vim'                " Filetype aware comment toggle (maint
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                   " Fuzzy Finder functionality for buffers, history, files, etc.
 Plug 'vim-scripts/argtextobj.vim'         " Adds argument text objects.
+Plug 'romainl/vim-qf'                     " Quickfix UX: auto-close after jump, navigation shortcuts.
 
 " Visual improvements.
 Plug 'junegunn/vim-peekaboo'              " When using registers, pop open a window to display them
