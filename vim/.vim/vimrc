@@ -40,7 +40,9 @@ Plug 'ryanoasis/vim-devicons'
 " IDE Feature integrations.
 "" Git
 Plug 'tpope/vim-fugitive'                 " Git integration.
+Plug 'tpope/vim-rhubarb'                  " GitHub companion to fugitive; provides :GBrowse.
 Plug 'airblade/vim-gitgutter'             " Git in-file line changes.
+Plug 'Eliot00/git-lens.vim'               " Inline blame on current line.
 
 " Language plugins.
 "" C++ Plugins
