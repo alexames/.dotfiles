@@ -173,6 +173,11 @@ nnoremap <f3> :NERDTreeFocus<CR>
 nnoremap <f4> :NERDTreeFind<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SwitchSourceHeader (replaces a.vim's :A)
+
+nnoremap <leader>a :A<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin: junegunn/fzf.vim
 
 nnoremap <C-p> :Files<cr>

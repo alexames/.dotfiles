@@ -61,7 +61,6 @@ Plug 'rishi-opensource/vim-claude-code', { 'tag': 'v1.4.1' }
 
 " Filesystem navigation.
 Plug 'preservim/nerdtree'                 " A file system explorer for the Vim editor.
-Plug 'vim-scripts/a.vim'                  " A few of quick commands to swtich between source files and header files quickly.
 Plug 'vim-scripts/bufkill.vim'            " This is a script to unload, delete or wipe a buffer without closing the window.
 
 " Editor improvement plugins.
@@ -263,12 +262,6 @@ let NERDTreeWinSize=48
 let g:webdevicons_conceal_nerdtree_brackets = 1
 
 """"""""""""""""""""""""""""""""""""""""
-" 'vim-scripts/a.vim'
-
-let g:alternateExtensions_h = "cc,cpp,cxx,c,mm,m"
-let g:alternateExtensions_mm = "h"
-
-""""""""""""""""""""""""""""""""""""""""
 " 'vim-airline/vim-airline'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -308,4 +301,30 @@ let g:ycm_extra_conf_vim_data = [
 let g:ycm_global_ycm_extra_conf = '~/.vim/global_extra_conf.py'
 let g:ycm_auto_hover=''
 let g:ycm_clangd_args = ['--clang-tidy']
+
+""""""""""""""""""""""""""""""""""""""""
+" SwitchSourceHeader — replaces a.vim. Toggles between .h/.hpp/.hh/.hxx and
+" .cc/.cpp/.cxx/.c/.m/.mm in the same directory.
+
+function! s:SwitchSourceHeader() abort
+  let l:ext = expand('%:e')
+  let l:base = expand('%:p:r')
+  let l:header_exts = ['h', 'hpp', 'hxx', 'hh']
+  let l:source_exts = ['cc', 'cpp', 'cxx', 'c', 'mm', 'm']
+  let l:candidates = []
+  if index(l:header_exts, l:ext) >= 0
+    let l:candidates = l:source_exts
+  elseif index(l:source_exts, l:ext) >= 0
+    let l:candidates = l:header_exts
+  endif
+  for l:cand in l:candidates
+    let l:path = l:base . '.' . l:cand
+    if filereadable(l:path)
+      execute 'edit ' . fnameescape(l:path)
+      return
+    endif
+  endfor
+  echohl WarningMsg | echo 'No alternate file found' | echohl None
+endfunction
+command! A call s:SwitchSourceHeader()
 
