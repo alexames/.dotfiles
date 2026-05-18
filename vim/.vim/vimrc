@@ -55,6 +55,7 @@ Plug 'google/vim-codefmt'                 " clang-format integration.
 if has('python3') && v:version >= 802 && (has('patch3995') || v:version >= 900)
 Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
 endif
+Plug 'yegappan/lsp'                       " Pure Vim9 LSP client; scoped to Lua (YCM handles C/C++/Python).
 Plug 'SirVer/ultisnips'                   " Snippet engine.
 Plug 'honza/vim-snippets'                 " Snippet library for ultisnips.
 " Plug 'github/copilot.vim'
@@ -305,6 +306,28 @@ let g:ycm_auto_hover=''
 let g:ycm_clangd_args = ['--clang-tidy']
 
 """"""""""""""""""""""""""""""""""""""""
+" 'yegappan/lsp' — scoped to Lua only. YCM handles C/C++/Python.
+
+function! s:SetupYegappanLsp() abort
+  if !exists('*LspAddServer') || !executable('lua-language-server')
+    return
+  endif
+  call LspOptionsSet(#{
+        \   autoComplete: v:true,
+        \   showSignature: v:true,
+        \   echoSignature: v:false,
+        \   useQuickfixForLocations: v:false,
+        \ })
+  call LspAddServer([#{
+        \   name: 'lua-language-server',
+        \   filetype: 'lua',
+        \   path: exepath('lua-language-server'),
+        \   args: [],
+        \ }])
+endfunction
+autocmd VimEnter * call s:SetupYegappanLsp()
+
+""""""""""""""""""""""""""""""""""""""""
 " 'SirVer/ultisnips'
 " Triggers live in insert/select mode; safe alongside YCM and the normal-mode
 " <C-j>/<C-k> window navigation in keybinds.vim.
@@ -313,6 +336,26 @@ let g:UltiSnipsExpandTrigger       = '<C-j>'
 let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:UltiSnipsEditSplit           = 'vertical'
+
+""""""""""""""""""""""""""""""""""""""""
+" stylua — format-on-save for Lua.
+
+if executable('stylua')
+  function! s:FormatLua() abort
+    let l:view = winsaveview()
+    silent! execute '%!stylua --search-parent-directories --stdin-filepath ' . shellescape(expand('%')) . ' -'
+    if v:shell_error
+      silent! undo
+      echohl WarningMsg | echo 'stylua failed; buffer unchanged' | echohl None
+    endif
+    call winrestview(l:view)
+  endfunction
+  command! FormatLua call s:FormatLua()
+  augroup auto_format_lua
+    autocmd!
+    autocmd BufWritePre *.lua FormatLua
+  augroup END
+endif
 
 """"""""""""""""""""""""""""""""""""""""
 " SwitchSourceHeader — replaces a.vim. Toggles between .h/.hpp/.hh/.hxx and
