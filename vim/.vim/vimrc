@@ -118,10 +118,15 @@ set smartindent            " Intelligently guess the indentation level of the ne
 set number                 " Display the absolute line number for the current line.
 set formatoptions-=t       " Don't wrap to new lines at 80 characters automatically.
 set noswapfile             " Disable swap files. I save often enough that these just get in the way.
-set grepprg=grep\ -rnH\ $* " sets GNU grep to be the program to run when searching.
-                           "   -r: recursive by default
-                           "   -n: show line numbers
-                           "   -H: show filenames
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
+else
+  set grepprg=grep\ -rnH\ $* " sets GNU grep to be the program to run when searching.
+                             "   -r: recursive by default
+                             "   -n: show line numbers
+                             "   -H: show filenames
+endif
 if !has('nvim')
 set ttymouse=sgr           " Allow mouse to work through tmux; sgr handles wide terminals.
 endif
