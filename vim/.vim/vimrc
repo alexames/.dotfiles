@@ -273,6 +273,13 @@ nmap <leader>do :VimspectorShowOutput
 let NERDTreeMinimalUI=1
 let NERDTreeShowHidden=1
 let NERDTreeWinSize=48
+if has('win32')
+  " Locked Windows profile/system files that NERDTree can't stat.
+  " NERDTreeIgnore is too late — it runs after Path construction, which is
+  " what throws on these. wildignore + RespectWildIgnore filters at glob time.
+  let g:NERDTreeRespectWildIgnore = 1
+  set wildignore+=NTUSER.DAT*,ntuser.dat*,ntuser.ini,desktop.ini,Thumbs.db
+endif
 
 let g:webdevicons_conceal_nerdtree_brackets = 1
 
