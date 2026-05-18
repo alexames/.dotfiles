@@ -87,6 +87,7 @@ Plug 'romainl/vim-qf'                     " Quickfix UX: auto-close after jump, 
 Plug 'junegunn/vim-peekaboo'              " When using registers, pop open a window to display them
 Plug 'junegunn/rainbow_parentheses.vim'   " Make parens multicolored and matching
 Plug 'sheerun/vim-polyglot'               " Language packs for syntax highlighting.
+Plug 'bfrg/vim-cpp-modern'                " Modern C++20/23 syntax highlighting; loaded after polyglot to win.
 
 " Additional utilities.
 Plug 'godlygeek/tabular'                  " Table alignment plugin.
