@@ -1,0 +1,34 @@
+# Secrets
+.credentials.json
+mcp-needs-auth-cache.json
+
+# Machine-specific configs (absolute paths)
+mcp.json
+.mcp.json
+
+# Project memories (may contain secrets)
+projects/
+
+# Ephemeral / session data
+history.jsonl
+file-history/
+shell-snapshots/
+debug/
+ide/
+plans/
+todos/
+backups/
+sessions/
+stats-cache.json
+.last-cleanup
+
+# Caches and telemetry
+cache/
+statsig/
+telemetry/
+downloads/
+plugins/
+*.log
+*.lock
+*.tmp
+
