@@ -114,6 +114,12 @@
 
 	prd = "!if git merge-base --is-ancestor main HEAD; then git diff main HEAD; else echo \"not branched from main; run \\`git rebase main\\`\"; fi"
 
+	# Prune local branches fully merged into the remote default branch.
+	# Skips branches checked out in a worktree (non-empty %(worktreepath)),
+	# which includes the current branch, so `git branch -d` never errors on them.
+	prune-branches = "!git fetch -p && git branch --merged origin/HEAD --format '%(refname:short)%09%(worktreepath)' | awk -F'\\t' 'length($2)==0{print $1}' | grep -vE '^(main|master|develop)$' | xargs -r git branch -d"
+	pb = prune-branches
+
 [interactive]
 	diffFilter = delta --color-only --features=interactive
 
