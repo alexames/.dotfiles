@@ -15,9 +15,14 @@ cd ~/.dotfiles
 ./install.sh
 ```
 
-`install.sh` is idempotent — safe to re-run. The script is what actually
-generates an SSH key and prompts you to add it to GitHub; from that point on,
-git's `insteadOf` rule rewrites GitHub URLs to use SSH.
+`install.sh` is idempotent — safe to re-run. If `~/.ssh/id_ed25519` doesn't
+exist, the script first tries (on WSL) to copy the Windows user's keys from
+`%USERPROFILE%\.ssh`; otherwise it generates a new key and prompts you to add
+it to GitHub. From that point on, git's `insteadOf` rule rewrites GitHub URLs
+to use SSH.
+
+Pre-existing files that would block stow (e.g. Ubuntu's default `~/.bashrc`)
+are moved to `~/.dotfiles-backup/<timestamp>/` rather than overwritten.
 
 ### Flags
 

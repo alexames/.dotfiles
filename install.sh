@@ -69,10 +69,59 @@ git_clone_or_pull() {
 
 # ----- SSH key -----------------------------------------------------------------
 
+is_wsl() {
+    grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null
+}
+
+# Print the Windows user's home directory as a Linux path (e.g. /mnt/c/Users/me).
+windows_home() {
+    is_wsl && command -v cmd.exe >/dev/null 2>&1 || return 1
+    local winpath
+    # cd to a Windows drive first so cmd.exe doesn't warn about UNC paths.
+    winpath=$(cd /mnt/c && cmd.exe /c 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')
+    [[ -n "$winpath" && "$winpath" != *%* ]] || return 1
+    wslpath -u "$winpath"
+}
+
+# On WSL, reuse the Windows user's SSH keys so both sides share one identity.
+# Files are copied (not symlinked) because ssh refuses keys with the loose
+# permissions that /mnt/c reports.
+import_windows_ssh_keys() {
+    local winhome src
+    winhome=$(windows_home) || return 1
+    src="$winhome/.ssh"
+    compgen -G "$src/id_*.pub" >/dev/null || return 1
+
+    log "Importing SSH keys from $src"
+    install -d -m 700 "$HOME/.ssh"
+    local f name
+    for f in "$src"/id_*; do
+        name=$(basename "$f")
+        if [[ -e "$HOME/.ssh/$name" ]]; then
+            continue
+        elif [[ "$name" == *.pub ]]; then
+            install -m 644 "$f" "$HOME/.ssh/$name"
+        else
+            install -m 600 "$f" "$HOME/.ssh/$name"
+        fi
+    done
+
+    # Merge known_hosts so hosts trusted on Windows are trusted here too.
+    if [[ -f "$src/known_hosts" ]]; then
+        local merged
+        merged=$(cat "$HOME/.ssh/known_hosts" "$src/known_hosts" 2>/dev/null \
+                 | tr -d '\r' | awk 'NF && !seen[$0]++')
+        printf '%s\n' "$merged" > "$HOME/.ssh/known_hosts"
+        chmod 644 "$HOME/.ssh/known_hosts"
+    fi
+    [[ -f "$HOME/.ssh/id_ed25519" ]]
+}
+
 setup_ssh_key() {
     if [[ -f "$HOME/.ssh/id_ed25519" ]]; then
         return 0
     fi
+    import_windows_ssh_keys && return 0
     log "Generating SSH key"
     ssh-keygen -t ed25519 -C 'Alexander.Ames@gmail.com' -q -N ""
     eval "$(ssh-agent -s)" >/dev/null
@@ -95,9 +144,21 @@ install_apt() {
     sudo add-apt-repository -y multiverse >/dev/null
     sudo apt-get update -qq
 
-    # shellcheck disable=SC2046
-    sudo apt-get install -y --no-install-recommends \
-        $(read_pkg_list apt.txt | xargs)
+    # A single unknown package makes apt-get abort the whole install, and
+    # package names drift between Ubuntu releases. Install what exists and
+    # warn about the rest.
+    local all=() available=() missing=()
+    mapfile -t all < <(read_pkg_list apt.txt | sort -u)
+    mapfile -t available < <(apt-cache policy "${all[@]}" 2>/dev/null | awk '
+        /^[^ ]/                            { name = $0; sub(/:$/, "", name) }
+        /^  Candidate:/ && $2 != "(none)"  { print name }' | sort -u)
+    mapfile -t missing < <(comm -23 <(printf '%s\n' "${all[@]}") \
+                                    <(printf '%s\n' "${available[@]}"))
+    if [[ ${#missing[@]} -gt 0 ]]; then
+        warn "No install candidate (skipping): ${missing[*]}"
+    fi
+
+    sudo apt-get install -y --no-install-recommends "${available[@]}"
 }
 
 # ----- Rust / cargo ------------------------------------------------------------
@@ -105,12 +166,15 @@ install_apt() {
 install_rust() {
     [[ $SKIP_CARGO -eq 1 ]] && { log "Skipping cargo"; return; }
 
-    if ! command -v cargo >/dev/null 2>&1; then
+    if ! command -v cargo >/dev/null 2>&1 && [[ ! -x "$HOME/.cargo/bin/cargo" ]]; then
         log "Installing Rust toolchain"
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        # shellcheck source=/dev/null
-        source "$HOME/.cargo/env"
+        # --no-modify-path: bash/.bashrc already sources ~/.cargo/env, and
+        # rustup's edits to ~/.bashrc/~/.profile would block stow.
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+            | sh -s -- -y --no-modify-path
     fi
+    # shellcheck source=/dev/null
+    [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
     local pkgs
     pkgs=$(read_pkg_list cargo.txt | xargs)
@@ -165,16 +229,14 @@ install_vim() {
     local src="$DOTFILES_DIR/vim/.vim/src/vim"
     git_clone_or_pull https://github.com/vim/vim "$src"
 
-    # Skip rebuild if the local source is at the same commit as the installed binary.
-    local installed_ver=""
-    if command -v vim >/dev/null 2>&1; then
-        installed_ver=$(vim --version | head -1 | awk '{print $5}')
-    fi
-    local src_ver
-    src_ver=$(git -C "$src" describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "")
-
-    if [[ -n "$installed_ver" && -n "$src_ver" && "$installed_ver" == "$src_ver" ]]; then
-        log "vim $installed_ver already current — skipping rebuild (use --skip-vim to silence)"
+    # Skip rebuild if we already installed this exact commit. (Comparing
+    # `vim --version` against the git tag never matched: one is "9.1", the
+    # other "9.1.1234".) The stamp lives in vim/.vim/src/, which is gitignored.
+    local stamp="$DOTFILES_DIR/vim/.vim/src/.installed-commit"
+    local head
+    head=$(git -C "$src" rev-parse HEAD)
+    if [[ -x /usr/local/bin/vim && -f "$stamp" && "$(<"$stamp")" == "$head" ]]; then
+        log "vim already built from ${head:0:12} — skipping rebuild"
         return
     fi
 
@@ -190,6 +252,7 @@ install_vim() {
         make -j"$(nproc)"
         sudo make install
     )
+    echo "$head" > "$stamp"
 }
 
 # ----- Third-party config repos ------------------------------------------------
@@ -197,7 +260,9 @@ install_vim() {
 install_thirdparty() {
     log "Cloning third-party config repos"
     git_clone_or_pull https://github.com/junegunn/fzf "$DOTFILES_DIR/fzf/.fzf"
-    "$DOTFILES_DIR/fzf/.fzf/install" --key-bindings --completion --no-update-rc
+    # Binary only: shell integration lives in the tracked fzf/.fzf.bash. A full
+    # install would generate ~/.fzf.bash itself, which then blocks stow.
+    "$DOTFILES_DIR/fzf/.fzf/install" --bin
 
     git_clone_or_pull https://github.com/gpakosz/.tmux "$DOTFILES_DIR/tmux/.tmux"
 }
@@ -207,7 +272,13 @@ install_thirdparty() {
 install_starship() {
     command -v starship >/dev/null 2>&1 && return 0
     confirm "Install starship prompt?" || return 0
-    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+    # Install into ~/.local/bin (already on PATH via .profile) so no sudo is
+    # needed; the upstream installer can't prompt for sudo without a TTY.
+    mkdir -p "$HOME/.local/bin"
+    if ! curl -sS https://starship.rs/install.sh \
+            | sh -s -- --yes --bin-dir "$HOME/.local/bin"; then
+        warn "starship install failed — continuing without it"
+    fi
 }
 
 # ----- stow --------------------------------------------------------------------
@@ -233,11 +304,21 @@ run_stow() {
 
     log "Stowing: ${packages[*]}"
 
-    # Dry-run first so we surface conflicts cleanly instead of half-applying.
-    if ! stow -d "$DOTFILES_DIR" -t "$HOME" -nv "${packages[@]}" 2>&1 \
-            | grep -E '(conflict|existing target)' >&2; then
-        : # no conflicts surfaced
-    fi
+    # Dry-run first. A fresh machine ships its own ~/.bashrc and ~/.profile
+    # (and tools like rustup or Claude Code write files too), which stow
+    # refuses to overwrite. Move those aside into a timestamped backup instead
+    # of aborting.
+    local backup_dir
+    backup_dir="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+    local target
+    while IFS= read -r target; do
+        [[ -e "$HOME/$target" || -L "$HOME/$target" ]] || continue
+        mkdir -p "$backup_dir/$(dirname "$target")"
+        mv "$HOME/$target" "$backup_dir/$target"
+        warn "Moved existing ~/$target to $backup_dir/$target"
+    done < <(stow -d "$DOTFILES_DIR" -t "$HOME" -n "${packages[@]}" 2>&1 | sed -nE \
+        -e 's/.* over existing target (.+) since neither a link nor a directory.*/\1/p' \
+        -e 's/.*existing target is (neither a link nor a directory|not owned by stow): (.+)$/\2/p')
 
     stow -d "$DOTFILES_DIR" -t "$HOME" -R "${packages[@]}"
 }
@@ -262,6 +343,7 @@ Next steps:
   - Enable starship in your shell:  echo 'eval "$(starship init bash)"' >> ~/.bashrc.local
   - Authenticate gh:                gh auth login
   - For WSL: symlink ~/.dotfiles/wsl/.wslconfig to %USERPROFILE%\.wslconfig from PowerShell
+  - Displaced pre-existing files (if any) are in ~/.dotfiles-backup/
 EOF
 }
 

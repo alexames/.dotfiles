@@ -20,7 +20,7 @@ export PATH="$HOME/.local/bin:$PATH"
 [ -r ~/.profile.local ] && source ~/.profile.local
 
 # pip configuration.
-eval "$(pip completion --bash)"
+command -v pip >/dev/null 2>&1 && eval "$(pip completion --bash)"
 
 # pipenv configuration.
 export PIPENV_VENV_IN_PROJECT=true
@@ -34,8 +34,7 @@ case $- in
         ;;
 esac
 
-# pipx binary directory.
-export PATH="~/.local/bin:${PATH}"
+# pipx installs into ~/.local/bin, which is already on PATH above.
 
 # Node configuration.
-export PATH=${PATH}:/home/alex/bin/node/bin
+export PATH="${PATH}:$HOME/bin/node/bin"

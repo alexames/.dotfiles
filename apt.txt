@@ -5,7 +5,7 @@ eza     # ls replacement
 bat     # cat replacement
 fd-find # find replacement
 duf     # df replacement
-tldr    # man replacement
+tealdeer # tldr client (the old 'tldr' package is gone)
 
 # Search tools
 silversearcher-ag
@@ -23,7 +23,7 @@ glances
 # Networking
 mtr    # replacement for traceroute + ping
 httpie # replacement for curl/wget in many cases
-dnsutils
+bind9-dnsutils # dig, nslookup (was dnsutils)
 
 # System navigator
 nnn
@@ -47,7 +47,7 @@ tig
 # General dev packages
 build-essential
 catch2
-libatlas-base-dev
+libopenblas-dev # replaces libatlas-base-dev (dropped from Ubuntu)
 libbenchmark-dev
 libblas-dev
 libboost-all-dev
@@ -91,7 +91,6 @@ graphviz
 binutils
 clang
 cmake
-lld
 
 # Debugging and analysis
 elfutils
@@ -156,15 +155,16 @@ python3-venv
 # Go
 golang
 
-# C#
+# C#  (mono-complete has no candidate on Ubuntu 26.04; install.sh skips
+# unavailable packages with a warning)
 mono-complete
 
 # Javascript
-nodejs                                                                     \
+nodejs
 npm
 
 # Java
-openjdk-17-jdk                                                             \
+openjdk-17-jdk
 openjdk-17-jre
 
 # Rust
