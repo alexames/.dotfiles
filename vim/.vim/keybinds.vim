@@ -156,7 +156,7 @@ xnoremap <S-T> :Tab /\|<CR>
 " Plugin: 'ilyachur/cmake4vim'
 
 nnoremap <C-t> :FZFCMakeSelectTarget<CR>
-nnoremap <leader>b :CMakeBuild<CR>
+nnoremap <leader>cb :CMakeBuild<CR>
 nnoremap <f5> :CMakeRun<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -180,17 +180,20 @@ nnoremap <f6> :TagbarToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin: vim-scripts/bufkill.vim
 "
-" bufkill's defaults live under <leader>b (bd, bw, bun, ...), which makes
-" <leader>b (CMakeBuild) wait out 'timeoutlen'. Mapping its <Plug> targets
-" here stops the plugin creating those defaults; <leader>k is otherwise unused.
+" <leader>b is the buffer prefix. Nothing is mapped to <leader>b itself, so
+" none of these wait on 'timeoutlen'. Mapping the <Plug> targets here also
+" stops the plugin creating its own defaults (bd, bun, bundo, ...).
 
-nmap <silent> <leader>kb    <Plug>BufKillBack
-nmap <silent> <leader>kf    <Plug>BufKillForward
-nmap <silent> <leader>ka    <Plug>BufKillAlt
-nmap <silent> <leader>kun   <Plug>BufKillBun
-nmap <silent> <leader>kd    <Plug>BufKillBd
-nmap <silent> <leader>kw    <Plug>BufKillBw
-nmap <silent> <leader>kundo <Plug>BufKillUndo
+nmap <silent> <leader>bk <Plug>BufKillBd
+nmap <silent> <leader>bK <Plug>BufKillBangBd
+nmap <silent> <leader>bw <Plug>BufKillBw
+nmap <silent> <leader>bW <Plug>BufKillBangBw
+nmap <silent> <leader>bu <Plug>BufKillBun
+nmap <silent> <leader>bU <Plug>BufKillBangBun
+nmap <silent> <leader>br <Plug>BufKillUndo
+nmap <silent> <leader>bb <Plug>BufKillBack
+nmap <silent> <leader>bf <Plug>BufKillForward
+nmap <silent> <leader>ba <Plug>BufKillAlt
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SwitchSourceHeader (replaces a.vim's :A)
