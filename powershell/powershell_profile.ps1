@@ -3,6 +3,10 @@ Get-ChildItem -Recurse -Directory ~/Programming/vcpkg/installed/x64-windows/tool
 
 New-Alias -Name g4 -Value p4
 
+# Windows Terminal renders 24-bit colour but does not advertise it. vim, bat and
+# delta all look at COLORTERM to decide.
+if ($env:WT_SESSION -and -not $env:COLORTERM) { $env:COLORTERM = 'truecolor' }
+
 $ESC = [char]27
 $NEWLINE = '
 '
