@@ -11,6 +11,12 @@
 export EDITOR='vim'
 export VISUAL='vim'
 
+# Windows Terminal renders 24-bit colour but does not advertise it. tmux (in
+# its 'auto' mode), vim, bat and delta all look at COLORTERM to decide.
+if [ -n "$WT_SESSION" ] && [ -z "$COLORTERM" ]; then
+    export COLORTERM=truecolor
+fi
+
 # set PATH so it includes user's private bin if it exists
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"

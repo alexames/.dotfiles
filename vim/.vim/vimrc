@@ -115,6 +115,17 @@ silent! packadd! hlyank                    " Briefly highlight yanked text.
 "                                Basic Options                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Use 24-bit colour when the terminal advertises it, so the colorscheme shows
+" its real palette instead of the nearest of 256 colours. Inside tmux Vim does
+" not know the escape sequences by itself.
+if has('termguicolors') && $COLORTERM =~# 'truecolor\|24bit'
+  if &term =~# '^\%(screen\|tmux\)'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  endif
+  set termguicolors
+endif
+
 set background=dark        " Use the dark colorscheme instead of the light one.
 silent! colorscheme onedark
 let g:airline_theme='onedark'
