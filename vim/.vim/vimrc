@@ -39,7 +39,6 @@ Plug 'joshdick/onedark.vim'
 
 " Utility libraries, prereq for other libraries.
 Plug 'google/vim-maktaba'                 " Maktaba is a vimscript plugin library. It is designed for plugin authors.
-Plug 'google/vim-glaive'                  " Glaive is a utility for configuring maktaba plugins.
 Plug 'tpope/vim-dispatch'                 " Async utilities, mostly useful for other plugins.
 
 Plug 'ryanoasis/vim-devicons'
