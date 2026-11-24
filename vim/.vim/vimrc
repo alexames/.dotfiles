@@ -60,7 +60,7 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'itspriddle/vim-shellcheck'
 "" Language Agnostic
 Plug 'google/vim-codefmt'                 " clang-format integration.
-if has('python3') && v:version >= 802 && (has('patch3995') || v:version >= 900)
+if has('python3') && has('patch-8.2.3995')
 Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
 endif
 Plug 'yegappan/lsp'                       " Pure Vim9 LSP client; scoped to Lua (YCM handles C/C++/Python).
