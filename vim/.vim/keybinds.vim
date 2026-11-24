@@ -243,4 +243,4 @@ nnoremap <leader>r :YcmCompleter RefactorRename
 " Plugin 'google/vim-codefmt'
 
 nnoremap <silent> <leader>= :call Preserve("FormatCode")<CR>
-vnoremap <silent> <leader>= :call Preserve("FormatLines")<CR>
+xnoremap <silent> <leader>= :FormatLines<CR>
