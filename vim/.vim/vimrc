@@ -121,6 +121,10 @@ let g:airline_theme='onedark'
 
 set title                  " Sets the titlebar of the terminal to be the name of the file.
 set hidden                 " Hides buffers rather than closing them when opening a new buffer.
+set diffopt+=vertical,algorithm:histogram " Side-by-side diffs with a less noisy algorithm.
+if has('patch-9.0.0001')
+  set diffopt+=linematch:60 " Align changed lines within a hunk.
+endif
 if has('patch-9.0.1921')
   set jumpoptions=stack    " <C-o>/<C-i> behave like browser back/forward.
 endif
