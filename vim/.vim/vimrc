@@ -3,6 +3,12 @@
 
 set nocompatible
 
+" All autocmds defined in this file go in this group, so that re-sourcing the
+" vimrc replaces them instead of stacking duplicates.
+augroup vimrc
+  autocmd!
+augroup END
+
 if has('win32')
   set shell=powershell\ -nologo
   let g:VIM_CONFIG_ROOT = $HOME . '/vimfiles'
@@ -145,8 +151,8 @@ set colorcolumn=81         " Put a line at 80 characters.
 set fillchars=vert:┃,
              \fold:━,
              \diff:~,
-autocmd Filetype java setlocal colorcolumn=101
-autocmd Filetype objc,objcpp setlocal colorcolumn=101
+autocmd vimrc Filetype java setlocal colorcolumn=101
+autocmd vimrc Filetype objc,objcpp setlocal colorcolumn=101
 
 " Searching options
 set hlsearch               " Highlight search results.
@@ -163,7 +169,7 @@ set softtabstop=2          " Soft tabs are 2 spaces.
 set foldenable
 set foldmethod=indent
 set foldlevelstart=99
-autocmd FileType c,cpp setlocal foldmethod=syntax
+autocmd vimrc FileType c,cpp setlocal foldmethod=syntax
 
 set updatetime=100
 set signcolumn=number
@@ -186,9 +192,9 @@ set completeopt-=preview
 " Auto reload files that have changed, provided there are no unsaved changes.
 set autoread
 " Trigger checktime when switching buffers or gaining focus
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+autocmd vimrc FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 " Notification when a file is reloaded
-autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+autocmd vimrc FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -344,7 +350,7 @@ function! s:SetupYegappanLsp() abort
         \   args: [],
         \ }])
 endfunction
-autocmd VimEnter * call s:SetupYegappanLsp()
+autocmd vimrc VimEnter * call s:SetupYegappanLsp()
 
 """"""""""""""""""""""""""""""""""""""""
 " 'SirVer/ultisnips'
