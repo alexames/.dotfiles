@@ -199,6 +199,36 @@ autocmd vimrc FileChangedShellPost * echohl WarningMsg | echo "File changed on d
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Clipboard                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Under WSL a terminal Vim has no X11/Wayland clipboard, so the "+ and "*
+" registers don't exist. Provide them by talking to the Windows clipboard.
+if has('clipboard_provider') && !has('clipboard')
+      \ && executable('clip.exe') && executable('powershell.exe')
+  function! s:WslClipCopy(reg, type, lines) abort
+    let l:text = join(a:lines, "\n") . (a:type ==# 'V' ? "\n" : '')
+    " clip.exe only handles non-ASCII text correctly as UTF-16.
+    silent call system('iconv -f UTF-8 -t UTF-16LE | clip.exe', l:text)
+  endfunction
+
+  function! s:WslClipPaste(reg) abort
+    silent let l:text = system('powershell.exe -NoProfile -Command "[Console]::OutputEncoding = [Text.Encoding]::UTF8; [Console]::Out.Write((Get-Clipboard -Raw))"')
+    let l:lines = split(substitute(l:text, "\r", '', 'g'), "\n", 1)
+    if len(l:lines) > 1 && l:lines[-1] ==# ''
+      return ['V', l:lines[:-2]]
+    endif
+    return ['v', l:lines]
+  endfunction
+
+  let v:clipproviders['wsl'] = {
+        \   'copy':  { '+': function('s:WslClipCopy'),  '*': function('s:WslClipCopy') },
+        \   'paste': { '+': function('s:WslClipPaste'), '*': function('s:WslClipPaste') },
+        \ }
+  set clipmethod^=wsl
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Keybinds                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
