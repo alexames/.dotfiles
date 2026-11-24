@@ -182,9 +182,10 @@ autocmd! bufwritepost $HOME/.dotfiles/vim/_vimrc source $MYVIMRC
 autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/vimrc source $MYVIMRC
 autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/keybinds.vim source $MYVIMRC
 
-" Files that can not be written should not be modifiable.
-autocmd! BufNew,BufAdd,BufWrite,BufNewFile,BufRead,BufEnter,FilechangedRO * : if &buftype !=# 'terminal' && &ro | set nomodifiable | endif
-autocmd! BufNew,BufAdd,BufWrite,BufNewFile,BufRead,BufEnter,FilechangedRO * : if &buftype !=# 'terminal' && !&ro | set modifiable | endif
+" Files that can not be written should not be modifiable. Only applies to
+" normal file buffers; plugin buffers (quickfix, NERDTree, ...) manage their
+" own 'modifiable'.
+autocmd vimrc BufReadPost,BufEnter,FileChangedRO * if &buftype ==# '' | let &l:modifiable = !&readonly | endif
 
 " Disable autocomplete scratch preview window
 set completeopt-=preview
