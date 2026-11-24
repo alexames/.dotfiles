@@ -178,6 +178,21 @@ nnoremap <leader>p :VSWFiles<CR>
 nnoremap <f6> :TagbarToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin: vim-scripts/bufkill.vim
+"
+" bufkill's defaults live under <leader>b (bd, bw, bun, ...), which makes
+" <leader>b (CMakeBuild) wait out 'timeoutlen'. Mapping its <Plug> targets
+" here stops the plugin creating those defaults; <leader>k is otherwise unused.
+
+nmap <silent> <leader>kb    <Plug>BufKillBack
+nmap <silent> <leader>kf    <Plug>BufKillForward
+nmap <silent> <leader>ka    <Plug>BufKillAlt
+nmap <silent> <leader>kun   <Plug>BufKillBun
+nmap <silent> <leader>kd    <Plug>BufKillBd
+nmap <silent> <leader>kw    <Plug>BufKillBw
+nmap <silent> <leader>kundo <Plug>BufKillUndo
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SwitchSourceHeader (replaces a.vim's :A)
 
 nnoremap <leader>a :A<CR>
