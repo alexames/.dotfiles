@@ -90,7 +90,7 @@ Plug 'tpope/vim-sleuth'                   " Auto-detect indent settings (tabstop
 Plug 'tomtom/tcomment_vim'                " Filetype aware comment toggle (maintained upstream of vim-scripts/tComment).
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                   " Fuzzy Finder functionality for buffers, history, files, etc.
-Plug 'vim-scripts/argtextobj.vim'         " Adds argument text objects.
+Plug 'wellle/targets.vim'                 " Argument text objects (ia/aa) plus many more, with seeking.
 Plug 'romainl/vim-qf'                     " Quickfix UX: auto-close after jump, navigation shortcuts.
 
 " Visual improvements.
