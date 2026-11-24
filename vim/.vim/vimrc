@@ -493,7 +493,8 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""
 " SwitchSourceHeader — replaces a.vim. Toggles between .h/.hpp/.hh/.hxx and
-" .cc/.cpp/.cxx/.c/.m/.mm in the same directory.
+" .cc/.cpp/.cxx/.c/.m/.mm in the same directory, falling back to clangd (via
+" YCM) when the counterpart lives somewhere else.
 
 function! s:SwitchSourceHeader() abort
   let l:ext = expand('%:e')
@@ -513,6 +514,11 @@ function! s:SwitchSourceHeader() abort
       return
     endif
   endfor
+  " Not next to the current file: clangd knows about headers elsewhere.
+  if exists(':YcmCompleter') == 2
+    YcmCompleter GoToAlternateFile
+    return
+  endif
   echohl WarningMsg | echo 'No alternate file found' | echohl None
 endfunction
 command! A call s:SwitchSourceHeader()
