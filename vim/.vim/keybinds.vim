@@ -55,11 +55,8 @@ xnoremap <C-c> "+y
 xnoremap <C-x> "+d
 inoremap <C-v> <C-r><C-o>+
 
-" Move between buffer panes with <C-direction>
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Moving between windows with <C-h/j/k/l> in normal mode comes from
+" vim-tmux-navigator, which also crosses into tmux panes.
 
 " fzf's popup is a terminal buffer too; there these keys must reach fzf
 " (<C-j>/<C-k> move the selection, <C-h> is backspace).
