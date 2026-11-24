@@ -395,12 +395,18 @@ let g:UltiSnipsEditSplit           = 'vertical'
 
 if executable('stylua')
   function! s:FormatLua() abort
-    let l:view = winsaveview()
-    silent! execute '%!stylua --search-parent-directories --stdin-filepath ' . shellescape(expand('%')) . ' -'
+    let l:old = getline(1, '$')
+    let l:new = systemlist('stylua --search-parent-directories --stdin-filepath ' . shellescape(expand('%')) . ' -', l:old)
     if v:shell_error
-      silent! undo
       echohl WarningMsg | echo 'stylua failed; buffer unchanged' | echohl None
+      return
     endif
+    if l:new ==# l:old
+      return
+    endif
+    let l:view = winsaveview()
+    call setline(1, l:new)
+    silent call deletebufline('%', len(l:new) + 1, '$')
     call winrestview(l:view)
   endfunction
   command! FormatLua call s:FormatLua()
