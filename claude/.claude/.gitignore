@@ -32,3 +32,11 @@ plugins/
 *.lock
 *.tmp
 
+# Runtime state written by Claude Code (keys, PIDs, job state, synced skills)
+daemon/
+daemon.status.json
+jobs/
+paste-cache/
+skills/synced/
+chrome/
+.last-update-result.json
