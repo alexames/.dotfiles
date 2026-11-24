@@ -172,6 +172,11 @@ nnoremap <leader>W :VSWorkspaceToggle<CR>
 nnoremap <leader>p :VSWFiles<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin: mbbill/undotree
+
+nnoremap <leader>u :UndotreeToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin: preservim/tagbar
 
 nnoremap <f6> :TagbarToggle<CR>

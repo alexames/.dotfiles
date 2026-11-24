@@ -81,6 +81,7 @@ Plug 'qpkorr/vim-bufkill'                 " Unload, delete or wipe a buffer with
 
 " Editor improvement plugins.
 Plug 'nelstrom/vim-visual-star-search'    " Select text in visual mode and then hit * and # to search for it elsewhere.
+Plug 'mbbill/undotree'                    " Browse and restore from the undo history tree.
 Plug 'tpope/vim-obsession'                " Make managing vim session easier.
 Plug 'tpope/vim-repeat'                   " Repeat.vim remaps . in a way that plugins can tap into it.
 Plug 'tpope/vim-abolish'                  " Improved case sensitive substitution and variable name coercion.
