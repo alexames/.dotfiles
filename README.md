@@ -231,7 +231,7 @@ New-Item -ItemType Junction -Path "$HOME\vimfiles" -Target "$HOME\.vim"
 ```vim
 source ~/.vim/vimrc
 if has('gui_running')
-  set guifont=JetBrainsMono_Nerd_Font:h11
+  set guifont=JetBrainsMono_NF:h11
 endif
 ```
 
@@ -278,10 +278,11 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 Set the default font to the Nerd Font so vim shows icons instead of `?`. In
 Windows Terminal's `settings.json` (Settings → Open JSON file), set
-`profiles.defaults.font.face` to `"JetBrainsMono Nerd Font"`. Back up the file
-first; it is JSON with comments, so edit it as text rather than
-round-tripping it through a JSON parser. Confirm the exact family name of the
-installed font before writing it.
+`profiles.defaults.font.face` to `"JetBrainsMono NF"` (the family name the
+winget package installs). Profiles that set their own `font.face` override the
+default, so update those too. Back up the file first; it is JSON with
+comments, so edit it as text rather than round-tripping it through a JSON
+parser.
 
 ### 6. Vim plugins
 
