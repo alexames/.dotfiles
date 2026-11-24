@@ -1,10 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""
 " vim-plug automatic installation
 " https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
-let data_dir = has('nvim') ? stdpath('data') . '/site' : expand('$HOME/.vim')
+let data_dir = has('nvim') ? stdpath('data') . '/site' : g:VIM_CONFIG_ROOT
 let autoload_dir = data_dir . '/autoload'
-if empty(glob(autoload_dir))
-  silent execute '!mkdir ' . autoload_dir
+if !isdirectory(autoload_dir)
+  call mkdir(autoload_dir, 'p')
 endif
 
 let plug_path = data_dir . '/autoload/plug.vim'
