@@ -99,7 +99,6 @@ Plug 'bfrg/vim-cpp-modern'                " Modern C++20/23 syntax highlighting;
 Plug 'godlygeek/tabular'                  " Table alignment plugin.
 Plug 'svban/YankAssassin.vim'             " Yank doesn't move cursor
 Plug 'christoomey/vim-tmux-navigator'     " Improved tmux split navigation
-Plug 'pboettch/vim-cmake-syntax'
 
 call plug#end()
 
