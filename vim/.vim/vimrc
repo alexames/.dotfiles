@@ -109,6 +109,7 @@ call plug#end()
 
 " Optional packages that ship with Vim. silent! so older Vims just skip them.
 silent! packadd! editorconfig              " Honour .editorconfig files.
+silent! packadd! hlyank                    " Briefly highlight yanked text.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Basic Options                                 "
