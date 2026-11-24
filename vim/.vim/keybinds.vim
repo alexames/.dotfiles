@@ -237,10 +237,10 @@ nnoremap <Leader>dw :VimspectorWatch<Space>
 nnoremap <Leader>do :VimspectorShowOutput<Space>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin: tomtom/tcomment_vim
+" Vim's bundled comment package (gc{motion}, gcc)
 
-nnoremap g/ :TComment<CR>
-vnoremap g/ :TComment<CR>
+nmap g/ gcc
+xmap g/ gc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin 'ycm-core/YouCompleteMe'

@@ -88,7 +88,6 @@ Plug 'tpope/vim-abolish'                  " Improved case sensitive substitution
 Plug 'tpope/vim-surround'                 " Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more.
 Plug 'tpope/vim-unimpaired'               " Paired bracket mappings: ]q/[q (quickfix), ]b/[b (buffers), ]e/[e (swap lines), etc.
 Plug 'tpope/vim-sleuth'                   " Auto-detect indent settings (tabstop/shiftwidth/expandtab) per file.
-Plug 'tomtom/tcomment_vim'                " Filetype aware comment toggle (maintained upstream of vim-scripts/tComment).
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                   " Fuzzy Finder functionality for buffers, history, files, etc.
 Plug 'wellle/targets.vim'                 " Argument text objects (ia/aa) plus many more, with seeking.
@@ -111,6 +110,7 @@ call plug#end()
 " Optional packages that ship with Vim. silent! so older Vims just skip them.
 silent! packadd! editorconfig              " Honour .editorconfig files.
 silent! packadd! hlyank                    " Briefly highlight yanked text.
+silent! packadd! comment                   " gc/gcc comment toggling.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Basic Options                                 "
