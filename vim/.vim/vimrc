@@ -261,19 +261,22 @@ let g:fzf_layout = {
 let g:fzf_vim = {}
 let g:fzf_vim.preview_window = ['right,50%,border-left', 'ctrl-/']
 
-" AgIn: Start ag in the specified directory
+" RgIn: Start rg in the specified directory
 "
 " e.g.
-"   :AgIn .. foo
-function! s:ag_in(bang, ...)
+"   :RgIn .. foo
+function! s:rg_in(bang, ...)
   if !isdirectory(a:1)
     throw 'not a valid directory: ' .. a:1
   endif
   " Press `?' to enable preview window.
-  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
+  call fzf#vim#grep(
+        \ 'rg --column --line-number --no-heading --color=always --smart-case -- '
+        \   .. fzf#shellescape(join(a:000[1:], ' ')),
+        \ fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
 endfunction
 
-command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
+command! -bang -nargs=+ -complete=dir RgIn call s:rg_in(<bang>0, <f-args>)
 
 """"""""""""""""""""""""""""""""""""""""
 " ftplugin/python.vim

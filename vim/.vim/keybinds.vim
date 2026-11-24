@@ -186,7 +186,7 @@ nnoremap <leader>a :A<CR>
 " Plugin: junegunn/fzf.vim
 
 nnoremap <C-p> :Files<cr>
-nnoremap <C-a> :Ag<cr>
+nnoremap <C-a> :Rg<cr>
 nnoremap <C-b> :Buffers<cr>
 nnoremap <C-s> :History<cr>
 nnoremap <C-g> :GitFiles?<cr>
