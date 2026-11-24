@@ -51,8 +51,8 @@ nnoremap Y y$
 " Cutting and pasting to system clipboard
 " Ctrl+C copies highlighted text to clipboard.
 " Ctrl+V pastes at the cursor position (or over highlighted text in visual mode)
-vmap <C-c> "+y
-vmap <C-x> "+d
+xnoremap <C-c> "+y
+xnoremap <C-x> "+d
 imap <C-v> <esc>"+pa
 
 " Move between buffer panes with <C-direction>
@@ -118,7 +118,7 @@ nnoremap <silent> <leader><enter> :call JumpToLocation()<CR>
 " Q should format around paragraph
 nnoremap Q gqap
 
-cmap <C-V> <C-R>+
+cnoremap <C-V> <C-R>+
 
 " Display matches of last search in window
 nnoremap <silent> <leader>g :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
@@ -157,7 +157,7 @@ nnoremap <leader>w :set list!<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin: godlygeek/tabular
 
-vmap <S-T> :Tab /\|<CR>
+xnoremap <S-T> :Tab /\|<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin: 'ilyachur/cmake4vim'
