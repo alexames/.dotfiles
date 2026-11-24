@@ -94,7 +94,7 @@ function! Preserve(command)
 endfunction
 
 vnoremap <C-h> y:call Preserve("%S/<C-r>"//g")<left><left><left><left>
-vnoremap <C-f> y:grep <C-r>
+vnoremap <C-f> y:grep <C-r>"
 
 function! JumpToLocation()
     let l:text = getline('.')
