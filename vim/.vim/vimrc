@@ -116,7 +116,7 @@ set hidden                 " Hides buffers rather than closing them when opening
 set noshowmode
 set cursorline             " Highlight the line the cursor is on.
 set nowrap                 " Forces lines to not wrap.
-set noerrorbells           " Does not make a sound when there is an error.
+set belloff=all            " Never ring the bell or flash the screen.
 set whichwrap+=<,>,h,l     " Backspace config.
 set scrolloff=2            " ensures the cursor never reaches the bottom of the window.
 set smartindent            " Intelligently guess the indentation level of the next line.
