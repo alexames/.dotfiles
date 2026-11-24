@@ -174,13 +174,16 @@ autocmd vimrc FileType c,cpp setlocal foldmethod=syntax
 set updatetime=100
 set signcolumn=number
 
-" When vimrc is edited, reload it.
-autocmd! bufwritepost $HOME/.vimrc source $MYVIMRC
-autocmd! bufwritepost $HOME/_vimrc source $MYVIMRC
-autocmd! bufwritepost $HOME/.vim/vimrc source $MYVIMRC
-autocmd! bufwritepost $HOME/.dotfiles/vim/_vimrc source $MYVIMRC
-autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/vimrc source $MYVIMRC
-autocmd! bufwritepost $HOME/.dotfiles/vim/.vim/keybinds.vim source $MYVIMRC
+" When vimrc is edited, reload it. ++nested lets the colorscheme and airline
+" autocmds fire during the reload.
+autocmd vimrc BufWritePost
+      \ $HOME/.vimrc,
+      \$HOME/_vimrc,
+      \$HOME/.vim/vimrc,
+      \$HOME/.dotfiles/vim/_vimrc,
+      \$HOME/.dotfiles/vim/.vim/vimrc,
+      \$HOME/.dotfiles/vim/.vim/keybinds.vim
+      \ ++nested source $MYVIMRC
 
 " Files that can not be written should not be modifiable. Only applies to
 " normal file buffers; plugin buffers (quickfix, NERDTree, ...) manage their
