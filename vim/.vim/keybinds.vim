@@ -100,7 +100,7 @@ function! JumpToLocation()
     let l:text = getline('.')
     let l:match = matchlist(l:text, '\v([^:]+):(\d+):?(\d+)?')
     if !empty(l:match)
-        execute 'edit ' . l:match[1]
+        execute 'edit ' . fnameescape(l:match[1])
         if !empty(l:match[2])
             execute l:match[2]
         endif
