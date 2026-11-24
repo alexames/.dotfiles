@@ -205,7 +205,7 @@ set foldlevelstart=99
 autocmd vimrc FileType c,cpp setlocal foldmethod=syntax
 
 set updatetime=100
-set signcolumn=number
+set signcolumn=yes         " Keep a dedicated sign column so signs do not hide line numbers.
 
 " When vimrc is edited, reload it. ++nested lets the colorscheme and airline
 " autocmds fire during the reload.
