@@ -121,6 +121,10 @@ let g:airline_theme='onedark'
 
 set title                  " Sets the titlebar of the terminal to be the name of the file.
 set hidden                 " Hides buffers rather than closing them when opening a new buffer.
+set wildmode=longest:full,full " Complete the common prefix first, then cycle matches.
+if has('patch-8.2.4463')
+  set wildoptions=pum,fuzzy  " Show command-line matches in a popup menu, matched fuzzily.
+endif
 set timeoutlen=500         " Wait half a second (not a full one) for the rest of a mapping.
 set splitright splitbelow  " New windows open to the right of / below the current one.
 set noshowmode
