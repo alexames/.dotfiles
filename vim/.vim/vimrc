@@ -339,6 +339,11 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 
 """"""""""""""""""""""""""""""""""""""""
 " 'vim-airline/vim-airline'
+
+" The tagbar extension initialises tagbar and probes ctags on startup (~0.4s)
+" just to show the current function name in the statusline.
+let g:airline#extensions#tagbar#enabled = 0
+
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
