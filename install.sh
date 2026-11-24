@@ -372,6 +372,31 @@ run_stow() {
     stow -d "$DOTFILES_DIR" -t "$HOME" -R "${packages[@]}"
 }
 
+# ----- vim plugins -------------------------------------------------------------
+
+# Needs the stowed ~/.vim, so this runs after run_stow. vim-plug only fetches
+# plugins that are missing, so re-running is cheap.
+install_vim_plugins() {
+    [[ $SKIP_VIM -eq 1 ]] && return 0
+    if ! command -v vim >/dev/null 2>&1 || [[ ! -r "$HOME/.vim/vimrc" ]]; then
+        warn "vim or ~/.vim/vimrc missing — skipping vim plugins"
+        return 0
+    fi
+
+    log "Installing vim plugins (first run builds YouCompleteMe; this takes a while)"
+    local plug="$HOME/.vim/autoload/plug.vim"
+    if [[ ! -f "$plug" ]] && ! curl -fsSLo "$plug" --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim; then
+        warn "Could not download vim-plug — skipping vim plugins"
+        return 0
+    fi
+    # Ex mode ignores the vimrc unless it is named explicitly.
+    if ! vim -es -u "$HOME/.vim/vimrc" -i NONE \
+            -c 'PlugInstall --sync' -c 'qa!' </dev/null >/dev/null 2>&1; then
+        warn "vim plugin install reported errors — run :PlugStatus inside vim"
+    fi
+}
+
 # ----- main --------------------------------------------------------------------
 
 main() {
@@ -384,6 +409,7 @@ main() {
     install_vim
     install_lua_ls
     run_stow
+    install_vim_plugins
 
     log "Done."
     cat <<'EOF'

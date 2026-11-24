@@ -31,7 +31,7 @@ are moved to `~/.dotfiles-backup/<timestamp>/` rather than overwritten.
 ./install.sh --skip-apt       # skip the apt section
 ./install.sh --skip-cargo     # skip Rust/cargo packages
 ./install.sh --skip-luarocks  # skip lua packages
-./install.sh --skip-vim       # skip the vim-from-source build
+./install.sh --skip-vim       # skip the vim build, plugins and editor tooling
 ./install.sh --skip-stow      # skip the final stow step
 ./install.sh -y               # answer "yes" to prompts (e.g. starship install)
 ```
