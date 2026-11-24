@@ -18,6 +18,10 @@ endif
 
 execute 'source ' . g:VIM_CONFIG_ROOT . '/vim-plug-bootstrap.vim'
 
+" Must be set before polyglot loads. vim-sleuth already detects indentation and
+" vim-sensible is installed directly, so turn off polyglot's bundled copies.
+let g:polyglot_disabled = ['autoindent', 'sensible']
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Plugins                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
