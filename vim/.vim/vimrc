@@ -60,10 +60,9 @@ Plug 'puremourning/vimspector'            " GDB integration.
 Plug 'ilyachur/cmake4vim'                 " CMake integration.
 "" Python plugins
 Plug 'alfredodeza/pytest.vim'
-"" Shell plugins
-Plug 'itspriddle/vim-shellcheck'
 "" Language Agnostic
 Plug 'google/vim-codefmt'                 " clang-format integration.
+Plug 'dense-analysis/ale'                 " Lint-as-you-type for shell, Lua and CMake (YCM covers C/C++/Python).
 if has('python3') && has('patch-8.2.3995')
 Plug 'ycm-core/YouCompleteMe', { 'do' : './install.py --clangd-completer' }
 endif
@@ -420,6 +419,23 @@ if executable('lua-language-server')
     \ 'text': 1, 'vimwiki': 1, 'pandoc': 1, 'infolog': 1, 'leaderf': 1,
     \ 'mail': 1,
     \ }
+endif
+
+""""""""""""""""""""""""""""""""""""""""
+" 'dense-analysis/ale'
+" Linting only, and only for the filetypes listed: completion and diagnostics
+" for C/C++/Python come from YCM, and Lua completion from yegappan/lsp.
+
+let g:ale_disable_lsp = 1
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+  \ 'sh':    ['shellcheck'],
+  \ 'lua':   ['luacheck'],
+  \ 'cmake': ['cmake_lint'],
+  \ }
+" luarocks --local installs luacheck outside the default PATH.
+if !executable('luacheck') && executable(expand('~/.luarocks/bin/luacheck'))
+  let g:ale_lua_luacheck_executable = expand('~/.luarocks/bin/luacheck')
 endif
 
 """"""""""""""""""""""""""""""""""""""""
