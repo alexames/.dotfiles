@@ -126,16 +126,9 @@ nnoremap <silent> <leader>g :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 nnoremap <silent> <leader><space> :call Preserve("%s/\\s\\+$//e")<CR>
 
 " Replace selected text with text in paste register, without overwriting the
-" text in the yank register with the text replaced.
-function! RestoreRegister()
-    let @" = s:restore_reg
-    return ''
-endfunction
-function! PasteOver()
-     let s:restore_reg = @"
-     return "p@=RestoreRegister()\<cr>"
-endfunction
-vnoremap <silent> <expr> p PasteOver()
+" text in the yank register with the text replaced. Visual-mode P does exactly
+" this (Vim 8.2.4242+).
+xnoremap p P
 
 " Toggle visible whitespace (useful when you want to copy a line without
 " picking up the various dots and symbols)
