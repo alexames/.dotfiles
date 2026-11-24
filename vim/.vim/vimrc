@@ -77,7 +77,7 @@ Plug 'rishi-opensource/vim-claude-code', { 'tag': 'v1.4.1' }
 Plug 'preservim/nerdtree'                 " A file system explorer for the Vim editor.
 Plug 'alexames/vim-code-workspace'        " A VSCode Workspace utility
 Plug 'preservim/tagbar'                   " Symbol outline sidebar.
-Plug 'vim-scripts/bufkill.vim'            " This is a script to unload, delete or wipe a buffer without closing the window.
+Plug 'qpkorr/vim-bufkill'                 " Unload, delete or wipe a buffer without closing the window.
 
 " Editor improvement plugins.
 Plug 'nelstrom/vim-visual-star-search'    " Select text in visual mode and then hit * and # to search for it elsewhere.

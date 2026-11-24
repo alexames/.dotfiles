@@ -177,7 +177,7 @@ nnoremap <leader>p :VSWFiles<CR>
 nnoremap <f6> :TagbarToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin: vim-scripts/bufkill.vim
+" Plugin: qpkorr/vim-bufkill
 "
 " <leader>b is the buffer prefix. Nothing is mapped to <leader>b itself, so
 " none of these wait on 'timeoutlen'. Mapping the <Plug> targets here also
