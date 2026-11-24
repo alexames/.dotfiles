@@ -2,3 +2,4 @@ broot
 doggo
 procs
 du-dust
+stylua # Lua formatter; vim formats *.lua on save with it

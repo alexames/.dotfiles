@@ -115,6 +115,13 @@ clang-format
 clangd
 cppcheck
 
+# Editor tooling used by the vim config
+libncurses-dev  # vim build dependency
+universal-ctags # tagbar symbol outline
+shellcheck      # vim-shellcheck
+yapf3           # vim-codefmt: Python formatter
+cmake-format    # vim-codefmt: CMake formatter
+
 # Code coverage
 lcov
 gcovr

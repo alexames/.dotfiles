@@ -255,6 +255,55 @@ install_vim() {
     echo "$head" > "$stamp"
 }
 
+# ----- vim tooling without an apt package --------------------------------------
+
+# lua-language-server backs the Lua LSP client configured in the vimrc.
+# Upstream only ships prebuilt tarballs, and the binary has to stay next to its
+# bundled files, so unpack it under ~/.local/share and put a wrapper on PATH.
+install_lua_ls() {
+    [[ $SKIP_VIM -eq 1 ]] && return 0
+
+    local arch
+    case "$(uname -m)" in
+        x86_64)  arch=x64 ;;
+        aarch64) arch=arm64 ;;
+        *) warn "No lua-language-server build for $(uname -m) — skipping"; return 0 ;;
+    esac
+
+    local dest="$HOME/.local/share/lua-language-server"
+    local tag
+    tag=$(curl -fsSL https://api.github.com/repos/LuaLS/lua-language-server/releases/latest \
+          | sed -nE 's/.*"tag_name": *"([^"]+)".*/\1/p') || tag=""
+    if [[ -z "$tag" ]]; then
+        warn "Could not determine the latest lua-language-server release — skipping"
+        return 0
+    fi
+    if [[ -x "$dest/bin/lua-language-server" \
+          && "$(cat "$dest/.installed-version" 2>/dev/null)" == "$tag" ]]; then
+        log "lua-language-server $tag already installed"
+        return 0
+    fi
+
+    log "Installing lua-language-server $tag"
+    local tmp
+    tmp=$(mktemp -d)
+    local url="https://github.com/LuaLS/lua-language-server/releases/download/$tag/lua-language-server-$tag-linux-$arch.tar.gz"
+    if ! curl -fsSL "$url" | tar -xz -C "$tmp"; then
+        warn "lua-language-server download failed — continuing without it"
+        rm -rf "$tmp"
+        return 0
+    fi
+
+    mkdir -p "$HOME/.local/share" "$HOME/.local/bin"
+    rm -rf "$dest"
+    mv "$tmp" "$dest"
+    chmod 755 "$dest"
+    echo "$tag" > "$dest/.installed-version"
+    printf '#!/bin/sh\nexec "%s/bin/lua-language-server" "$@"\n' "$dest" \
+        > "$HOME/.local/bin/lua-language-server"
+    chmod +x "$HOME/.local/bin/lua-language-server"
+}
+
 # ----- Third-party config repos ------------------------------------------------
 
 install_thirdparty() {
@@ -333,6 +382,7 @@ main() {
     install_thirdparty
     install_starship
     install_vim
+    install_lua_ls
     run_stow
 
     log "Done."
