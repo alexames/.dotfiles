@@ -3,3 +3,4 @@
 autoload/plug.vim
 plugged/
 src/
+undo/

@@ -128,6 +128,19 @@ set smartindent            " Intelligently guess the indentation level of the ne
 set number                 " Display the absolute line number for the current line.
 set formatoptions-=t       " Don't wrap to new lines at 80 characters automatically.
 set noswapfile             " Disable swap files. I save often enough that these just get in the way.
+
+" Keep undo history across sessions. Neovim's undo files are a different format
+" and it already has a default location for them, so only relocate Vim's.
+if has('persistent_undo')
+  if !has('nvim')
+    let &undodir = g:VIM_CONFIG_ROOT . '/undo'
+    if !isdirectory(&undodir)
+      call mkdir(&undodir, 'p', 0700)
+    endif
+  endif
+  set undofile
+endif
+
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --smart-case
   set grepformat=%f:%l:%c:%m
