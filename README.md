@@ -184,6 +184,7 @@ linked in step 3.
 ```powershell
 $ids = @(
   'vim.vim'                      # Vim 9.2+, with +python3 and +terminal
+  'Microsoft.PowerShell'         # pwsh, vim's 'shell'; Windows PowerShell 5.1 breaks plugins' 2>nul
   'Python.Python.3.13'           # YouCompleteMe and vim-claude-code's diff preview
   'Kitware.CMake'                # building YouCompleteMe
   'BurntSushi.ripgrep.MSVC'      # :Rg, :RgIn, 'grepprg'
@@ -300,7 +301,7 @@ available, rebuild it with `python install.py --clangd-completer` from
 - `~\vimfiles\plugged\YouCompleteMe\third_party\ycmd\ycm_core*.pyd` exists.
 - `git config --show-origin core.pager` reports `delta` from
   `.dotfiles/git/.gitconfig`.
-- `Get-Command vim, rg, fzf, delta, gh, clang-format, shellcheck, stylua, ctags`
+- `Get-Command vim, pwsh, rg, fzf, delta, gh, clang-format, shellcheck, stylua, ctags`
   all resolve (after refreshing `PATH`).
 - In a new Windows Terminal tab, `$env:COLORTERM` is `truecolor` (set by the
   profile) and vim's `:echo &termguicolors` prints `1`.

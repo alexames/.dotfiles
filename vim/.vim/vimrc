@@ -10,7 +10,10 @@ augroup vimrc
 augroup END
 
 if has('win32')
-  set shell=powershell\ -nologo
+  " Prefer PowerShell 7: plugins written for cmd.exe redirect with '2>nul',
+  " which Windows PowerShell 5.1 rejects ("FileStream was asked to open a
+  " device that was not a file"), failing the whole system() call.
+  let &shell = (executable('pwsh') ? 'pwsh' : 'powershell') . ' -nologo'
   let g:VIM_CONFIG_ROOT = $HOME . '/vimfiles'
 else
   let g:VIM_CONFIG_ROOT = $HOME . '/.vim'
