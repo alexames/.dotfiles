@@ -232,10 +232,10 @@ nnoremap ts :YcmCompleter GoTo<cr>
 nnoremap tr :YcmCompleter GoToReferences<cr>
 nnoremap <leader>f :YcmCompleter FixIt<cr>
 
-nnoremap K <plug>(YCMHover)
+nmap K <plug>(YCMHover)
 
-nnoremap fs <Plug>(YCMFindSymbolInWorkspace)
-nnoremap <C-y> <Plug>(YCMFindSymbolInWorkspace)
+nmap fs <Plug>(YCMFindSymbolInWorkspace)
+nmap <C-y> <Plug>(YCMFindSymbolInWorkspace)
 
 nnoremap <leader>r :YcmCompleter RefactorRename
 
