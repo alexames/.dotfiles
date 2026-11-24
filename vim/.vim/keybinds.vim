@@ -61,10 +61,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-tnoremap <C-h> <C-w>h
-tnoremap <C-j> <C-w>j
-tnoremap <C-k> <C-w>k
-tnoremap <C-l> <C-w>l
+" fzf's popup is a terminal buffer too; there these keys must reach fzf
+" (<C-j>/<C-k> move the selection, <C-h> is backspace).
+tnoremap <expr> <C-h> &filetype ==# 'fzf' ? "\<C-h>" : "\<C-w>h"
+tnoremap <expr> <C-j> &filetype ==# 'fzf' ? "\<C-j>" : "\<C-w>j"
+tnoremap <expr> <C-k> &filetype ==# 'fzf' ? "\<C-k>" : "\<C-w>k"
+tnoremap <expr> <C-l> &filetype ==# 'fzf' ? "\<C-l>" : "\<C-w>l"
 
 tnoremap :: <C-W>:
 
