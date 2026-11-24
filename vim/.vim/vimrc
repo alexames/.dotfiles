@@ -107,6 +107,9 @@ Plug 'pboettch/vim-cmake-syntax'
 
 call plug#end()
 
+" Optional packages that ship with Vim. silent! so older Vims just skip them.
+silent! packadd! editorconfig              " Honour .editorconfig files.
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Basic Options                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
