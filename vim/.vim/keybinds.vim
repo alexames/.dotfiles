@@ -53,7 +53,7 @@ nnoremap Y y$
 " Ctrl+V pastes at the cursor position (or over highlighted text in visual mode)
 xnoremap <C-c> "+y
 xnoremap <C-x> "+d
-imap <C-v> <esc>"+pa
+inoremap <C-v> <C-r><C-o>+
 
 " Move between buffer panes with <C-direction>
 nnoremap <C-h> <C-w>h
