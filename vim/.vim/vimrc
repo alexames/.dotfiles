@@ -361,6 +361,17 @@ let g:ycm_extra_conf_vim_data = [
 let g:ycm_global_ycm_extra_conf = g:VIM_CONFIG_ROOT . '/global_extra_conf.py'
 let g:ycm_auto_hover=''
 let g:ycm_clangd_args = ['--clang-tidy']
+if executable('lua-language-server')
+  " Lua completion comes from yegappan/lsp (below); keep YCM out of those
+  " buffers so two completion popups don't compete. The rest is YCM's default
+  " blacklist, which setting this variable would otherwise replace.
+  let g:ycm_filetype_blacklist = {
+    \ 'lua': 1,
+    \ 'tagbar': 1, 'notes': 1, 'markdown': 1, 'netrw': 1, 'unite': 1,
+    \ 'text': 1, 'vimwiki': 1, 'pandoc': 1, 'infolog': 1, 'leaderf': 1,
+    \ 'mail': 1,
+    \ }
+endif
 
 """"""""""""""""""""""""""""""""""""""""
 " 'yegappan/lsp' — scoped to Lua only. YCM handles C/C++/Python.
