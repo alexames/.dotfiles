@@ -46,7 +46,7 @@ nnoremap k gk
 " By default Y yanks the whole line unlike C and D, which operate from the
 " cursor position to the end of the line. Make Y behave like C or D, it should
 " yank to the end of the line.
-map Y y$
+nnoremap Y y$
 
 " Cutting and pasting to system clipboard
 " Ctrl+C copies highlighted text to clipboard.
@@ -76,7 +76,8 @@ nnoremap <leader>v :e $MYVIMRC<CR>
 nnoremap <leader>cw :botright cwindow<CR>
 
 " Fat-finger fixes - common typos I make that are annoying.
-map <S-k> k
+xnoremap K k
+onoremap K k
 nnoremap ! :!
 nnoremap q: :q
 
