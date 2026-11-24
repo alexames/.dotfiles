@@ -203,7 +203,7 @@ nnoremap <C-q> :Commands<cr>
 " Plugin: puremourning/vimspector
 
 nnoremap <Leader>dd :call vimspector#Launch()<CR>
-nnoremap <Leader>de :call vimspector#Reset()<CR>
+nnoremap <Leader>dx :call vimspector#Reset()<CR>
 nnoremap <Leader>dc :call vimspector#Continue()<CR>
 
 nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
@@ -214,6 +214,11 @@ nmap <Leader>dk <Plug>VimspectorRestart
 nmap <Leader>dh <Plug>VimspectorStepOut
 nmap <Leader>dl <Plug>VimspectorStepInto
 nmap <Leader>dj <Plug>VimspectorStepOver
+
+" These take an argument; the trailing space leaves the cursor ready for it.
+nnoremap <Leader>de :VimspectorEval<Space>
+nnoremap <Leader>dw :VimspectorWatch<Space>
+nnoremap <Leader>do :VimspectorShowOutput<Space>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin: tomtom/tcomment_vim
